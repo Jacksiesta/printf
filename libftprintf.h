@@ -1,15 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.c                                      :+:      :+:    :+:   */
+/*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2019/12/16 18:12:31 by jherrald         ###   ########.fr       */
+/*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
+/*   Updated: 2019/12/16 18:10:58 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <limits.h>
 
-int		ft_printf(const char *, ...)
+
+#endif
