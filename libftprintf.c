@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2019/12/17 13:22:40 by jherrald         ###   ########.fr       */
+/*   Updated: 2019/12/17 16:41:30 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@ size_t	ft_strlen(char *s)
 	return (x);
 }
 
+char	ft_s(char *s, va_list ap)
+{
+	char	*value;
+
+	value = va_arg(ap, char *);
+	write(1, value, ft_strlen(value));
+	return (0);
+}
+
 int		ft_printf(const char *coucou, ...)
 {
 	int		x;
-	va_list	(ap);
+	va_list	ap;
 	char	*value;
+	char	a;
 
 	x = 0;
 	va_start(ap, coucou); 
@@ -35,15 +45,12 @@ int		ft_printf(const char *coucou, ...)
 		if (coucou[x] == '%')
 		{
 			if (coucou[x + 1] == 's')
-			{
-				value = va_arg(ap, char *);
-				write(1, value, ft_strlen(value));
-				return (0);
-			}
+				ft_s(value, ap);
+				break;		
 			if (coucou[x + 1] == 'c')
 			{
-				value = va_arg(ap, char);
-				write(1, value, 1);
+				a = va_arg(ap, int);
+				write(1, &a, 1);
 				return (0);
 			}
 		}
@@ -60,7 +67,7 @@ int main()
 	char 	*temp = "kikouuuu";
 	char	*oups = "what";
 	char	a = 'c';
-//	ft_printf("test :%s %s", temp, oups);
-	ft_printf("test :%c", a);
+	ft_printf("test :%s", oups);
+//	ft_printf("test :%c", a);
 		
 }
