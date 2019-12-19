@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2019/12/18 20:24:34 by jherrald         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:56:20 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,29 @@ char	ft_c(char c, va_list ap)
 	return (0);
 }
 
-int		ft_d(int nombre, va_list ap)
+void	ft_putchar(char c)
 {
-	return (0);
+	write(1, &c, 1);
+}
+
+void	ft_put_ascii(int asc)
+{
+	write(1, &asc, 1);
+}
+
+void	ft_d(int n, va_list ap)
+{
+	int		nbr;
+
+	nbr = n;
+	if (nbr < 0)
+	{
+		write(1, "-", 1);
+		nbr = -nbr;
+	}
+	if (nbr >= 10)
+		ft_d((nbr / 10), ap);		
+	ft_putchar(nbr % 10);
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -63,7 +83,7 @@ int		ft_printf(const char *coucou, ...)
 				ft_s(value, ap);
 			if (coucou[x + 1] == 'c')
 				ft_c(a, ap);
-			if (coucou[x + 1] == 'd')
+			if (coucou[x + 1] == 'd' || coucou[x + 1] == 'i')
 				ft_d(nbr, ap);
 			x = x + 2;
 		}
@@ -76,8 +96,11 @@ int		ft_printf(const char *coucou, ...)
 int main()
 {
 	char 	*temp = "kikouuuu";
-	char	*oups = "wHaT";
+	char	*oups = "wHaTTT";
 	char	a = 'B';
+	int		num = 5;
 	ft_printf("what : %s WHAT \n", oups);
-	printf("what : %s WHAT \n", oups);
+	ft_printf("number test = %d nono \n", num);
+	//printf("what : %s WHAT \n", oups);
+	//printf("coucoucou %.4s", oups);
 }
