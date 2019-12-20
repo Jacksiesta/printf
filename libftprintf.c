@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2019/12/19 17:56:20 by jherrald         ###   ########.fr       */
+/*   Updated: 2019/12/19 20:10:19 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,26 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	ft_put_ascii(int asc)
+int		strlen_int(int i)
 {
-	write(1, &asc, 1);
+	
 }
+
 
 void	ft_d(int n, va_list ap)
 {
 	int		nbr;
 
-	nbr = n;
+	nbr = va_arg(ap, int);
+	//printf("n is %d \n", nbr);
 	if (nbr < 0)
 	{
-		write(1, "-", 1);
+		ft_putchar('-');
 		nbr = -nbr;
 	}
 	if (nbr >= 10)
 		ft_d((nbr / 10), ap);		
-	ft_putchar(nbr % 10);
+	ft_putchar(nbr % 10 + '0');
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -74,6 +76,7 @@ int		ft_printf(const char *coucou, ...)
 	int		nbr;
 
 	x = 0;
+	nbr = 0;
 	va_start(ap, coucou); 
 	while (coucou[x])
 	{
@@ -98,7 +101,7 @@ int main()
 	char 	*temp = "kikouuuu";
 	char	*oups = "wHaTTT";
 	char	a = 'B';
-	int		num = 5;
+	int		num = 15;
 	ft_printf("what : %s WHAT \n", oups);
 	ft_printf("number test = %d nono \n", num);
 	//printf("what : %s WHAT \n", oups);
