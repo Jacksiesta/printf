@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2019/12/19 20:10:19 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/06 12:08:39 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(char *s)
 	return (x);
 }
 
-char	ft_s(char *s, va_list ap)
+char	ft_s(va_list ap)
 {
 	char	*value;
 
@@ -31,7 +31,7 @@ char	ft_s(char *s, va_list ap)
 	return (0);
 }
 
-char	ft_c(char c, va_list ap)
+char	ft_c(va_list ap)
 {
 	char	a;
 
@@ -45,49 +45,78 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int		strlen_int(int i)
+int		ft_d_lenght_nbr(int num)
 {
-	
+	int x;
+
+	x = 0;
+	if (num == 0)
+		return (1);
+	if (num < 0)
+		x++;
+	while (num > 0)
+	{
+		num  /= 10;
+		x++;
+	}
+	return (x);
 }
 
-
-void	ft_d(int n, va_list ap)
+void	ft_putstr(char *str)
 {
-	int		nbr;
-
-	nbr = va_arg(ap, int);
-	//printf("n is %d \n", nbr);
-	if (nbr < 0)
+	while (str)
 	{
-		ft_putchar('-');
-		nbr = -nbr;
+		write(1, &str, 1);
+		str++;
 	}
-	if (nbr >= 10)
-		ft_d((nbr / 10), ap);		
-	ft_putchar(nbr % 10 + '0');
+}
+
+char	*ft_d(va_list ap)
+{
+	int					num;
+	int					size;
+	int					sign;
+	char				*new;
+
+	printf("yes\n");
+	num = va_arg(ap, int);
+//	if (n == -2147483648)
+//		return (ft_strdup("-2147483648");
+	sign = (num < 0) ? 1 : 0;
+	num = (num < 0) ? -num : num;
+	size = (ft_d_lenght_nbr(num));
+	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	new[size] = '\0';
+	if (sign == 1)
+		new[0] = '-';
+	while (size-- > sign)
+	{
+		new[size] = (num % 10) + '0';
+		num = num / 10;
+	}
+	printf("new is %s\n", new);
+//	ft_putstr(new);
+	return (new);
 }
 
 int		ft_printf(const char *coucou, ...)
 {
 	int		x;
 	va_list	ap;
-	char	*value;
-	char	a;
-	int		nbr;
 
 	x = 0;
-	nbr = 0;
 	va_start(ap, coucou); 
 	while (coucou[x])
 	{
 		if (coucou[x] == '%')
 		{
 			if (coucou[x + 1] == 's')
-				ft_s(value, ap);
+				ft_s(ap);
 			if (coucou[x + 1] == 'c')
-				ft_c(a, ap);
+				ft_c(ap);
 			if (coucou[x + 1] == 'd' || coucou[x + 1] == 'i')
-				ft_d(nbr, ap);
+				ft_d(ap);
 			x = x + 2;
 		}
 		write(1, &coucou[x], 1);
@@ -98,12 +127,12 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
-	char 	*temp = "kikouuuu";
-	char	*oups = "wHaTTT";
-	char	a = 'B';
-	int		num = 15;
-	ft_printf("what : %s WHAT \n", oups);
-	ft_printf("number test = %d nono \n", num);
+//	char 	*temp = "kikouuuu";
+//	char	*oups = "DEUX";
+//	char	a = 'B';
+	int		numba = 150;
+//	ft_printf("un : %s troie \n", oups);
+	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
 	//printf("coucoucou %.4s", oups);
 }
