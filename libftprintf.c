@@ -6,21 +6,11 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/06 12:08:39 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/07 15:10:12 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-size_t	ft_strlen(char *s)
-{
-	size_t	x;
-
-	x = 0;
-	while (s[x])
-		x++;
-	return (x);
-}
 
 char	ft_s(va_list ap)
 {
@@ -45,7 +35,7 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int		ft_d_lenght_nbr(int num)
+int		ft_lenght_int(int num)
 {
 	int x;
 
@@ -53,38 +43,41 @@ int		ft_d_lenght_nbr(int num)
 	if (num == 0)
 		return (1);
 	if (num < 0)
+	{
 		x++;
+		num *= -1;
+	}
 	while (num > 0)
 	{
 		num  /= 10;
 		x++;
 	}
+	printf("x is %d\n", x);
 	return (x);
 }
 
 void	ft_putstr(char *str)
 {
-	while (str)
+	while (*str != '\0')
 	{
-		write(1, &str, 1);
+		ft_putchar(*str);
 		str++;
 	}
 }
 
-char	*ft_d(va_list ap)
+void	*ft_d(va_list ap)
 {
-	int					num;
-	int					size;
-	int					sign;
-	char				*new;
+	int			num;
+	int			size;
+	int			sign;
+	char		*new;
 
-	printf("yes\n");
 	num = va_arg(ap, int);
-//	if (n == -2147483648)
-//		return (ft_strdup("-2147483648");
+	if (num == -2147483648)
+		return (ft_strdup("-2147483648"));
 	sign = (num < 0) ? 1 : 0;
 	num = (num < 0) ? -num : num;
-	size = (ft_d_lenght_nbr(num));
+	size = ft_lenght_int(num);
 	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	new[size] = '\0';
@@ -95,9 +88,71 @@ char	*ft_d(va_list ap)
 		new[size] = (num % 10) + '0';
 		num = num / 10;
 	}
-	printf("new is %s\n", new);
-//	ft_putstr(new);
-	return (new);
+	ft_putstr(new);
+}
+
+char	*ft_hex_conversion(int n)
+{
+	int		mod;
+	char	*hex;
+
+	hex = ft_strdup("0123456789abcdef");
+	while (n)
+	{
+		mod = (n % 16) + '0';
+		return (&hex[mod]);
+	}
+	return (0);
+}
+
+void	*ft_x(va_list ap)
+{
+	int		num;
+	int		size;
+	char	*new;
+
+	num = va_arg(ap, int);
+	size = ft_lenght_int(num);
+	if (!(new = (char *)ft_calloc(sizeof(char), (size + 1))))
+		return (NULL);
+	new[size] = '\0';
+	while (size-- > 1)
+	{
+		new[size] = *ft_hex_conversion(num);
+		num = num / 16;
+	}
+	ft_putstr(new);
+}
+
+char	*ft_hex_maj_conversion(int n)
+{
+	char	*maj_hex;
+
+	maj_hex = ft_strdup("0123456789ABCDEF");
+	while (n)
+	{
+		return (&maj_hex[n % 16]);
+	}
+	return (0);
+}
+
+void	*ft_xx(va_list ap)
+{
+	unsigned int		num;
+	int		size;
+	char	*new;
+
+	num = va_arg(ap, unsigned int);
+	size = ft_lenght_int(num);
+	if (!(new = (char *)ft_calloc(sizeof(char), (size + 1))))
+		return (NULL);
+	new[size] = '\0';
+	while (size-- > 1)
+	{
+		new[size] = *ft_hex_maj_conversion(num);
+		num = num / 16;
+	}
+	ft_putstr(new);
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -117,6 +172,10 @@ int		ft_printf(const char *coucou, ...)
 				ft_c(ap);
 			if (coucou[x + 1] == 'd' || coucou[x + 1] == 'i')
 				ft_d(ap);
+			if (coucou[x + 1] == 'x')
+				ft_x(ap);
+			if (coucou[x + 1] == 'X')
+				ft_xx(ap);
 			x = x + 2;
 		}
 		write(1, &coucou[x], 1);
@@ -130,9 +189,11 @@ int main()
 //	char 	*temp = "kikouuuu";
 //	char	*oups = "DEUX";
 //	char	a = 'B';
-	int		numba = 150;
+	int		numba = 100;
+	ft_printf("hex test : %X \n", numba);
 //	ft_printf("un : %s troie \n", oups);
-	ft_printf("number test = %d nono \n", numba);
+//	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
 	//printf("coucoucou %.4s", oups);
+	return (0);
 }
