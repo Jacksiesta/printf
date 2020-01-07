@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/07 15:46:15 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:09:44 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		ft_lenght_int(int num)
 		num  /= 10;
 		x++;
 	}
-	printf("x is %d\n", x);
 	return (x);
 }
 
@@ -98,12 +97,14 @@ char	*ft_hex_conversion(int n)
 	char	*hex;
 
 	hex = ft_strdup("0123456789abcdef");
-	while (n)
+	while (n >= 16)
 	{
 		mod = (n % 16) + '0';
 		return (&hex[mod]);
 	}
-	return (0);
+	if (n < 16)
+		return (&hex[n]);
+	return (NULL);
 }
 
 char	*ft_x(va_list ap)
@@ -117,7 +118,7 @@ char	*ft_x(va_list ap)
 	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	new[size] = '\0';
-	while (size-- > 1)
+	while (size-- > 0)
 	{
 		new[size] = *ft_hex_conversion(num);
 		num = num / 16;
@@ -192,11 +193,11 @@ int main()
 //	char 	*temp = "kikouuuu";
 //	char	*oups = "DEUX";
 //	char	a = 'B';
-	int		numba = 100;
+	int		numba = 17;
 	ft_printf("hex test : %x \n", numba);
 //	ft_printf("un : %s troie \n", oups);
 //	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
 	//printf("coucoucou %.4s", oups);
-	return (0);
+//	return (0);
 }
