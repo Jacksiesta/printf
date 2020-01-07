@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/07 15:10:12 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/07 15:46:15 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	*ft_d(va_list ap)
+char	*ft_d(va_list ap)
 {
 	int			num;
 	int			size;
@@ -89,6 +89,7 @@ void	*ft_d(va_list ap)
 		num = num / 10;
 	}
 	ft_putstr(new);
+	return (NULL);
 }
 
 char	*ft_hex_conversion(int n)
@@ -105,7 +106,7 @@ char	*ft_hex_conversion(int n)
 	return (0);
 }
 
-void	*ft_x(va_list ap)
+char	*ft_x(va_list ap)
 {
 	int		num;
 	int		size;
@@ -113,7 +114,7 @@ void	*ft_x(va_list ap)
 
 	num = va_arg(ap, int);
 	size = ft_lenght_int(num);
-	if (!(new = (char *)ft_calloc(sizeof(char), (size + 1))))
+	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	new[size] = '\0';
 	while (size-- > 1)
@@ -122,6 +123,7 @@ void	*ft_x(va_list ap)
 		num = num / 16;
 	}
 	ft_putstr(new);
+	return (NULL);
 }
 
 char	*ft_hex_maj_conversion(int n)
@@ -136,7 +138,7 @@ char	*ft_hex_maj_conversion(int n)
 	return (0);
 }
 
-void	*ft_xx(va_list ap)
+char	*ft_xx(va_list ap)
 {
 	unsigned int		num;
 	int		size;
@@ -144,7 +146,7 @@ void	*ft_xx(va_list ap)
 
 	num = va_arg(ap, unsigned int);
 	size = ft_lenght_int(num);
-	if (!(new = (char *)ft_calloc(sizeof(char), (size + 1))))
+	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	new[size] = '\0';
 	while (size-- > 1)
@@ -153,6 +155,7 @@ void	*ft_xx(va_list ap)
 		num = num / 16;
 	}
 	ft_putstr(new);
+	return (NULL);
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -190,7 +193,7 @@ int main()
 //	char	*oups = "DEUX";
 //	char	a = 'B';
 	int		numba = 100;
-	ft_printf("hex test : %X \n", numba);
+	ft_printf("hex test : %x \n", numba);
 //	ft_printf("un : %s troie \n", oups);
 //	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
