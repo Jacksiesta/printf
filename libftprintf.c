@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/07 16:09:44 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/08 12:54:13 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,15 @@ char	*ft_hex_conversion(int n)
 	char	*hex;
 
 	hex = ft_strdup("0123456789abcdef");
-	while (n >= 16)
+	if (n >= 16)
 	{
 		mod = (n % 16) + '0';
 		return (&hex[mod]);
 	}
 	if (n < 16)
+	{
 		return (&hex[n]);
+	}
 	return (NULL);
 }
 
@@ -193,8 +195,9 @@ int main()
 //	char 	*temp = "kikouuuu";
 //	char	*oups = "DEUX";
 //	char	a = 'B';
-	int		numba = 17;
+	int		numba = 12;
 	ft_printf("hex test : %x \n", numba);
+	printf("hex normal is : %x \n", numba);
 //	ft_printf("un : %s troie \n", oups);
 //	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
