@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/08 13:40:25 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:30:11 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,22 @@ char	*ft_xx(va_list ap)
 
 char	ft_u(va_list ap)
 {
-	
+	unsigned int	num;
+	int				size;
+	char			*new;
+
+	num = va_arg(ap, unsigned int);
+	size = ft_lenght_int(num);
+	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	new[size] = '\0';
+	while (size-- > 0)
+	{
+		new[size] = (num % 10) + '0';
+		num = num / 10;
+	}
+	ft_putstr(new);
+	return (NULL);	
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -221,8 +236,8 @@ int main()
 //	char 	*temp = "kikouuuu";
 //	char	*oups = "DEUX";
 //	char	a = 'B';
-	int		numba = 10;
-//	ft_printf("hex test : %x \n", numba);
+	int		numba = -5;
+	ft_printf("unsigned test : %u \n", numba);
 	printf("OG test : %u \n", numba);
 //	ft_printf("un : %s troie \n", oups);
 //	ft_printf("number test = %d nono \n", numba);
