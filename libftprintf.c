@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/08 13:06:17 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/08 13:40:25 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,27 @@ int		ft_lenght_int(int num)
 	}
 	while (num > 0)
 	{
-		num  /= 10;
+		num = num / 10;
+		x++;
+	}
+	return (x);
+}
+
+int		ft_lenght_hex(int num)
+{
+	int x;
+
+	x = 0;
+	if (num == 0)
+		return (1);
+	if (num < 0)
+	{
+		x++;
+		num *= -1;
+	}
+	while (num > 0)
+	{
+		num = num / 16;
 		x++;
 	}
 	return (x);
@@ -91,18 +111,19 @@ char	*ft_d(va_list ap)
 	return (NULL);
 }
 
-char	*ft_hex_conversion(int n)
+char	ft_hex_conversion(int n)
 {
 	int		mod;
 	char	*hex;
 
-	hex = ft_strdup("0123456789abcdef");
+	if (!(hex = ft_strdup("0123456789abcdef")))
+		return (0);
 	if (n)
 	{
 		mod = n % 16;
-		return (&hex[mod]);
+		return (hex[mod]);
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*ft_x(va_list ap)
@@ -112,20 +133,20 @@ char	*ft_x(va_list ap)
 	char	*new;
 
 	num = va_arg(ap, int);
-	size = ft_lenght_int(num);
+	size = ft_lenght_hex(num);
 	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	new[size] = '\0';
 	while (size-- > 0)
 	{
-		new[size] = *ft_hex_conversion(num);
+		new[size] = ft_hex_conversion(num);
 		num = num / 16;
 	}
 	ft_putstr(new);
 	return (NULL);
 }
 
-char	*ft_hex_maj_conversion(int n)
+char	ft_hex_maj_conversion(int n)
 {
 	int		mod;
 	char	*maj_hex;
@@ -134,9 +155,9 @@ char	*ft_hex_maj_conversion(int n)
 	while (n)
 	{
 		mod = n % 16;
-		return (&maj_hex[mod]);
+		return (maj_hex[mod]);
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*ft_xx(va_list ap)
@@ -146,17 +167,22 @@ char	*ft_xx(va_list ap)
 	char	*new;
 
 	num = va_arg(ap, unsigned int);
-	size = ft_lenght_int(num);
+	size = ft_lenght_hex(num);
 	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	new[size] = '\0';
-	while (size-- > 1)
+	while (size-- > 0)
 	{
-		new[size] = *ft_hex_maj_conversion(num);
+		new[size] = ft_hex_maj_conversion(num);
 		num = num / 16;
 	}
 	ft_putstr(new);
 	return (NULL);
+}
+
+char	ft_u(va_list ap)
+{
+	
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -180,6 +206,8 @@ int		ft_printf(const char *coucou, ...)
 				ft_x(ap);
 			if (coucou[x + 1] == 'X')
 				ft_xx(ap);
+			if (coucou[x + 1] == 'u')
+				ft_u(ap);
 			x = x + 2;
 		}
 		write(1, &coucou[x], 1);
@@ -193,9 +221,9 @@ int main()
 //	char 	*temp = "kikouuuu";
 //	char	*oups = "DEUX";
 //	char	a = 'B';
-	int		numba = 505050;
-	ft_printf("hex test : %x \n", numba);
-	printf("OG is : %x \n", numba);
+	int		numba = 10;
+//	ft_printf("hex test : %x \n", numba);
+	printf("OG test : %u \n", numba);
 //	ft_printf("un : %s troie \n", oups);
 //	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
