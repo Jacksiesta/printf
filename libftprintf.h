@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/07 08:54:31 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/08 20:33:52 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <limits.h>
 # include <stdarg.h>
 # include "libft_for_printf/libft.h"
+
+typedef struct		s_list
+{
+	void			*flag;
+	void			*width;
+	void			*precision;
+	struct s_list	*next;
+}					t_list;
 
 int	printf(const char *, ...);
 

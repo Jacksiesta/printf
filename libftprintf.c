@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/08 14:30:11 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/08 16:15:45 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ char	*ft_xx(va_list ap)
 	return (NULL);
 }
 
-char	ft_u(va_list ap)
+int		ft_u(va_list ap)
 {
 	unsigned int	num;
 	int				size;
@@ -189,7 +189,7 @@ char	ft_u(va_list ap)
 	num = va_arg(ap, unsigned int);
 	size = ft_lenght_int(num);
 	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
-		return (NULL);
+		return (0);
 	new[size] = '\0';
 	while (size-- > 0)
 	{
@@ -197,7 +197,12 @@ char	ft_u(va_list ap)
 		num = num / 10;
 	}
 	ft_putstr(new);
-	return (NULL);	
+	return (1);	
+}
+
+int		ft_p(va_list ap)
+{
+	
 }
 
 int		ft_printf(const char *coucou, ...)
@@ -236,9 +241,10 @@ int main()
 //	char 	*temp = "kikouuuu";
 //	char	*oups = "DEUX";
 //	char	a = 'B';
-	int		numba = -5;
-	ft_printf("unsigned test : %u \n", numba);
-	printf("OG test : %u \n", numba);
+	int		numba = 35;
+	ft_printf("unsigned test : %x \n", numba);
+	printf("OG test : %x \n", numba);
+	printf("%d\n", numba);
 //	ft_printf("un : %s troie \n", oups);
 //	ft_printf("number test = %d nono \n", numba);
 	//printf("what : %s WHAT \n", oups);
