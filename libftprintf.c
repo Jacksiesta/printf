@@ -6,17 +6,49 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/09 11:14:45 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:39:12 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
+t_list	*init_struct(t_list *flag)
+{
+	flag->zero_flag = 0; // pour pas avoir de valeur residuelle
+	flag->minus_flag = 0;
+	flag->width = 0;
+	flag->precision = -1;
+}
+
+example () //example of how to use structure
+{
+	t_list	*struc;
+
+	struc = (t_list*)malloc(sizeof(t_list)); // place allouee pour la structure
+	struc = init_struc(struc); // 
+	if (struc->zero_flag == 1) // either exists or doesn't (1 or 0)
+
+	else
+
+}
+
+char	*parser(char *str)
+{
+	int x;
+
+	x = 0;
+	while (str[x])
+	{
+		if (str[x] == '0')
+			flag->zero_flag
+
+		x++;	
+	}	
+}
+
 char	ft_s(va_list ap)
 {
 	char	*value;
-
-	value = va_arg(ap, char *);
 	write(1, value, ft_strlen(value));
 	return (0);
 }
