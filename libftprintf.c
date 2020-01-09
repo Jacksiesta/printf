@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/08 16:15:45 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/09 11:14:45 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int		ft_u(va_list ap)
 
 int		ft_p(va_list ap)
 {
-	
+	//cast in void*	
 }
 
 int		ft_printf(const char *coucou, ...)

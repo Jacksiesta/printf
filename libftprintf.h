@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/08 20:33:52 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/09 12:01:02 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 typedef struct		s_list
 {
 	void			*flag;
-	void			*width;
-	void			*precision;
+	int				*width;
+	int				*precision;
 	struct s_list	*next;
 }					t_list;
 
-int	printf(const char *, ...);
-
+int	printf(const char *coucou, ...);
 
 #endif
