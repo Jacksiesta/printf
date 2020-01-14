@@ -6,13 +6,13 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/09 17:39:12 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/14 18:09:02 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_list	*init_struct(t_list *flag)
+t_list	*init_struct(t_flag *flag)
 {
 	flag->zero_flag = 0; // pour pas avoir de valeur residuelle
 	flag->minus_flag = 0;
@@ -22,9 +22,9 @@ t_list	*init_struct(t_list *flag)
 
 example () //example of how to use structure
 {
-	t_list	*struc;
+	t_flag	*struc;
 
-	struc = (t_list*)malloc(sizeof(t_list)); // place allouee pour la structure
+	struc = (t_flag*)malloc(sizeof(t_flag)); // place allouee pour la structure
 	struc = init_struc(struc); // 
 	if (struc->zero_flag == 1) // either exists or doesn't (1 or 0)
 
@@ -32,16 +32,60 @@ example () //example of how to use structure
 
 }
 
-char	*parser(char *str)
+unsigned int	param_width(va_list ap, char *str)
+{
+	int x;
+
+	x = 0;
+
+}
+
+
+unsigned int	param_zero_flag(va_list ap, char *str) // value of flag
+{
+	int 	x;
+	int		y;
+	char	*str_param;
+	int		param;
+
+	x = 0;
+	y = ;
+	while (str[x] != '0')
+		x++;
+	x = x + 1;
+	if (str[x] == '*')
+		param = va_arg(ap, int);
+	while (str[x] >= 0 && str[x] <= 9)
+	{
+		
+	}
+	param = ft_atoi(str_param);
+
+
+
+}
+
+char	*parser(char *str, t_flag *flag)
 {
 	int x;
 
 	x = 0;
 	while (str[x])
 	{
+		if (ft_isdigit(str[x]) == 1)
+			flag->width = 1;
 		if (str[x] == '0')
-			flag->zero_flag
-
+		{
+			flag->zero_flag = 1;
+				
+		}
+		if (str[x] == '-')
+			flag->minus_flag = 1;
+		if (str[x] == '*' || ft_isdigit(str[x]) == 1)
+			flag->width = 1;
+		if (str[x] == '.' && x++)
+			if (str[x] == '*' || ft_isdigit(str[x]) == 1)
+				flag->precision = 0;
 		x++;	
 	}	
 }

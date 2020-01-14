@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/09 16:18:31 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:24:53 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <stdarg.h>
 # include "libft_for_printf/libft.h"
 
-typedef struct		s_list
+typedef struct		s_flag
 {
 	char			zero_flag;
 	char			minus_flag;
 	int				width;
 	int				precision;
-}					t_list;
+}					t_flag;
 
 int	printf(const char *coucou, ...);
 
