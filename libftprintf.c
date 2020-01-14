@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/14 18:09:02 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/14 18:59:39 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ example () //example of how to use structure
 
 }
 
-unsigned int	param_width(va_list ap, char *str)
+int		param_width(va_list ap, char *str)
 {
 	int x;
 
 	x = 0;
 
+
 }
 
 
-unsigned int	param_zero_flag(va_list ap, char *str) // value of flag
+int		param_zero_flag(va_list ap, char *str) // value of flag
 {
 	int 	x;
 	int		y;
@@ -49,7 +50,6 @@ unsigned int	param_zero_flag(va_list ap, char *str) // value of flag
 	int		param;
 
 	x = 0;
-	y = ;
 	while (str[x] != '0')
 		x++;
 	x = x + 1;
@@ -57,12 +57,12 @@ unsigned int	param_zero_flag(va_list ap, char *str) // value of flag
 		param = va_arg(ap, int);
 	while (str[x] >= 0 && str[x] <= 9)
 	{
-		
+		*str_param = str[x];
+		str_param++;
+		x++;
 	}
 	param = ft_atoi(str_param);
-
-
-
+	return (param);
 }
 
 char	*parser(char *str, t_flag *flag)
@@ -77,7 +77,7 @@ char	*parser(char *str, t_flag *flag)
 		if (str[x] == '0')
 		{
 			flag->zero_flag = 1;
-				
+			
 		}
 		if (str[x] == '-')
 			flag->minus_flag = 1;
