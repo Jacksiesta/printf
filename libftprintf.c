@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/14 18:59:39 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/16 11:42:51 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,17 @@ example () //example of how to use structure
 
 }
 
-int		param_width(va_list ap, char *str)
+int		param_width(va_list ap, char *str) // value of width
 {
 	int x;
 
 	x = 0;
+	while (str[x] != '0' || str[x] != '-' || str[x] != '.')
+	{
+				
+	}
+
+
 
 
 }
@@ -45,7 +51,6 @@ int		param_width(va_list ap, char *str)
 int		param_zero_flag(va_list ap, char *str) // value of flag
 {
 	int 	x;
-	int		y;
 	char	*str_param;
 	int		param;
 
