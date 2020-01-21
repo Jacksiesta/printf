@@ -28,6 +28,10 @@ typedef struct		s_flag
 	int				precision;
 }					t_flag;
 
-int	printf(const char *coucou, ...);
+int	    printf(const char *coucou, ...);
+char	*ft_d(va_list ap);
+int		ft_u(va_list ap);
+void	ft_putstr(char *str);
+int		ft_lenght_int(int num);
 
 #endif

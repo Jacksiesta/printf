@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/16 11:42:51 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/21 10:29:35 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,58 @@ t_list	*init_struct(t_flag *flag)
 	flag->minus_flag = 0;
 	flag->width = 0;
 	flag->precision = -1;
+	return (0);
 }
 
-example () //example of how to use structure
-{
-	t_flag	*struc;
+// example () //example of how to use structure
+// {
+// 	t_flag	*struc;
+//
+// 	struc = (t_flag*)malloc(sizeof(t_flag)); // place allouee pour la structure
+// 	struc = init_struc(struc); //
+// 	if (struc->zero_flag == 1) // either exists or doesn't (1 or 0)
+// 		return (0);
+//	else
+// }
 
-	struc = (t_flag*)malloc(sizeof(t_flag)); // place allouee pour la structure
-	struc = init_struc(struc); // 
-	if (struc->zero_flag == 1) // either exists or doesn't (1 or 0)
+// int		param_width(va_list ap, char *str) // value of width
+// {
+// 	int x;
 
-	else
+// 	x = 0;
+// 	if (str[x] == '0' || str[x] == '-')
+// 	   x++;
 
-}
-
-int		param_width(va_list ap, char *str) // value of width
-{
-	int x;
-
-	x = 0;
-	while (str[x] != '0' || str[x] != '-' || str[x] != '.')
-	{
+// 	{
 				
-	}
+// 	}
 
 
 
 
-}
+// }
 
-
-int		param_zero_flag(va_list ap, char *str) // value of flag
-{
-	int 	x;
-	char	*str_param;
-	int		param;
-
-	x = 0;
-	while (str[x] != '0')
-		x++;
-	x = x + 1;
-	if (str[x] == '*')
-		param = va_arg(ap, int);
-	while (str[x] >= 0 && str[x] <= 9)
-	{
-		*str_param = str[x];
-		str_param++;
-		x++;
-	}
-	param = ft_atoi(str_param);
-	return (param);
-}
+//int		param_zero_flag(va_list ap, char *str) // value of flag
+//{
+//	int 	x;
+//	char	*str_param;
+//	int		param;
+//
+//	x = 0;
+//	while (str[x] != '0')
+//		x++;
+//	x = x + 1;
+//	if (str[x] == '*')
+//		param = va_arg(ap, int);
+//	while (str[x] >= 0 && str[x] <= 9)
+//	{
+//		*str_param = str[x];
+//		str_param++;
+//		x++;
+//	}
+//	param = ft_atoi(str_param);
+//	return (param);
+//}
 
 char	*parser(char *str, t_flag *flag)
 {
@@ -80,10 +81,7 @@ char	*parser(char *str, t_flag *flag)
 		if (ft_isdigit(str[x]) == 1)
 			flag->width = 1;
 		if (str[x] == '0')
-		{
 			flag->zero_flag = 1;
-			
-		}
 		if (str[x] == '-')
 			flag->minus_flag = 1;
 		if (str[x] == '*' || ft_isdigit(str[x]) == 1)
@@ -92,7 +90,8 @@ char	*parser(char *str, t_flag *flag)
 			if (str[x] == '*' || ft_isdigit(str[x]) == 1)
 				flag->precision = 0;
 		x++;	
-	}	
+	}
+	return (0);
 }
 
 char	ft_s(va_list ap)
@@ -116,26 +115,6 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int		ft_lenght_int(int num)
-{
-	int x;
-
-	x = 0;
-	if (num == 0)
-		return (1);
-	if (num < 0)
-	{
-		x++;
-		num *= -1;
-	}
-	while (num > 0)
-	{
-		num = num / 10;
-		x++;
-	}
-	return (x);
-}
-
 int		ft_lenght_hex(int num)
 {
 	int x;
@@ -154,42 +133,6 @@ int		ft_lenght_hex(int num)
 		x++;
 	}
 	return (x);
-}
-
-void	ft_putstr(char *str)
-{
-	while (*str != '\0')
-	{
-		ft_putchar(*str);
-		str++;
-	}
-}
-
-char	*ft_d(va_list ap)
-{
-	int			num;
-	int			size;
-	int			sign;
-	char		*new;
-
-	num = va_arg(ap, int);
-	if (num == -2147483648)
-		return (ft_strdup("-2147483648"));
-	sign = (num < 0) ? 1 : 0;
-	num = (num < 0) ? -num : num;
-	size = ft_lenght_int(num);
-	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	new[size] = '\0';
-	if (sign == 1)
-		new[0] = '-';
-	while (size-- > sign)
-	{
-		new[size] = (num % 10) + '0';
-		num = num / 10;
-	}
-	ft_putstr(new);
-	return (NULL);
 }
 
 char	ft_hex_conversion(int n)
@@ -261,34 +204,32 @@ char	*ft_xx(va_list ap)
 	return (NULL);
 }
 
-int		ft_u(va_list ap)
-{
-	unsigned int	num;
-	int				size;
-	char			*new;
+//int		ft_p(va_list ap)
+//{
+//	//cast in void*
+//}
 
-	num = va_arg(ap, unsigned int);
-	size = ft_lenght_int(num);
-	if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
-		return (0);
-	new[size] = '\0';
-	while (size-- > 0)
+int		size_percent(const char *str) // len de % à specifier
+{
+	int x;
+	int	y;
+
+	x = 0;
+	y = 1;
+	while (str[x] != '%')
+		x++;
+	while (ft_isalpha(str[x]) == 0)
 	{
-		new[size] = (num % 10) + '0';
-		num = num / 10;
+		x++;
+		y++;
 	}
-	ft_putstr(new);
-	return (1);	
-}
-
-int		ft_p(va_list ap)
-{
-	//cast in void*	
+	return (y);
 }
 
 int		ft_printf(const char *coucou, ...)
 {
 	int		x;
+	int     len;
 	va_list	ap;
 
 	x = 0;
@@ -297,17 +238,18 @@ int		ft_printf(const char *coucou, ...)
 	{
 		if (coucou[x] == '%')
 		{
-			if (coucou[x + 1] == 's')
+		    len = size_percent(coucou);
+			if (coucou[x + len - 1] == 's')
 				ft_s(ap);
-			if (coucou[x + 1] == 'c')
+			if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
-			if (coucou[x + 1] == 'd' || coucou[x + 1] == 'i')
+			if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
 				ft_d(ap);
-			if (coucou[x + 1] == 'x')
+			if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
-			if (coucou[x + 1] == 'X')
+			if (coucou[x + len - 1] == 'X')
 				ft_xx(ap);
-			if (coucou[x + 1] == 'u')
+			if (coucou[x + len - 1] == 'u')
 				ft_u(ap);
 			x = x + 2;
 		}
@@ -319,16 +261,9 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
-//	char 	*temp = "kikouuuu";
-//	char	*oups = "DEUX";
-//	char	a = 'B';
-	int		numba = 35;
-	ft_printf("unsigned test : %x \n", numba);
+	int		numba = 45;
+	ft_printf("hex test : %x \n", numba);
 	printf("OG test : %x \n", numba);
 	printf("%d\n", numba);
-//	ft_printf("un : %s troie \n", oups);
-//	ft_printf("number test = %d nono \n", numba);
-	//printf("what : %s WHAT \n", oups);
-	//printf("coucoucou %.4s", oups);
-//	return (0);
+	//	return (0);
 }
