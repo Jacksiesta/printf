@@ -21,6 +21,8 @@ t_list	*init_struct(t_flag *flag)
 	return (0);
 }
 
+
+
 // example () //example of how to use structure
 // {
 // 	t_flag	*struc;
@@ -39,14 +41,6 @@ t_list	*init_struct(t_flag *flag)
 // 	x = 0;
 // 	if (str[x] == '0' || str[x] == '-')
 // 	   x++;
-
-// 	{
-				
-// 	}
-
-
-
-
 // }
 
 //int		param_zero_flag(va_list ap, char *str) // value of flag
@@ -71,27 +65,32 @@ t_list	*init_struct(t_flag *flag)
 //	return (param);
 //}
 
-char	*parser(char *str, t_flag *flag)
-{
-	int x;
 
-	x = 0;
-	while (str[x])
-	{
-		if (ft_isdigit(str[x]) == 1)
-			flag->width = 1;
-		if (str[x] == '0')
-			flag->zero_flag = 1;
-		if (str[x] == '-')
-			flag->minus_flag = 1;
-		if (str[x] == '*' || ft_isdigit(str[x]) == 1)
-			flag->width = 1;
-		if (str[x] == '.' && x++)
-			if (str[x] == '*' || ft_isdigit(str[x]) == 1)
-				flag->precision = 0;
-		x++;	
-	}
-	return (0);
+
+char	*parser(char *str, t_flag *flag) // activates flags
+{
+    if (*str == '0') {
+        flag->zero_flag = 1;
+        str++;
+    }
+    if (*str == '-') {
+        flag->minus_flag = 1;
+        str++;
+    }
+    if (*str == '*') {
+        flag->width = 1;
+        str++;
+    }
+    if (ft_isdigit(*str) == 1) {
+        flag->width = 1;
+        while (ft_isdigit(*str) == 1)
+            str++;
+    }
+    if (*str == '.') {
+        flag->precision = 1;
+        str++;
+    }
+    return (0);
 }
 
 char	ft_s(va_list ap)
