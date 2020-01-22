@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int *len)
 {
 	int						x;
 	unsigned long long int	nb;
@@ -35,6 +35,7 @@ int	ft_atoi(const char *str)
 		if (nb > LONG_MAX)
 			return ((symb + 1) / -2);
 		x++;
+        (*len)++;
 	}
 	return ((int)(nb * symb));
 }

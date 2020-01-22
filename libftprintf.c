@@ -69,26 +69,33 @@ t_list	*init_struct(t_flag *flag)
 
 char	*parser(char *str, t_flag *flag) // activates flags
 {
-    if (*str == '0') {
-        flag->zero_flag = 1;
-        str++;
-    }
-    if (*str == '-') {
+    int x;
+
+    x = 0;
+    while (str[x] == '-')
+    {
         flag->minus_flag = 1;
-        str++;
+        x++;
     }
-    if (*str == '*') {
-        flag->width = 1;
-        str++;
+    while (str[x] == '0')
+    {
+        flag->zero_flag = 1;
+        x++;
     }
-    if (ft_isdigit(*str) == 1) {
-        flag->width = 1;
-        while (ft_isdigit(*str) == 1)
-            str++;
+    else if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
+    {
+        if (str[x] == '*')
+            flag->width = va_arg(ap, int);
+        else
+            flag->width = ft_atoi(&str[x], &x);
     }
-    if (*str == '.') {
-        flag->precision = 1;
-        str++;
+    else if (str[x] == '.')
+    {
+        x++;
+        if (str[x] == '*')
+            flag->precision = va_arg(ap, int);
+        else
+            flag->precision = ft_atoi(&str[x], &x);
     }
     return (0);
 }
