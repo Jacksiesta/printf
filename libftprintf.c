@@ -21,8 +21,6 @@ t_list	*init_struct(t_flag *flag)
 	return (0);
 }
 
-
-
 // example () //example of how to use structure
 // {
 // 	t_flag	*struc;
@@ -32,15 +30,6 @@ t_list	*init_struct(t_flag *flag)
 // 	if (struc->zero_flag == 1) // either exists or doesn't (1 or 0)
 // 		return (0);
 //	else
-// }
-
-// int		param_width(va_list ap, char *str) // value of width
-// {
-// 	int x;
-
-// 	x = 0;
-// 	if (str[x] == '0' || str[x] == '-')
-// 	   x++;
 // }
 
 //int		param_zero_flag(va_list ap, char *str) // value of flag
@@ -64,8 +53,6 @@ t_list	*init_struct(t_flag *flag)
 //	param = ft_atoi(str_param);
 //	return (param);
 //}
-
-
 
 char	*parser(char *str, t_flag *flag) // activates flags
 {
@@ -97,8 +84,12 @@ char	*parser(char *str, t_flag *flag) // activates flags
         else
             flag->precision = ft_atoi(&str[x], &x);
     }
+    if (flag->precision || flag->minus_flag)
+        flag->zero_flag = 0;
     return (0);
 }
+
+char    update_flag()
 
 char	ft_s(va_list ap)
 {
