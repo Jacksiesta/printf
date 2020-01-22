@@ -89,7 +89,12 @@ char	*parser(char *str, t_flag *flag) // activates flags
     return (0);
 }
 
-char    update_flag()
+char    *convers_d(va_list ap)
+{
+
+
+}
+
 
 char	ft_s(va_list ap)
 {
