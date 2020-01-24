@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/21 10:29:35 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/24 21:10:13 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,37 @@ char	*parser(char *str, t_flag *flag) // activates flags
     return (0);
 }
 
+void	*sort_flags()
+{
+	char *ret;
+
+	if (flag->precision)
+		ret = void *apply_precision() // sends to fct that applies precision
+
+}	
+
+
+void	*apply_precision(int num)
+{
+	char 	*ret;
+	int		num_zero;
+
+	if (flag->precision < ft_lenght_int(num))
+		return (1);
+	if (num < 0)
+		char[0] == '-';
+	else
+	{
+
+		num_zero = flag->precision - ft_lenght_int(num); 	
+	}
+
+}
+
+
 char    *convers_d(va_list ap)
 {
+
 
 
 }
@@ -209,6 +238,7 @@ char	*ft_xx(va_list ap)
 //int		ft_p(va_list ap)
 //{
 //	//cast in void*
+//	unsigned long long
 //}
 
 int		size_percent(const char *str) // len de % à specifier
