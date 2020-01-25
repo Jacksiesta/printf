@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/24 21:10:13 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/25 19:58:36 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,6 @@ char	*ft_xx(va_list ap)
 
 //int		ft_p(va_list ap)
 //{
-//	//cast in void*
-//	unsigned long long
 //}
 
 int		size_percent(const char *str) // len de % à specifier
@@ -293,9 +291,11 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
+
+	int i;
 	int		numba = 45;
 	ft_printf("hex test : %x \n", numba);
-	printf("OG test : %x \n", numba);
-	printf("%d\n", numba);
+	i = printf("OG test : %x \n", numba);
+	printf("%d i == %d\n", numba, i);
 	//	return (0);
 }
