@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/25 14:02:59 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:37:43 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,17 @@ typedef struct		s_flag
 }					t_flag;
 
 int	    printf(const char *coucou, ...);
-char	*ft_d(va_list ap);
+char	*ft_d(int num);
+char	ft_s(va_list ap);
+char	ft_c(va_list ap);
 int		ft_u(va_list ap);
 void	ft_putstr(char *str);
+void	ft_putchar(char c);
 int		ft_lenght_int(int num);
+int		ft_lenght_hex(int num);
+char	ft_hex_conversion(int n);
+char	*ft_x(va_list ap);
+char	ft_hex_maj_conversion(int n);
+char	*ft_xx(va_list ap);
 
 #endif
