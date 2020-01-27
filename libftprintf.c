@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/27 16:11:57 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:55:52 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 {
     int		x;
 
-    x = 1;
+    x = 0;
 	init_struct(flag);
     if (str[x] == '-')
     {
@@ -88,10 +88,13 @@ char    *convers_d(va_list ap, t_flag *flag)
 	{
 
 	}
-	if (flag->precision && flag->precision > size)
+	while (flag->precision && flag->precision > size)
 	{
-		num_zero = flag->precision - size;
+		num_zero = 0;
+		num_zero++;
+		size--;
 	}
+
 	ft_putstr(init);
 	return (NULL);
 }
@@ -126,7 +129,7 @@ int		ft_printf(const char *coucou, ...)
 	{
 		if (coucou[x] == '%')
 		{
-			parser(ap, &coucou[x], &flag); // fill in flags
+			parser(ap, &coucou[x + 1], &flag); // fill in flags
 		    len = size_percent(coucou);
 			if (coucou[x + len - 1] == 's')
 				ft_s(ap);
