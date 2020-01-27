@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/27 14:10:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:11:57 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_struct(t_flag *flag)
 
 char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 {
-    int x;
+    int		x;
 
     x = 1;
 	init_struct(flag);
@@ -35,12 +35,18 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
     {
         flag->zero_flag = 1;
         x++;
-		printf("%d flag zero t0 \n", flag->zero_flag);
     }
     if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
     {
         if (str[x] == '*')
+		{
             flag->width = va_arg(ap, int);
+			if (flag->width < 0)
+			{
+				flag->minus_flag = 1;
+				flag->width = -flag->width;
+			}
+		}
         else
             flag->width = ft_atoi(&str[x], &x);
     }
@@ -55,7 +61,6 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	if (flag->precision != -1 || flag->minus_flag != 0)
 		flag->zero_flag = 0;
 	
-	printf("%d flag zero t2 \n", flag->zero_flag);
     return (0);
 }
 
@@ -70,18 +75,20 @@ char    *convers_d(va_list ap, t_flag *flag)
 	num = va_arg(ap, int);
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
+	printf("size is %d\n", size);
+	printf("init string is %s\n", init);
 	final = "wouwou";
 	printf("%d precision t1\n", flag->precision);
 	printf("%d width t1 \n", flag->width);
 	printf("%d zero flag t1 \n", flag->zero_flag);
 	printf("%d minus flag t1 \n", flag->minus_flag);
-	if (init[0] == '-')
+	printf("init is %s\n", init);
+	
+	if (num < 0) // place '-' first
 	{
-		*final = '-';
-		size--; // precision doesn't take into account neg
-		final++; // go to next character
+
 	}
-	if (flag->precision && flag->precision > size - 1)
+	if (flag->precision && flag->precision > size)
 	{
 		num_zero = flag->precision - size;
 	}
@@ -145,7 +152,10 @@ int main()
 {
 
 	int		numba = 45;
-	ft_printf("testING :::> \n%-.10d\nouioui \n", numba);
+	ft_printf("%*d\nouioui \n", -10, numba);
+	printf("%-*d\n", 45, 1234);
+	printf("%*d\n", -45, 1234);
+	printf("%-45d\n", 1234);
 //	i = printf("OG test : %x \n", numba);
 //	printf("%d i == %d\n", numba, i);
 	//	return (0);

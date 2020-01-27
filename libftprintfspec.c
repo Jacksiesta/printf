@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/26 17:09:00 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:58:06 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ char	*ft_d(int num)
     if (num == -2147483648)
         return (ft_strdup("-2147483648"));
     sign = (num < 0) ? 1 : 0;
+	size = ft_lenght_int(num);
     num = (num < 0) ? -num : num;
-    size = ft_lenght_int(num);
     if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
         return (NULL);
     new[size] = '\0';
