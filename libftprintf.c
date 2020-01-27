@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/26 17:37:39 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:10:42 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,18 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 {
     int x;
 
-    x = 0;
+    x = 1;
 	init_struct(flag);
-	printf("coucou\n");
     if (str[x] == '-')
     {
-		printf("whut %c\n", str[x]);
         flag->minus_flag = 1;
         x++;
     }
-    while (str[x] == '0')
+	if (str[x] == '0')
     {
         flag->zero_flag = 1;
         x++;
+		printf("%d flag zero t0 \n", flag->zero_flag);
     }
     if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
     {
@@ -53,8 +52,10 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
         else
             flag->precision = ft_atoi(&str[x], &x);
     }
-    if (flag->precision || flag->minus_flag)
-        flag->zero_flag = 0;
+	if (flag->precision != -1 || flag->minus_flag != 0)
+		flag->zero_flag = 0;
+	
+	printf("%d flag zero t2 \n", flag->zero_flag);
     return (0);
 }
 
@@ -70,7 +71,10 @@ char    *convers_d(va_list ap, t_flag *flag)
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
 	final = "wouwou";
-	printf("minus %d\n", flag->minus_flag);
+	printf("%d precision t1\n", flag->precision);
+	printf("%d width t1 \n", flag->width);
+	printf("%d zero flag t1 \n", flag->zero_flag);
+	printf("%d minus flag t1 \n", flag->minus_flag);
 	if (init[0] == '-')
 	{
 		*final = '-';
@@ -141,7 +145,7 @@ int main()
 {
 
 	int		numba = 45;
-	ft_printf("hex test : %-d ouioui \n", numba);
+	ft_printf("testING :::> \n%-.10d\nouioui \n", numba);
 //	i = printf("OG test : %x \n", numba);
 //	printf("%d i == %d\n", numba, i);
 	//	return (0);
