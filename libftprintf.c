@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/27 16:55:52 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:52:44 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,31 @@ char    *convers_d(va_list ap, t_flag *flag)
 	int			num;
 	int			size;
 	int			num_zero;
+	int			neg;
 
 	num = va_arg(ap, int);
+	num = (num < 0) ? -num : num;
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
+	final = "wouwouwou";
 	printf("size is %d\n", size);
 	printf("init string is %s\n", init);
-	final = "wouwou";
-	printf("%d precision t1\n", flag->precision);
-	printf("%d width t1 \n", flag->width);
-	printf("%d zero flag t1 \n", flag->zero_flag);
-	printf("%d minus flag t1 \n", flag->minus_flag);
+	printf(":%d precision t1\n", flag->precision);
+	printf(":%d width t1 \n", flag->width);
+	printf(":%d zero flag t1 \n", flag->zero_flag);
+	printf(":%d minus flag t1 \n", flag->minus_flag);
 	printf("init is %s\n", init);
 	
 	if (num < 0) // place '-' first
-	{
-
-	}
+		write(1, "-", 1);
+	num_zero = 0;
 	while (flag->precision && flag->precision > size)
 	{
-		num_zero = 0;
 		num_zero++;
-		size--;
+		flag->precision--;
+		write(1, "0", 1);
 	}
-
+//	printf("num zero is %d\n", num_zero);
 	ft_putstr(init);
 	return (NULL);
 }
@@ -154,11 +155,13 @@ int		ft_printf(const char *coucou, ...)
 int main()
 {
 
-	int		numba = 45;
-	ft_printf("%*d\nouioui \n", -10, numba);
-	printf("%-*d\n", 45, 1234);
-	printf("%*d\n", -45, 1234);
-	printf("%-45d\n", 1234);
+	int		numba = -45;
+//	ft_printf("%*d\nouioui \n", -10, numba);
+	ft_printf("%.10d numba\n", numba);
+	printf("%.10d NUMBA\n", numba);
+//	printf("%-*d\n", 45, 1234);
+//	printf("%*d\n", -45, 1234);
+//	printf("%-45d\n", 1234);
 //	i = printf("OG test : %x \n", numba);
 //	printf("%d i == %d\n", numba, i);
 	//	return (0);
