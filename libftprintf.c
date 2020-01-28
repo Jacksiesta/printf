@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/27 18:52:44 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:38:29 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,58 +26,66 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 
     x = 0;
 	init_struct(flag);
-    if (str[x] == '-')
-    {
-        flag->minus_flag = 1;
-        x++;
-    }
-	if (str[x] == '0')
-    {
-        flag->zero_flag = 1;
-        x++;
-    }
-    if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
-    {
-        if (str[x] == '*')
-		{
-            flag->width = va_arg(ap, int);
-			if (flag->width < 0)
+	while (str[x])
+	{
+        if (str[x] == '-')
+        {
+            flag->minus_flag = 1;
+            x++;
+        }
+        if (str[x] == '0')
+        {
+            flag->zero_flag = 1;
+            x++;
+        }
+        if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
+        {
+            if (str[x] == '*')
+            {
+                flag->width = va_arg(ap, int);
+                if (flag->width < 0)
+                {
+                    flag->minus_flag = 1;
+                    flag->width = -flag->width;
+                }
+            }
+            else
 			{
-				flag->minus_flag = 1;
-				flag->width = -flag->width;
+				printf("x is %d\n", x);
+                flag->width = ft_atoi(&str[x], &x);
+				x = x + ft_lenght_int(flag->width);
+				printf("x t1 is %d\n", x);
 			}
-		}
-        else
-            flag->width = ft_atoi(&str[x], &x);
-    }
-    if (str[x] == '.')
-    {
-        x++;
-        if (str[x] == '*')
-            flag->precision = va_arg(ap, int);
-        else
-            flag->precision = ft_atoi(&str[x], &x);
-    }
+        }
+        if (str[x] == '.')
+        {
+            x++;
+            if (str[x] == '*')
+                flag->precision = va_arg(ap, int);
+            else
+                flag->precision = ft_atoi(&str[x], &x);
+			break;
+        }
+		x++;
+	}
 	if (flag->precision != -1 || flag->minus_flag != 0)
 		flag->zero_flag = 0;
-	
     return (0);
 }
 
 char    *convers_d(va_list ap, t_flag *flag)
 {
 	char		*init;
-	char		*final;
 	int			num;
 	int			size;
 	int			num_zero;
 	int			neg;
 
 	num = va_arg(ap, int);
+	neg = (num < 0) ? 1 : 0; //
 	num = (num < 0) ? -num : num;
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
-	final = "wouwouwou";
 	printf("size is %d\n", size);
 	printf("init string is %s\n", init);
 	printf(":%d precision t1\n", flag->precision);
@@ -85,8 +93,7 @@ char    *convers_d(va_list ap, t_flag *flag)
 	printf(":%d zero flag t1 \n", flag->zero_flag);
 	printf(":%d minus flag t1 \n", flag->minus_flag);
 	printf("init is %s\n", init);
-	
-	if (num < 0) // place '-' first
+	if (neg) // place '-' first
 		write(1, "-", 1);
 	num_zero = 0;
 	while (flag->precision && flag->precision > size)
@@ -157,8 +164,8 @@ int main()
 
 	int		numba = -45;
 //	ft_printf("%*d\nouioui \n", -10, numba);
-	ft_printf("%.10d numba\n", numba);
-	printf("%.10d NUMBA\n", numba);
+	ft_printf("%020.15d numba\n", numba);
+	printf("%020.15d NUMBA\n", numba);
 //	printf("%-*d\n", 45, 1234);
 //	printf("%*d\n", -45, 1234);
 //	printf("%-45d\n", 1234);
