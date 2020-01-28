@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/28 11:38:29 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:51:43 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
             }
             else
 			{
-				printf("x is %d\n", x);
                 flag->width = ft_atoi(&str[x], &x);
 				x = x + ft_lenght_int(flag->width);
-				printf("x t1 is %d\n", x);
 			}
         }
         if (str[x] == '.')
@@ -96,13 +94,17 @@ char    *convers_d(va_list ap, t_flag *flag)
 	if (neg) // place '-' first
 		write(1, "-", 1);
 	num_zero = 0;
+	while (flag->width && flag->width > flag->precision && flag->width > size)
+	{
+		write(1, " ", 1);
+		flag->width--;
+	}
 	while (flag->precision && flag->precision > size)
 	{
 		num_zero++;
 		flag->precision--;
 		write(1, "0", 1);
 	}
-//	printf("num zero is %d\n", num_zero);
 	ft_putstr(init);
 	return (NULL);
 }
@@ -164,8 +166,8 @@ int main()
 
 	int		numba = -45;
 //	ft_printf("%*d\nouioui \n", -10, numba);
-	ft_printf("%020.15d numba\n", numba);
-	printf("%020.15d NUMBA\n", numba);
+	ft_printf("%10.5d numba\n", numba);
+	printf("%10.5d NUMBA\n", numba);
 //	printf("%-*d\n", 45, 1234);
 //	printf("%*d\n", -45, 1234);
 //	printf("%-45d\n", 1234);
