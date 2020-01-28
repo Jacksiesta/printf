@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/28 18:58:03 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/28 20:41:58 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ char    *convers_d(va_list ap, t_flag *flag)
 	printf(":%d precision t1\n", flag->precision);
 	printf("init string is %s\n_______\n", init);
 	final = ft_strdup("");
+//	if (flag->width && (flag->precision == -1))
+//	{
+//		final = ft_strjoin(pad_maker(' ', flag->width - size), final);
+//	}
 	if (neg)
 		final = ft_strdup(pad_maker('-', 1));
 	printf("final t1 %s\n", final);
@@ -99,15 +103,23 @@ char    *convers_d(va_list ap, t_flag *flag)
 	}
 	final = ft_strjoin(final, init);
 	printf("final t3 %s\n", final);
-	if (flag->width && flag->width > flag->precision) //add sp for width
+	if (flag->width && flag->precision && flag->width > flag->precision) //add sp for width
 	{
 		if (neg)
+		{
 			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - size), final);
+			printf("final t -neg %s\n", final);
+		}
 		else
+		{
 			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - size + 1), final);
+			printf("final t -pos %s\n", final);
+		}
 		printf("final t4 %s\n", final);
-		printf("width== %d\n", flag->width);
-		printf("precision== %d\n", flag->precision);
+	}
+	if (flag->width && (flag->precision == -1))
+	{
+		final = ft_strjoin(pad_maker(' ', flag->width - size), final);
 	}
 	printf("final t5 %s\n", final);
 	ft_putstr(final);
@@ -170,11 +182,11 @@ int		ft_printf(const char *coucou, ...)
 
 //int main()
 //{
-//	int		numba = -123456789;
+//	int		numba = 33;
 //
 ////	ft_printf("%*d\nouioui \n", -10, numba);
-//	ft_printf("%15d p numba\n", numba);
-//	printf("%15d p Actual printf\n", numba);
+//	ft_printf("%5d p numba\n", numba);
+//	printf("%5d p Actual printf\n", numba);
 //	printf("%15.5d n Actual printf\n", -numba);
 ////	i = printf("OG test : %x \n", numba);
 ////	printf("%d i == %d\n", numba, i);
