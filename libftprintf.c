@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/28 14:52:13 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:58:54 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,14 @@ char    *convers_d(va_list ap, t_flag *flag)
 		final = ft_strjoin(final, pad_maker('0', flag->precision - size));
 		printf("final t2 %s\n", final);
 	}
-//	while (flag->precision && flag->precision > size)
-//	{
-//		flag->precision--;
-//		write(1, "0", 1);
-//	}
 	final = ft_strjoin(final, init);
 	printf("final t3 %s\n", final);
+	if (flag->width && flag->width > flag->precision)
+	{
+		final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - 1), final);
+		printf("final t4 %s\n", final);
+
+	}
 	ft_putstr(final);
 	return (NULL);
 }
@@ -175,8 +176,9 @@ int main()
 	int		numba = -45;
 
 //	ft_printf("%*d\nouioui \n", -10, numba);
-	ft_printf("%.1d numba\n", numba);
-	printf("%.1d Actual printf\n", numba);
+	ft_printf("%7.5d p numba\n", numba);
+	printf("%7.5d p Actual printf\n", numba);
+	printf("%7.5d n Actual printf\n", -numba);
 //	printf("%-*d\n", 45, 1234);
 //	printf("%*d\n", -45, 1234);
 //	printf("%-45d\n", 1234);
