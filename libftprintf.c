@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/28 11:51:43 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:52:13 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ char    *convers_d(va_list ap, t_flag *flag)
 	char		*init;
 	int			num;
 	int			size;
-	int			num_zero;
 	int			neg;
+	char		*pad;
+	char		*final;
 
 	num = va_arg(ap, int);
-	neg = (num < 0) ? 1 : 0; //
+	neg = (num < 0) ? 1 : 0;
 	num = (num < 0) ? -num : num;
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
@@ -90,22 +91,28 @@ char    *convers_d(va_list ap, t_flag *flag)
 	printf(":%d width t1 \n", flag->width);
 	printf(":%d zero flag t1 \n", flag->zero_flag);
 	printf(":%d minus flag t1 \n", flag->minus_flag);
-	printf("init is %s\n", init);
-	if (neg) // place '-' first
-		write(1, "-", 1);
-	num_zero = 0;
-	while (flag->width && flag->width > flag->precision && flag->width > size)
+	printf("init is %s\n____\n", init);
+	if (neg)
+		final = ft_strdup(pad_maker('-', 1));
+//	while (flag->width && flag->width > flag->precision && flag->width > size)
+//	{
+//		write(1, " ", 1);
+//		flag->width--;
+//	}
+	printf("final t1 %s\n", final);
+	if (flag->precision && flag->precision > size)
 	{
-		write(1, " ", 1);
-		flag->width--;
+		final = ft_strjoin(final, pad_maker('0', flag->precision - size));
+		printf("final t2 %s\n", final);
 	}
-	while (flag->precision && flag->precision > size)
-	{
-		num_zero++;
-		flag->precision--;
-		write(1, "0", 1);
-	}
-	ft_putstr(init);
+//	while (flag->precision && flag->precision > size)
+//	{
+//		flag->precision--;
+//		write(1, "0", 1);
+//	}
+	final = ft_strjoin(final, init);
+	printf("final t3 %s\n", final);
+	ft_putstr(final);
 	return (NULL);
 }
 
@@ -153,6 +160,8 @@ int		ft_printf(const char *coucou, ...)
 				ft_xx(ap);
 			if (coucou[x + len - 1] == 'u')
 				ft_u(ap);
+			if (coucou[x + len - 1] == 'p')
+				ft_p(ap);
 			x = x + len;
 		}
 		write(1, &coucou[x], 1);
@@ -163,11 +172,11 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
-
 	int		numba = -45;
+
 //	ft_printf("%*d\nouioui \n", -10, numba);
-	ft_printf("%10.5d numba\n", numba);
-	printf("%10.5d NUMBA\n", numba);
+	ft_printf("%.1d numba\n", numba);
+	printf("%.1d Actual printf\n", numba);
 //	printf("%-*d\n", 45, 1234);
 //	printf("%*d\n", -45, 1234);
 //	printf("%-45d\n", 1234);

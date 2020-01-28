@@ -6,11 +6,29 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/27 15:58:06 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:18:08 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+const char 	*pad_maker(char c, int len)
+{
+	char 	*pad;
+	int		x;
+
+	x = 0;
+	if (!(pad = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (len)
+	{
+		pad[x] = c;
+		len--;
+		x++;
+	}
+	pad[x] = '\0';
+	return (pad);
+}
 
 void	ft_putstr(char *str)
 {
@@ -106,6 +124,16 @@ int		ft_u(va_list ap)
     ft_putstr(new);
     return (1);
 }
+
+char	*ft_p(va_list ap)
+{	
+	long long unsigned int	address;
+
+	address = va_arg(ap, long long unsigned int);
+	printf("address is %llu", address);
+	return (0);
+}	
+
 
 int		ft_lenght_hex(int num)
 {
