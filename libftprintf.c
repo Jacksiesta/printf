@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/29 19:15:51 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/29 19:23:26 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,14 +197,15 @@ int		ft_printf(const char *coucou, ...)
 	return (0);
 }
 
-//int main()
-//{
-//	int		numba = 123;
-//
-//	ft_printf("%7.5d\n", numba);
-//	printf("%7.5d with prec\n", numba);
-//	printf("%7d no prec\n", numba);
-////	i = printf("OG test : %x \n", numba);
-////	printf("%d i == %d\n", numba, i);
-//	return (0);
-//}
+int main()
+{
+	int		numba = 123;
+
+	ft_printf("%7.5d\n", numba);
+	printf("%-10.5d min with prec\n", numba);
+	printf("%10.5d with prec\n", numba);
+	printf("%-5d no prec\n", numba);
+//	i = printf("OG test : %x \n", numba);
+//	printf("%d i == %d\n", numba, i);
+	return (0);
+}
