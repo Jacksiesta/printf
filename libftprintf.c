@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/29 17:12:48 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/29 18:43:01 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 
     x = 0;
 	init_struct(flag);
-	while (ft_isalpha(str[x]) == 0)
+	if (ft_isalpha(str[x]) == 0)
 	{
         if (str[x] == '-')
         {
@@ -52,6 +52,7 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
             else
                 flag->width = ft_atoi(&str[x], &x);
         }
+		printf("width is %d\n", flag->width);
         if (str[x] == '.')
         {
             x++;
@@ -59,9 +60,7 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
                 flag->precision = va_arg(ap, int);
             else
                 flag->precision = ft_atoi(&str[x], &x);
-			break;
         }
-		x++;
 	}
 	if (flag->precision != -1 || flag->minus_flag != 0)
 		flag->zero_flag = 0;
@@ -118,17 +117,16 @@ char    *convers_d(va_list ap, t_flag *flag)
 			}
 			else
 			{
-				if (flag->zero_flag && flag->width > size)
-				{
-					final = ft_strjoin(pad_maker('0', flag->width - size), final);
-					printf("hello\n");
-				}
-				else
-				{
-					printf("hey\n");
+//				if (flag->zero_flag && flag->width > size)
+//				{
 					final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-					printf("final new if :%s\n", final);
-				}
+//				}
+//				else
+//				{
+//					printf("hey\n");
+//					final = ft_strjoin(pad_maker(' ', flag->width - size), final);
+//					printf("final new if :%s\n", final);
+//				}
 			}
 		}
 //		if (neg)
@@ -149,7 +147,7 @@ char    *convers_d(va_list ap, t_flag *flag)
 //	}
 	printf("final t5 :%s\n", final);
 	ft_putstr(final);
-	return (final);
+	return (0);
 }
 
 int		size_percent(const char *str) // len de % à specifier
@@ -174,27 +172,22 @@ int		ft_printf(const char *coucou, ...)
 	int		x;
 	int     len;
 	va_list	ap;
-	char	*buffer;
-	t_flag	*flag;
+	t_flag	flag;
 
 	x = 0;
 	va_start(ap, coucou);
-	printf("x t0 :%d\n", x);
-	if(!(buffer = (char *)malloc(sizeof(char) * (1000))))
-		return (0);
 	while (coucou[x])
 	{
 		if (coucou[x] == '%')
 		{
-			printf("buffer T0 is %s\n", buffer);
-			parser(ap, &coucou[x + 1], flag);
+			parser(ap, &coucou[x + 1], &flag);
 		    len = size_percent(coucou);
 			if (coucou[x + len - 1] == 's')
 				ft_s(ap);
 			if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
 			if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
-				buffer = ft_strjoin(buffer, convers_d(ap, flag));
+				convers_d(ap, &flag);
 			if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
 			if (coucou[x + len - 1] == 'X')
@@ -205,12 +198,9 @@ int		ft_printf(const char *coucou, ...)
 				ft_p(ap);
 			x = x + len;
 		}
-		buffer[x] = coucou[x];
-	//	write(1, &coucou[x], 1);
+		write(1, &coucou[x], 1);
 		x++;
 	}
-	printf("buffer is %s\n", buffer);
-	ft_putstr(buffer);
 	return (0);
 }
 
@@ -218,8 +208,8 @@ int main()
 {
 	int		numba = 123;
 
-	ft_printf("bisouzouzou %6d\n", numba);
-	printf("\n%5d Actual printf\n", numba);
+	ft_printf("%5d\n", numba);
+	printf("%5d\n", numba);
 //	i = printf("OG test : %x \n", numba);
 //	printf("%d i == %d\n", numba, i);
 	return (0);
