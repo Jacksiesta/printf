@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/31 14:28:20 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:48:26 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,46 +91,45 @@ char    *convers_d(va_list ap, t_flag *flag)
 	if (flag->precision && flag->precision > size) //add 0s precision
 		final = ft_strjoin(final, pad_maker('0', flag->precision - size));
 	final = ft_strjoin(final, init);
+//	if (flag->zero_flag)
+//	{
+//		final = ft_strjoin(final, ft_strjoin(pad_maker('0', flag->width - size), init));
+//		return (final);
+//	}
 	if (flag->minus_flag && flag->width > size)
 	{
-		final = ft_strjoin(final, pad_maker(' ', flag->width - size - neg));
+		if (flag->precision != -1)
+			final = ft_strjoin(final, pad_maker(' ', flag->width - flag->precision - neg));
+		else
+			final = ft_strjoin(final, pad_maker(' ', flag->width - size - neg));
 		return (final);
 	}
-	if (flag->width && flag->width > flag->precision) //add sp for width
+//	if (flag->zero_flag)
+//	{
+//		final = ft_strjoin(pad_maker('0', flag->width - size), final);
+//		return (final);
+//	}
+	if (flag->width && flag->width > flag->precision && flag->width > size) //add sp for width
 	{
 		if (flag->precision == -1)
 		{
 			if (neg)
-			{
-				if (flag->width > size)
 					final = ft_strjoin(pad_maker(' ', flag->width - size - 1), final);
-			}
 			else
 			{
-				if (flag->zero_flag && flag->width > size)
+				if (flag->zero_flag)
 					final = ft_strjoin(pad_maker(' ', flag->width - size), final);
 				else
-				{
-					if (flag->width > size)
-						final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-				}
+					final = ft_strjoin(pad_maker(' ', flag->width - size), final);
 			}
 		}
 		else
-		{
-			if (flag->minus_flag)
-			{
-				final = ft_strjoin(final, pad_maker(' ', flag->width - flag->precision));
-			}
-			else
-				final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - neg), final);
-		}
+			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - neg), final);
 	}
-//	ft_putstr(final);
 	return (final);
 }
 
-int		size_percent(const char *str) // len de % à specifier
+int		size_percent(const char *str)
 {
 	int x;
 	int	y;
@@ -194,17 +193,18 @@ int		ft_printf(const char *coucou, ...)
 	return (ft_strlen(buffer));
 }
 
-int main()
-{
-	int		numba = 123;
-
-//	printf("%d\n", ft_printf("YES%7d", 33));
-	ft_printf("%-7d", -33);
-	printf("\n%-7d", -33);
-//	printf("%.10d\n", 33);
-//	printf("3.%-5d\n", -33);
-//	printf("2.%-15.7d\n", 33);
-//	printf("1.%-5.7d\n", -33);
-//	printf("\n%7d\n", 33);
-	return (0);
-}
+//int main()
+//{
+//	int		numba = 123;
+//
+////	printf("%d\n", ft_printf("YES%7d", 33));
+//	ft_printf("%07d", -54);
+//	printf("\n%07d\n", -54);
+////	printf("\n%-1d", 33);
+////	printf("%.10d\n", 33);
+////	printf("3.%-5d\n", -33);
+////	printf("2.%-15.7d\n", 33);
+////	printf("1.%-5.7d\n", -33);
+////	printf("\n%7d\n", 33);
+//	return (0);
+//}
