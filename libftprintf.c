@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/29 19:23:26 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:09:03 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,49 +79,40 @@ char    *convers_d(va_list ap, t_flag *flag)
 	num = (num < 0) ? -num : num;
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
-	printf("_________\nsize init is %d\n", size);
-	printf(":%d zero flag t1 \n", flag->zero_flag);	
-	printf(":%d minus flag t1 \n", flag->minus_flag);
-	printf(":%d width t1 \n", flag->width);
-	printf(":%d precision t1\n", flag->precision);
-	printf("init string is :%s\n_______\n", init);
+//	printf("_________\nsize init is %d\n", size);
+//	printf(":%d zero flag t1 \n", flag->zero_flag);	
+//	printf(":%d minus flag t1 \n", flag->minus_flag);
+//	printf(":%d width t1 \n", flag->width);
+//	printf(":%d precision t1\n", flag->precision);
+//	printf("init string is :%s\n_______\n", init);
 	final = ft_strdup("");
 	if (neg)
 		final = ft_strdup(pad_maker('-', 1));
-	printf("final minus :%s\n", final);
 	if (flag->precision && flag->precision > size) //add 0s precision
-	{
 		final = ft_strjoin(final, pad_maker('0', flag->precision - size));
-		printf("final prec t2 :%s\n", final);
-	}
 	final = ft_strjoin(final, init);
-	printf("final t3 :%s\n", final);
 	if (flag->width && flag->width > flag->precision) //add sp for width
 	{
 		if (flag->precision == -1)
 		{
 			if (neg)
 			{
-				final = ft_strjoin(pad_maker(' ', flag->width - size - 1), final);
-				printf("final NEG NEW is :%s\n", final);
+				if (flag->width > size)
+					final = ft_strjoin(pad_maker(' ', flag->width - size - 1), final);
 			}
 			else
 			{
 				if (flag->zero_flag && flag->width > size)
-				{
 					final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-				}
 				else
 				{
-					final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-					printf("final new if :%s\n", final);
+					if (flag->width > size)
+						final = ft_strjoin(pad_maker(' ', flag->width - size), final);
 				}
 			}
 		}
 		else
-		{
 			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - neg), final);
-		}
 //		if (neg)
 //		{
 //			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - size), final);
@@ -138,7 +129,7 @@ char    *convers_d(va_list ap, t_flag *flag)
 //	{
 //		final = ft_strjoin(pad_maker(' ', flag->width - size), final);
 //	}
-	printf("final t5 :%s\n", final);
+//	printf("final t5 :%s\n", final);
 	ft_putstr(final);
 	return (0);
 }
@@ -191,21 +182,24 @@ int		ft_printf(const char *coucou, ...)
 				ft_p(ap);
 			x = x + len;
 		}
-		write(1, &coucou[x], 1);
-		x++;
+		else
+		{
+			write(1, &coucou[x], 1);
+			x++;
+		}
 	}
 	return (0);
 }
 
-int main()
-{
-	int		numba = 123;
-
-	ft_printf("%7.5d\n", numba);
-	printf("%-10.5d min with prec\n", numba);
-	printf("%10.5d with prec\n", numba);
-	printf("%-5d no prec\n", numba);
-//	i = printf("OG test : %x \n", numba);
-//	printf("%d i == %d\n", numba, i);
-	return (0);
-}
+//int main()
+//{
+//	int		numba = 123;
+//
+//	ft_printf("%4d", -94827);
+//	printf("\n%4d min with prec\n", -94827);
+//	printf("%10.5d with prec\n", numba);
+//	printf("%-5d no prec\n", numba);
+////	i = printf("OG test : %x \n", numba);
+////	printf("%d i == %d\n", numba, i);
+//	return (0);
+//}
