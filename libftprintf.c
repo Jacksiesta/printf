@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/31 12:09:03 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/01/31 14:28:20 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ char    *convers_d(va_list ap, t_flag *flag)
 	init = ft_d(num); // number stocked in string
 	size = ft_strlen(init);
 //	printf("_________\nsize init is %d\n", size);
-//	printf(":%d zero flag t1 \n", flag->zero_flag);	
-//	printf(":%d minus flag t1 \n", flag->minus_flag);
-//	printf(":%d width t1 \n", flag->width);
-//	printf(":%d precision t1\n", flag->precision);
+//	printf(":%d zero flag \n", flag->zero_flag);	
+//	printf(":%d minus flag \n", flag->minus_flag);
+//	printf(":%d width \n", flag->width);
+//	printf(":%d precision \n", flag->precision);
 //	printf("init string is :%s\n_______\n", init);
 	final = ft_strdup("");
 	if (neg)
@@ -91,6 +91,11 @@ char    *convers_d(va_list ap, t_flag *flag)
 	if (flag->precision && flag->precision > size) //add 0s precision
 		final = ft_strjoin(final, pad_maker('0', flag->precision - size));
 	final = ft_strjoin(final, init);
+	if (flag->minus_flag && flag->width > size)
+	{
+		final = ft_strjoin(final, pad_maker(' ', flag->width - size - neg));
+		return (final);
+	}
 	if (flag->width && flag->width > flag->precision) //add sp for width
 	{
 		if (flag->precision == -1)
@@ -112,26 +117,17 @@ char    *convers_d(va_list ap, t_flag *flag)
 			}
 		}
 		else
-			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - neg), final);
-//		if (neg)
-//		{
-//			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - size), final);
-//			printf("final t -neg :%s\n", final);
-//		}
-//		else if (!neg)
-//		{
-//			final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - size + 1), final);
-//			printf("final t -pos :%s\n", final);
-//		}
-//		printf("final t4 :%s\n", final);
+		{
+			if (flag->minus_flag)
+			{
+				final = ft_strjoin(final, pad_maker(' ', flag->width - flag->precision));
+			}
+			else
+				final = ft_strjoin(pad_maker(' ', flag->width - flag->precision - neg), final);
+		}
 	}
-//	if (flag->width && (flag->precision == -1))
-//	{
-//		final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-//	}
-//	printf("final t5 :%s\n", final);
-	ft_putstr(final);
-	return (0);
+//	ft_putstr(final);
+	return (final);
 }
 
 int		size_percent(const char *str) // len de % à specifier
@@ -156,10 +152,16 @@ int		ft_printf(const char *coucou, ...)
 	int		x;
 	int     len;
 	va_list	ap;
+	char	*buffer;
+	char	*temp;
 	t_flag	flag;
 
 	x = 0;
 	va_start(ap, coucou);
+	if (!(buffer = (char *)malloc(sizeof(char) * 10000000000)))
+		return (0);
+	if (!(temp = (char *)malloc(sizeof(char) * 100000000000)))
+		return (0);
 	while (coucou[x])
 	{
 		if (coucou[x] == '%')
@@ -168,38 +170,41 @@ int		ft_printf(const char *coucou, ...)
 		    len = size_percent(coucou);
 			if (coucou[x + len - 1] == 's')
 				ft_s(ap);
-			if (coucou[x + len - 1] == 'c')
+			else if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
-			if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
-				convers_d(ap, &flag);
-			if (coucou[x + len - 1] == 'x')
+			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
+				temp = convers_d(ap, &flag);
+			else if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
-			if (coucou[x + len - 1] == 'X')
+			else if (coucou[x + len - 1] == 'X')
 				ft_xx(ap);
-			if (coucou[x + len - 1] == 'u')
+			else if (coucou[x + len - 1] == 'u')
 				ft_u(ap);
-			if (coucou[x + len - 1] == 'p')
+			else if (coucou[x + len - 1] == 'p')
 				ft_p(ap);
-			x = x + len;
+//			if (coucou[x + len - 1] == '%')
+			buffer = ft_strjoin(buffer, temp);
+			x = x + len - 1;
 		}
 		else
-		{
-			write(1, &coucou[x], 1);
-			x++;
-		}
+			buffer[x] = coucou[x];
+		x++;
 	}
-	return (0);
+	ft_putstr(buffer);
+	return (ft_strlen(buffer));
 }
 
-//int main()
-//{
-//	int		numba = 123;
-//
-//	ft_printf("%4d", -94827);
-//	printf("\n%4d min with prec\n", -94827);
-//	printf("%10.5d with prec\n", numba);
-//	printf("%-5d no prec\n", numba);
-////	i = printf("OG test : %x \n", numba);
-////	printf("%d i == %d\n", numba, i);
-//	return (0);
-//}
+int main()
+{
+	int		numba = 123;
+
+//	printf("%d\n", ft_printf("YES%7d", 33));
+	ft_printf("%-7d", -33);
+	printf("\n%-7d", -33);
+//	printf("%.10d\n", 33);
+//	printf("3.%-5d\n", -33);
+//	printf("2.%-15.7d\n", 33);
+//	printf("1.%-5.7d\n", -33);
+//	printf("\n%7d\n", 33);
+	return (0);
+}
