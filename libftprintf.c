@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 21:09:45 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/01 21:51:05 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*convers_d(va_list ap, t_flag *flag)
 		if (flag->precision > size)
 			final = ft_strjoin(pad_maker('0', flag->precision - size), init);
 		else
-			final = ft_strdup(init);
+			final = ft_strdup(init); // gets rid of 0
 	}
 	if (flag->minus_flag)
 	{
@@ -101,6 +101,8 @@ char	*convers_d(va_list ap, t_flag *flag)
 	{
 		if (flag->width > size)
 		{
+			if (flag->precision == 0 && num == 0)
+				return (pad_maker(' ', flag->width));
 			if (neg)
 				final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
 			if (flag->precision != -1 && flag->precision > size)
@@ -134,6 +136,7 @@ int		size_percent(const char *str)
 int		ft_printf(const char *coucou, ...)
 {
 	int		x;
+	int		y;
 	int     len;
 	va_list	ap;
 	char	*buffer;
@@ -141,6 +144,7 @@ int		ft_printf(const char *coucou, ...)
 	t_flag	flag;
 
 	x = 0;
+	y = 0;
 	va_start(ap, coucou);
 	if (!(buffer = (char *)malloc(sizeof(char) * 10000000000)))
 		return (0);
@@ -157,7 +161,9 @@ int		ft_printf(const char *coucou, ...)
 			else if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
 			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
+			{
 				temp = convers_d(ap, &flag);
+			}
 			else if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
 			else if (coucou[x + len - 1] == 'X')
@@ -169,10 +175,12 @@ int		ft_printf(const char *coucou, ...)
 //			if (coucou[x + len - 1] == '%')
 			buffer = ft_strjoin(buffer, temp);
 			x = x + len - 1;
+			y = y + ft_strlen(temp) - 1;
 		}
 		else
-			buffer[x] = coucou[x];
+			buffer[y] = coucou[x];
 		x++;
+		y++;
 	}
 	ft_putstr(buffer);
 	return (ft_strlen(buffer));
@@ -183,7 +191,7 @@ int		ft_printf(const char *coucou, ...)
 ////	int		numba = 123;
 //
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("%5.0d", 0);
-//	printf("\n%5.d\n", 0);
+//	ft_printf("[%d] [%d]", 12345, 56789);
+////	printf("[%d] [%d]", 12345, 56789);
 //	return (0);
 //}

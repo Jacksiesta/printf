@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 19:25:08 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/01 21:37:18 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_x(va_list ap);
 char	ft_hex_maj_conversion(int n);
 char	*ft_xx(va_list ap);
 char	*ft_p(va_list ap);
-const char	*pad_maker(char c, int len);
+char	*pad_maker(char c, int len);
+int		search_for(char c, char *str);
 
 #endif
