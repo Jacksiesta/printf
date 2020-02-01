@@ -6,11 +6,25 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 19:29:00 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/01 20:49:45 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+int			search_for(char c, char *str)
+{
+	int x;
+
+	x = 0;
+	while (str[x])
+	{
+		if (str[x] == c)
+			return (0);
+		x++;	
+	}
+	return (1);
+}
 
 const char 	*pad_maker(char c, int len)
 {

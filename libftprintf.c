@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 20:36:28 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/01 20:50:01 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,15 @@ char	*convers_d(va_list ap, t_flag *flag)
 	{
 		if (flag->width > size)
 		{
+			if (neg)
+				final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
 			if (flag->precision != -1)
 				final = ft_strjoin(pad_maker(' ', flag->width - neg - flag->precision), final);	
 			else
 				final = ft_strjoin(pad_maker(' ', flag->width - size - neg), final);
 		}
 	}
-	if (neg)
+	if (neg && search_for('-', final))
 		final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
 	return (final);
 }
@@ -183,7 +185,7 @@ int		ft_printf(const char *coucou, ...)
 ////	int		numba = 123;
 //
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("%8.5d", 14);
-//	printf("\n%8.5d\n", 14);
+//	ft_printf("%d", -14);
+//	printf("\n%d\n", -14);
 //	return (0);
 //}
