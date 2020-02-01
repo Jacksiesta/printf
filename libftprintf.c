@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 20:57:49 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/01 21:09:45 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	init_struct(flag);
 	if (ft_isalpha(str[x]) == 0)
 	{
-        if (str[x] == '-')
-        {
-            flag->minus_flag = 1;
-            x++;
-        }
         if (str[x] == '0')
         {
             flag->zero_flag = 1;
+            x++;
+        }
+        if (str[x] == '-')
+        {
+            flag->minus_flag = 1;
             x++;
         }
         if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
@@ -90,7 +90,7 @@ char	*convers_d(va_list ap, t_flag *flag)
 	if (flag->minus_flag)
 	{
 		if (flag->width > size)
-			final = ft_strjoin(final, pad_maker(' ', flag->width - size - neg));
+			final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final) - neg));
 	}
 	if (flag->zero_flag)
 	{
@@ -183,7 +183,7 @@ int		ft_printf(const char *coucou, ...)
 ////	int		numba = 123;
 //
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("%d", -14);
-//	printf("\n%d\n", -14);
+//	ft_printf("%5.0d", 0);
+//	printf("\n%5.d\n", 0);
 //	return (0);
 //}
