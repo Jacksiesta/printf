@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 20:24:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/01 20:36:28 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ char	*convers_d(va_list ap, t_flag *flag)
 		else
 			final = ft_strdup(init);
 	}
-	if (neg)
-		final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
+//	if (neg)
+//		final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
 	if (flag->minus_flag)
 	{
 		if (flag->width > size)
@@ -97,14 +97,20 @@ char	*convers_d(va_list ap, t_flag *flag)
 	if (flag->zero_flag)
 	{
 		if (flag->width > size)
-			final = ft_strjoin(pad_maker('0', flag->width - size), final);
+			final = ft_strjoin(pad_maker('0', flag->width - size - neg), final);
 	}
 	if (flag->width && !flag->minus_flag && !flag->zero_flag)
 	{
 		if (flag->width > size)
-			final = ft_strjoin(pad_maker(' ', flag->width - size - neg), final);
+		{
+			if (flag->precision != -1)
+				final = ft_strjoin(pad_maker(' ', flag->width - neg - flag->precision), final);	
+			else
+				final = ft_strjoin(pad_maker(' ', flag->width - size - neg), final);
+		}
 	}
-
+	if (neg)
+		final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
 	return (final);
 }
 
@@ -177,7 +183,7 @@ int		ft_printf(const char *coucou, ...)
 ////	int		numba = 123;
 //
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("%05d", -43);
-//	printf("\n%05d\n", -43);
+//	ft_printf("%8.5d", 14);
+//	printf("\n%8.5d\n", 14);
 //	return (0);
 //}
