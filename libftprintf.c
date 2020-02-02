@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 21:51:05 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/02 19:20:29 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,35 @@ char	*convers_d(va_list ap, t_flag *flag)
 	return (final);
 }
 
+char	*convers_s(va_list ap, t_flag *flag)
+{
+	char	*init;
+	char	*final;
+	int		size;
+	
+	final = ft_strdup("");
+	init = va_arg(ap, char *);
+	size = ft_strlen(init);
+	if (flag->precision != -1)
+	{
+		if (flag->precision < size)
+			final = ft_strdup(cropped_str(init, flag->precision));
+		else
+			final = ft_strdup(init);
+	}
+	if (flag->precision == -1)
+		final = ft_strdup(init);	
+	if (flag->minus_flag)
+		if (flag->width > size)
+			final = ft_strjoin(final, pad_maker(' ', flag->width - size));
+	if (flag->width && !flag->minus_flag)
+	{
+		if (flag->width > ft_strlen(final))
+			final = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(final)), final);	
+	}
+	return (final);
+}
+
 int		size_percent(const char *str)
 {
 	int x;
@@ -157,13 +186,11 @@ int		ft_printf(const char *coucou, ...)
 			parser(ap, &coucou[x + 1], &flag);
 		    len = size_percent(coucou);
 			if (coucou[x + len - 1] == 's')
-				ft_s(ap);
+				temp = convers_s(ap, &flag);
 			else if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
 			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
-			{
 				temp = convers_d(ap, &flag);
-			}
 			else if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
 			else if (coucou[x + len - 1] == 'X')
@@ -188,10 +215,9 @@ int		ft_printf(const char *coucou, ...)
 
 //int main()
 //{
-////	int		numba = 123;
-//
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("[%d] [%d]", 12345, 56789);
+//	ft_printf("%5.2s\n", "abc");
+//	printf("%5.2s\n", "acb");
 ////	printf("[%d] [%d]", 12345, 56789);
 //	return (0);
 //}

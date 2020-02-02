@@ -6,11 +6,27 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 21:37:11 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/02 19:20:31 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+char	*cropped_str(char *str, int len)
+{
+	char	*final;
+	int		x;
+	
+	x = 0;
+	if (!(final = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (len--)
+	{
+		final[x] = str[x];
+		x++;
+	}
+	return (final);
+}
 
 int			search_for(char c, char *str)
 {
@@ -58,13 +74,13 @@ void	ft_putchar(char c)
     write(1, &c, 1);
 }
 
-char	ft_s(va_list ap)
-{
-    char	*value;
-    value = va_arg(ap, char*);
-    write(1, value, ft_strlen(value));
-    return (0);
-}
+//char	ft_s(char *str)
+//{
+//    char	*value;
+//    value = va_arg(ap, char*);
+////    write(1, value, ft_strlen(value));
+//    return (value);
+//}
 
 char	ft_c(va_list ap)
 {

@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/01 21:37:18 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/02 17:04:34 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ char	*ft_xx(va_list ap);
 char	*ft_p(va_list ap);
 char	*pad_maker(char c, int len);
 int		search_for(char c, char *str);
+char	*cropped_str(char *str, int len);
 
 #endif
