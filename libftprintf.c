@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/02 19:20:29 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/03 20:47:42 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,10 @@ char	*convers_s(va_list ap, t_flag *flag)
 	
 	final = ft_strdup("");
 	init = va_arg(ap, char *);
-	size = ft_strlen(init);
+	if (init)
+		size = ft_strlen(init);
+	if (!init)
+		return (NULL);
 	if (flag->precision != -1)
 	{
 		if (flag->precision < size)
@@ -135,8 +138,8 @@ char	*convers_s(va_list ap, t_flag *flag)
 	if (flag->precision == -1)
 		final = ft_strdup(init);	
 	if (flag->minus_flag)
-		if (flag->width > size)
-			final = ft_strjoin(final, pad_maker(' ', flag->width - size));
+		if (flag->width > ft_strlen(final)) // size of init
+			final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
 	if (flag->width && !flag->minus_flag)
 	{
 		if (flag->width > ft_strlen(final))
@@ -175,22 +178,29 @@ int		ft_printf(const char *coucou, ...)
 	x = 0;
 	y = 0;
 	va_start(ap, coucou);
-	if (!(buffer = (char *)malloc(sizeof(char) * 10000000000)))
+	if (!(buffer = (char *)malloc(sizeof(char) * 1000000)))
 		return (0);
-	if (!(temp = (char *)malloc(sizeof(char) * 100000000000)))
+	if (!(temp = (char *)malloc(sizeof(char) * 1000000)))
 		return (0);
 	while (coucou[x])
 	{
 		if (coucou[x] == '%')
 		{
+			init_struct(&flag);
 			parser(ap, &coucou[x + 1], &flag);
-		    len = size_percent(coucou);
+		    len = size_percent(&coucou[x]);
 			if (coucou[x + len - 1] == 's')
+			{
 				temp = convers_s(ap, &flag);
+				y = y + ft_strlen(temp) - 1;
+			}
 			else if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
 			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
+			{
 				temp = convers_d(ap, &flag);
+				y = y + ft_strlen(temp) - 1;
+			}
 			else if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
 			else if (coucou[x + len - 1] == 'X')
@@ -202,7 +212,7 @@ int		ft_printf(const char *coucou, ...)
 //			if (coucou[x + len - 1] == '%')
 			buffer = ft_strjoin(buffer, temp);
 			x = x + len - 1;
-			y = y + ft_strlen(temp) - 1;
+			temp = ft_strdup("");
 		}
 		else
 			buffer[y] = coucou[x];
@@ -216,8 +226,10 @@ int		ft_printf(const char *coucou, ...)
 //int main()
 //{
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("%5.2s\n", "abc");
-//	printf("%5.2s\n", "acb");
+//	printf("%-7.5s\n", "tubularrs");
+//	ft_printf("%-7.5s\n", "tubularrs");
+////	ft_printf("%3.s", NULL);
+////	printf("%.5s%7s\n", "abc", "boi");
 ////	printf("[%d] [%d]", 12345, 56789);
 //	return (0);
 //}
