@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/03 20:47:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/03 23:33:43 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,19 @@ char	*convers_s(va_list ap, t_flag *flag)
 	return (final);
 }
 
+char	*convers_prc(va_list ap, t_flag *flag)
+{
+	char	*init;
+	char	*final;
+	int		size;
+
+	final = ft_strdup("");
+	init = va_arg(ap, char *);
+	printf("coucou\n");
+	return (0);
+}
+
+
 int		size_percent(const char *str)
 {
 	int x;
@@ -156,7 +169,9 @@ int		size_percent(const char *str)
 	x = 0;
 	y = 1;
 	while (str[x] != '%')
+	{
 		x++;
+	}
 	while (ft_isalpha(str[x]) == 0)
 	{
 		x++;
@@ -164,6 +179,19 @@ int		size_percent(const char *str)
 	}
 	return (y);
 }
+
+int		size_percent_percent(const char *str)
+{
+	int x;
+
+	x = 0;
+	while (str[x] != '%')
+	{
+		x++;
+	}
+	return (x);
+}
+
 
 int		ft_printf(const char *coucou, ...)
 {
@@ -188,19 +216,17 @@ int		ft_printf(const char *coucou, ...)
 		{
 			init_struct(&flag);
 			parser(ap, &coucou[x + 1], &flag);
-		    len = size_percent(&coucou[x]);
-			if (coucou[x + len - 1] == 's')
+		    len = size_percent(&coucou[x]); 
+			if (coucou[x] == '%' && coucou[x + 3] == '%')
 			{
-				temp = convers_s(ap, &flag);
-				y = y + ft_strlen(temp) - 1;
+				temp = convers_prc(ap, &flag);
 			}
+			if (coucou[x + len - 1] == 's')
+				temp = convers_s(ap, &flag);
 			else if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
 			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
-			{
 				temp = convers_d(ap, &flag);
-				y = y + ft_strlen(temp) - 1;
-			}
 			else if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
 			else if (coucou[x + len - 1] == 'X')
@@ -209,7 +235,15 @@ int		ft_printf(const char *coucou, ...)
 				ft_u(ap);
 			else if (coucou[x + len - 1] == 'p')
 				ft_p(ap);
-//			if (coucou[x + len - 1] == '%')
+//			if (coucou[x] == '%' && coucou[x + len - 1] == '%')
+//			{
+//				printf("coucou\n");
+//				printf("first char is %c\n", coucou[x]);
+//				printf("2nd char is %c\n", coucou[x + 1]);
+//				printf("last char is %c\n", coucou[x + len - 1]);
+//				temp = convers_prc(ap, &flag);
+//			}
+			y = y + ft_strlen(temp) - 1;
 			buffer = ft_strjoin(buffer, temp);
 			x = x + len - 1;
 			temp = ft_strdup("");
@@ -223,13 +257,13 @@ int		ft_printf(const char *coucou, ...)
 	return (ft_strlen(buffer));
 }
 
-//int main()
-//{
-////	printf("%d\n", ft_printf("YES%7d", 33));
-//	printf("%-7.5s\n", "tubularrs");
-//	ft_printf("%-7.5s\n", "tubularrs");
-////	ft_printf("%3.s", NULL);
-////	printf("%.5s%7s\n", "abc", "boi");
-////	printf("[%d] [%d]", 12345, 56789);
-//	return (0);
-//}
+int main()
+{
+//	printf("%d\n", ft_printf("YES%7d", 33));
+	ft_printf("%15%");
+	printf("\n%%");
+//	ft_printf("%3.s", NULL);
+//	printf("%.5s%7s\n", "abc", "boi");
+//	printf("[%d] [%d]", 12345, 56789);
+	return (0);
+}
