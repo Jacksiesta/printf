@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/03 23:33:43 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:05:54 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,7 @@ int		size_percent(const char *str)
 	x = 0;
 	y = 1;
 	while (str[x] != '%')
-	{
 		x++;
-	}
 	while (ft_isalpha(str[x]) == 0)
 	{
 		x++;
@@ -186,9 +184,7 @@ int		size_percent_percent(const char *str)
 
 	x = 0;
 	while (str[x] != '%')
-	{
 		x++;
-	}
 	return (x);
 }
 
@@ -216,9 +212,10 @@ int		ft_printf(const char *coucou, ...)
 		{
 			init_struct(&flag);
 			parser(ap, &coucou[x + 1], &flag);
-		    len = size_percent(&coucou[x]); 
-			if (coucou[x] == '%' && coucou[x + 3] == '%')
+		    len = size_percent(&coucou[x]);
+			if (search_for('%', &coucou[x + 1]) == 0)
 			{
+				len = size_percent_percent(&coucou[x]);
 				temp = convers_prc(ap, &flag);
 			}
 			if (coucou[x + len - 1] == 's')

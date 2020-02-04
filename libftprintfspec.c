@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/02 19:20:31 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:02:14 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*cropped_str(char *str, int len)
 	return (final);
 }
 
-int			search_for(char c, char *str)
+int			search_for(char c, const char *str)
 {
 	int x;
 
