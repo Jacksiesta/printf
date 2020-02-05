@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/04 18:05:54 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/05 02:27:59 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_struct(t_flag *flag)
 	flag->precision = -1;
 }
 
-char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
+int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 {
     int		x;
 
@@ -28,17 +28,19 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	init_struct(flag);
 	if (ft_isalpha(str[x]) == 0)
 	{
-        if (str[x] == '0')
+        while (str[x] == '0')
         {
             flag->zero_flag = 1;
             x++;
         }
-        if (str[x] == '-')
+        while (str[x] == '-')
         {
             flag->minus_flag = 1;
             x++;
         }
-        if (str[x] == '*' || (str[x] >= '0' && str[x] <= '9'))
+		while (str[x] == '0')
+			x++;
+        if (str[x] == '*' || (str[x] >= '1' && str[x] <= '9'))
         {
             if (str[x] == '*')
             {
@@ -63,6 +65,8 @@ char	*parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	}
 	if (flag->precision != -1 || flag->minus_flag != 0)
 		flag->zero_flag = 0;
+	if (str[x] == '%')
+		return (1);
     return (0);
 }
 
@@ -148,16 +152,22 @@ char	*convers_s(va_list ap, t_flag *flag)
 	return (final);
 }
 
-char	*convers_prc(va_list ap, t_flag *flag)
+char	*convers_prc(t_flag *flag)
 {
-	char	*init;
 	char	*final;
 	int		size;
 
-	final = ft_strdup("");
-	init = va_arg(ap, char *);
-	printf("coucou\n");
-	return (0);
+	final = ft_strdup("%");
+	if (flag->minus_flag)
+		if (flag->width > 1)
+			return (ft_strjoin(final, pad_maker(' ', flag->width - 1)));
+	if (flag->zero_flag)
+		if (flag->width > 1)
+			return (ft_strjoin(pad_maker('0', flag->width - 1), final));
+	if (flag->width && !flag->minus_flag && !flag->zero_flag)
+		if (flag->width > 1)
+			return (ft_strjoin(pad_maker(' ', flag->width - 1), final));
+	return (final);
 }
 
 
@@ -182,7 +192,7 @@ int		size_percent_percent(const char *str)
 {
 	int x;
 
-	x = 0;
+	x = 1;
 	while (str[x] != '%')
 		x++;
 	return (x);
@@ -212,18 +222,26 @@ int		ft_printf(const char *coucou, ...)
 		{
 			init_struct(&flag);
 			parser(ap, &coucou[x + 1], &flag);
-		    len = size_percent(&coucou[x]);
-			if (search_for('%', &coucou[x + 1]) == 0)
+			if (parser(ap, &coucou[x + 1], &flag) == 1)
 			{
-				len = size_percent_percent(&coucou[x]);
-				temp = convers_prc(ap, &flag);
+				len = size_percent_percent(&coucou[x + 1]) + 1;
+				temp = convers_prc(&flag);
+				x = x + len;
 			}
+		    len = size_percent(&coucou[x]);
+			printf("x is %d\n", x);
 			if (coucou[x + len - 1] == 's')
+			{
 				temp = convers_s(ap, &flag);
+				x = x + len - 1;
+			}
 			else if (coucou[x + len - 1] == 'c')
 				ft_c(ap);
 			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
+			{
 				temp = convers_d(ap, &flag);
+				x = x + len - 1;
+			}
 			else if (coucou[x + len - 1] == 'x')
 				ft_x(ap);
 			else if (coucou[x + len - 1] == 'X')
@@ -232,17 +250,11 @@ int		ft_printf(const char *coucou, ...)
 				ft_u(ap);
 			else if (coucou[x + len - 1] == 'p')
 				ft_p(ap);
-//			if (coucou[x] == '%' && coucou[x + len - 1] == '%')
-//			{
-//				printf("coucou\n");
-//				printf("first char is %c\n", coucou[x]);
-//				printf("2nd char is %c\n", coucou[x + 1]);
-//				printf("last char is %c\n", coucou[x + len - 1]);
-//				temp = convers_prc(ap, &flag);
-//			}
-			y = y + ft_strlen(temp) - 1;
+//			y = y + ft_strlen(temp) - 1;
+			printf("buffer before is %s\n", buffer);
 			buffer = ft_strjoin(buffer, temp);
-			x = x + len - 1;
+			printf("buffer after is %s\n", buffer);
+	//		x = x + len - 1;
 			temp = ft_strdup("");
 		}
 		else
@@ -257,10 +269,11 @@ int		ft_printf(const char *coucou, ...)
 int main()
 {
 //	printf("%d\n", ft_printf("YES%7d", 33));
-	ft_printf("%15%");
-	printf("\n%%");
-//	ft_printf("%3.s", NULL);
-//	printf("%.5s%7s\n", "abc", "boi");
+//	printf("%d\n", 10);
+//	ft_printf("%-0-10.5d", 123);
+	ft_printf("%05%\n");
+//	printf("REAL\n%05%\n");
+//	printf("%*%", 5);
 //	printf("[%d] [%d]", 12345, 56789);
 	return (0);
 }
