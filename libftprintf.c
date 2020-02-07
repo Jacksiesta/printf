@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 10:22:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 10:46:06 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,14 +204,13 @@ char	*convers_u(va_list ap, t_flag *flag)
     char	*init;
     int 	num;
     int		size;
-    int		neg;
     char	*final;
 
     num = va_arg(ap, int);
-    neg = (num < 0) ? 1 : 0;
-    num = (num < 0) ? -num : num;
     init = ft_u(num);
     size = ft_strlen(init);
+	if (ft_strncmp(init, "4294967295", size) == 0)
+		return (ft_strdup("4294967295"));
     final = ft_strdup("");
     if (flag->precision)
     {
@@ -223,12 +222,12 @@ char	*convers_u(va_list ap, t_flag *flag)
     if (flag->minus_flag)
     {
         if (flag->width > size)
-            final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final) - neg));
+            final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
     }
     if (flag->zero_flag)
     {
         if (flag->width > size)
-            final = ft_strjoin(pad_maker('0', flag->width - size - neg), final);
+            final = ft_strjoin(pad_maker('0', flag->width - size), final);
     }
     if (flag->width && !flag->minus_flag && !flag->zero_flag)
     {
@@ -236,16 +235,12 @@ char	*convers_u(va_list ap, t_flag *flag)
         {
             if (flag->precision == 0 && num == 0)
                 return (pad_maker(' ', flag->width));
-            if (neg)
-                final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
             if (flag->precision != -1 && flag->precision > size)
-                final = ft_strjoin(pad_maker(' ', flag->width - neg - flag->precision), final);
+                final = ft_strjoin(pad_maker(' ', flag->width - flag->precision), final);
             else
-                final = ft_strjoin(pad_maker(' ', flag->width - size - neg), final);
+                final = ft_strjoin(pad_maker(' ', flag->width - size), final);
         }
     }
-    if (neg && search_for('-', final))
-        final = ft_strjoin(ft_strdup(pad_maker('-', 1)), final);
     return (final);
 }
 

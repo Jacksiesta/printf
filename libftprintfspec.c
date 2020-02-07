@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 10:22:45 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 10:29:26 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,9 @@ char	*ft_u(unsigned int num)
     int				size;
     char			*new;
 
-    size = ft_lenght_int(num);
+    if (num == 4294967295)
+		return (ft_strdup("4294967295"));
+	size = ft_lenght_int(num);
     if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
         return (0);
     new[size] = '\0';
