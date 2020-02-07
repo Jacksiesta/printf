@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 08:24:07 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 08:30:16 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,20 @@ char	*convers_s_null(t_flag *flag)
 	char	*final;
 	
 	final = ft_strdup("(null)");
+	if (flag->precision == 0)
+	{
+		if (flag->width)
+			return (pad_maker(' ', flag->width));
+	}
 	if (flag->precision > 0 && flag->precision <= 6)
 		final = ft_substr(final, 0, flag->precision);
 	if (flag->minus_flag && flag->width)
-		final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
+	{
+		if (flag->width > 6)
+			final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
+		else
+			return (final);
+	}
 	if (flag->width && !flag->minus_flag)
 	{
 		if (flag->width > 6)
@@ -306,8 +316,8 @@ int		ft_printf(const char *coucou, ...)
 ////	printf("%d\n", ft_printf("YES%7d", 33));
 ////	printf("%d\n", 10);
 ////	ft_printf("%-0-10.5d", 123);
-//	ft_printf("%4s", NULL);
-//	printf("\n%4s\n", NULL);
+//	ft_printf("%-3s", NULL);
+//	printf("\n%-3s\n", NULL);
 ////	printf("REAL\n%05%\n");
 ////	printf("%*%", 5);
 ////	printf("[%d] [%d]", 12345, 56789);
