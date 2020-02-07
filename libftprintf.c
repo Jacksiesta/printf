@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/05 02:27:59 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 07:40:15 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,19 @@ char	*convers_s(va_list ap, t_flag *flag)
 	init = va_arg(ap, char *);
 	if (init)
 		size = ft_strlen(init);
-	if (!init)
-		return (NULL);
+	if (init == NULL)
+	{
+		init = ft_strdup("(null)");
+//		if (flag->precision != -1)
+
+		if (flag->minus_flag && flag->width > 6)
+			return (ft_strjoin(init, pad_maker(' ', flag->width - 6)));
+		if (flag->width && flag->width <= 6)
+			return (init);
+		if (flag->width > 6)
+			final = ft_strjoin(pad_maker(' ', flag->width - 6), init);
+		return (final);
+	}
 	if (flag->precision != -1)
 	{
 		if (flag->precision < size)
@@ -192,7 +203,7 @@ int		size_percent_percent(const char *str)
 {
 	int x;
 
-	x = 1;
+	x = 0;
 	while (str[x] != '%')
 		x++;
 	return (x);
@@ -214,7 +225,7 @@ int		ft_printf(const char *coucou, ...)
 	va_start(ap, coucou);
 	if (!(buffer = (char *)malloc(sizeof(char) * 1000000)))
 		return (0);
-	if (!(temp = (char *)malloc(sizeof(char) * 1000000)))
+	if (!(temp = (char *)malloc(sizeof(char) * 10000000)))
 		return (0);
 	while (coucou[x])
 	{
@@ -229,7 +240,6 @@ int		ft_printf(const char *coucou, ...)
 				x = x + len;
 			}
 		    len = size_percent(&coucou[x]);
-			printf("x is %d\n", x);
 			if (coucou[x + len - 1] == 's')
 			{
 				temp = convers_s(ap, &flag);
@@ -250,10 +260,8 @@ int		ft_printf(const char *coucou, ...)
 				ft_u(ap);
 			else if (coucou[x + len - 1] == 'p')
 				ft_p(ap);
-//			y = y + ft_strlen(temp) - 1;
-			printf("buffer before is %s\n", buffer);
+			y = y + ft_strlen(temp) - 1;
 			buffer = ft_strjoin(buffer, temp);
-			printf("buffer after is %s\n", buffer);
 	//		x = x + len - 1;
 			temp = ft_strdup("");
 		}
@@ -266,14 +274,15 @@ int		ft_printf(const char *coucou, ...)
 	return (ft_strlen(buffer));
 }
 
-int main()
-{
-//	printf("%d\n", ft_printf("YES%7d", 33));
-//	printf("%d\n", 10);
-//	ft_printf("%-0-10.5d", 123);
-	ft_printf("%05%\n");
-//	printf("REAL\n%05%\n");
-//	printf("%*%", 5);
-//	printf("[%d] [%d]", 12345, 56789);
-	return (0);
-}
+//int main()
+//{
+////	printf("%d\n", ft_printf("YES%7d", 33));
+////	printf("%d\n", 10);
+////	ft_printf("%-0-10.5d", 123);
+//	ft_printf("%-8s", NULL);
+//	printf("\n%-8s\n", NULL);
+////	printf("REAL\n%05%\n");
+////	printf("%*%", 5);
+////	printf("[%d] [%d]", 12345, 56789);
+//	return (0);
+//}
