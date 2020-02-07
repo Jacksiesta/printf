@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 09:30:44 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 10:22:45 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,13 +135,11 @@ char	*ft_d(int num)
     return (new);
 }
 
-int		ft_u(va_list ap)
+char	*ft_u(unsigned int num)
 {
-    unsigned int	num;
     int				size;
     char			*new;
 
-    num = va_arg(ap, unsigned int);
     size = ft_lenght_int(num);
     if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
         return (0);
@@ -151,8 +149,8 @@ int		ft_u(va_list ap)
         new[size] = (num % 10) + '0';
         num = num / 10;
     }
-    ft_putstr(new);
-    return (1);
+ //   ft_putstr(new);
+    return (new);
 }
 
 char	*ft_p(va_list ap)
