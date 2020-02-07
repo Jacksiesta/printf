@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 12:18:07 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:24:39 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,17 +244,37 @@ char	*convers_u(va_list ap, t_flag *flag)
     return (final);
 }
 
+char	*convers_hex_low_zero(t_flag *flag)
+{
+	char	*final;
+
+	final = ft_strdup("0");
+	if (flag->minus_flag)
+		if (flag->width > 1)
+			final = ft_strjoin(final, pad_maker(' ', flag->width - 1));
+	if (flag->zero_flag)
+		if (flag->width > 1)
+			final = ft_strdup(pad_maker('0', flag->width));
+	if (flag->width > 1 && !flag->minus_flag && !flag->zero_flag)
+		final = ft_strjoin(pad_maker(' ', flag->width - 1), final);
+	return (final);
+}
+
 char	*convers_hex_low(va_list ap, t_flag *flag)
 {
 	char	*final;
 	char	*init;
-	int		num;
+	unsigned int		num;
 	int		size;
 
 	num = va_arg(ap, int);
 	init = ft_x(num);
     size = ft_strlen(init);
-    final = ft_strdup("");
+   	final = ft_strdup("");
+	if (num == 0 && flag->precision < 0)
+		return (convers_hex_low_zero(flag));
+	if (num == 4294967295)
+		return ("ffffffff");
     if (flag->precision)
     {
         if (flag->precision > size)
@@ -285,8 +305,6 @@ char	*convers_hex_low(va_list ap, t_flag *flag)
         }
     }
     return (final);
-
-
 }
 
 int		size_percent(const char *str)
@@ -390,12 +408,8 @@ int		ft_printf(const char *coucou, ...)
 //int main()
 //{
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-////	printf("%d\n", 10);
-////	ft_printf("%-0-10.5d", 123);
-//	ft_printf("%7x", 33);
-//	printf("\n%7x\n", 33);
-////	printf("REAL\n%05%\n");
-////	printf("%*%", 5);
+//	ft_printf("%03x", 0);
+//	printf("\n%03x\n", 0);
 ////	printf("[%d] [%d]", 12345, 56789);
 //	return (0);
 //}
