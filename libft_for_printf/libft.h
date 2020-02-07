@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:45:02 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/26 16:46:56 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:31:51 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void				ft_lstdelone(t_list *lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void*));
 int					ft_lstsize(t_list *lst);
 t_list				*ft_lstlast(t_list *lst);
+char				*ft_str_upper(char *str);
 
 #endif

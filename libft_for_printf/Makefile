@@ -6,7 +6,7 @@
 #    By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 11:55:25 by jherrald          #+#    #+#              #
-#    Updated: 2019/12/19 16:35:10 by jherrald         ###   ########.fr        #
+#    Updated: 2020/02/07 14:39:14 by jherrald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = ft_atoi.c			ft_isdigit.c	ft_bzero.c		ft_isprint.c \
 		ft_memmove.c	ft_strdup.c		ft_putchar_fd.c	ft_calloc.c	\
 		ft_putstr_fd.c	ft_putendl_fd.c	ft_putnbr_fd.c	ft_strmapi.c \
 		ft_strrchr.c 	ft_itoa.c 		ft_memcmp.c 	ft_strlcpy.c 	ft_split.c \
-		ft_putchar.c \
+		ft_putchar.c 	ft_str_upper.c \
 
 SRC_B = ft_lstadd_back_bonus.c			ft_lstadd_front_bonus.c \
 		ft_lstclear_bonus.c				ft_lstdelone_bonus.c \

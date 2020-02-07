@@ -6,7 +6,7 @@
 #    By: jherrald <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/16 18:12:37 by jherrald          #+#    #+#              #
-#    Updated: 2019/12/19 16:27:49 by jherrald         ###   ########.fr        #
+#    Updated: 2020/01/28 16:42:08 by jherrald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ FLAGS = -Wall -Werror -Wextra
 
 NAME = libftprintf.a
 
-LIBFT_P = libft_for_printf/
+LIBFT_P = libft_for_printf
 
-SRC = libftprintf.c	\
+SRC = libftprintf.c libftprintfspec.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -26,7 +26,7 @@ all : $(NAME)
 $(NAME): $(OBJ) libftprintf.h
 	make -C $(LIBFT_P) all
 	cp $(LIBFT_P)/libft.a $(NAME)
-	ar rc $(NAME) $(OBJ) libftprintf.h
+	ar rc $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -c -o $@ $<

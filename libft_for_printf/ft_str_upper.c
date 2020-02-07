@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_str_upper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 12:44:18 by jherrald          #+#    #+#             */
-/*   Updated: 2020/01/27 14:06:37 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/07 14:26:56 by jherrald          #+#    #+#             */
+/*   Updated: 2020/02/07 14:41:53 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int x)
+char	*ft_str_upper(char *str)
 {
-	if ((x >= 65 && x <= 90) || (x >= 97 && x <= 122))
-		return (1);
-	return (0);
+	int x;
+
+	x = 0;
+	while (str[x])
+	{
+		if (str[x] >= 'a' && str[x] <= 'z')
+			str[x] = str[x] - 32;
+
+	x++;
+	}
+	return (str);
 }

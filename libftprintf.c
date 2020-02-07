@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 14:24:39 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:05:14 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,9 +378,11 @@ int		ft_printf(const char *coucou, ...)
 				temp = convers_d(ap, &flag);
 				x = x + len - 1;
 			}
-			else if (coucou[x + len - 1] == 'x')
+			else if (coucou[x + len - 1] == 'x' || coucou[x + len - 1] == 'X')
 			{
 				temp = convers_hex_low(ap, &flag);
+				if (coucou[x + len - 1] == 'X')
+						temp = ft_str_upper(temp);
 				x = x + len - 1;
 			}
 			else if (coucou[x + len - 1] == 'X')
@@ -405,11 +407,13 @@ int		ft_printf(const char *coucou, ...)
 	return (ft_strlen(buffer));
 }
 
-//int main()
-//{
-////	printf("%d\n", ft_printf("YES%7d", 33));
-//	ft_printf("%03x", 0);
-//	printf("\n%03x\n", 0);
-////	printf("[%d] [%d]", 12345, 56789);
-//	return (0);
-//}
+/*
+int main()
+{
+//	printf("%d\n", ft_printf("YES%7d", 33));
+	printf("\n%X\n", 42949672);
+	ft_printf("%X", 42949672);
+//	printf("[%d] [%d]", 12345, 56789);
+	return (0);
+}
+*/
