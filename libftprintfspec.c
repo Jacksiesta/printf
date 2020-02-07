@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/05 01:21:13 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 09:30:44 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char	*ft_p(va_list ap)
 	long long unsigned int	address;
 
 	address = va_arg(ap, long long unsigned int);
-	printf("address is %llu", address);
+//	printf("address is %llu", address);
 	return (0);
 }	
 
