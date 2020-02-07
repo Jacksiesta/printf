@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 07:40:15 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 08:20:15 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,26 @@ char	*convers_d(va_list ap, t_flag *flag)
 	return (final);
 }
 
+char	*convers_s_null(t_flag *flag)
+{
+	char	*final;
+	char	*init;
+	
+	init = ft_strdup("(null)");
+	if (flag->precision > 0 && flag->precision <= 6)
+		final = ft_substr(init, 0, flag->precision);
+	if (flag->minus_flag && flag->width)
+		final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
+	if (flag->width && !flag->minus_flag)
+	{
+		if (flag->width > 6)
+			final = ft_strjoin(pad_maker(' ', flag->width - 6), init);
+		else
+			return (init);
+	}
+	return (final);
+}
+
 char	*convers_s(va_list ap, t_flag *flag)
 {
 	char	*init;
@@ -132,15 +152,23 @@ char	*convers_s(va_list ap, t_flag *flag)
 		size = ft_strlen(init);
 	if (init == NULL)
 	{
-		init = ft_strdup("(null)");
-//		if (flag->precision != -1)
-
-		if (flag->minus_flag && flag->width > 6)
-			return (ft_strjoin(init, pad_maker(' ', flag->width - 6)));
-		if (flag->width && flag->width <= 6)
-			return (init);
-		if (flag->width > 6)
-			final = ft_strjoin(pad_maker(' ', flag->width - 6), init);
+		final = convers_s_null(flag);
+//		init = ft_strdup("(null)");
+//		if (!flag->width && flag->precision == -1)
+//			return (init);
+//		if (flag->precision != -1 && flag->precision < 6)
+//		{
+//			final = ft_substr(init, 0, flag->precision);
+//		}
+//		if (flag->minus_flag && flag->width > 6)
+//			return (ft_strjoin(final, pad_maker(' ', flag->width - 6)));
+//		if (flag->width && flag->width <= 6)
+//			return (ft_strjoin(pad_maker(' ', flag->width - ft_strlen(final)), final));
+//		//	return (init);
+//		if (flag->width > 6)
+//		{
+//			final = ft_strjoin(pad_maker(' ', flag->width - 6), init);
+//		}
 		return (final);
 	}
 	if (flag->precision != -1)
@@ -279,8 +307,8 @@ int		ft_printf(const char *coucou, ...)
 ////	printf("%d\n", ft_printf("YES%7d", 33));
 ////	printf("%d\n", 10);
 ////	ft_printf("%-0-10.5d", 123);
-//	ft_printf("%-8s", NULL);
-//	printf("\n%-8s\n", NULL);
+//	ft_printf("%4s", NULL);
+//	printf("\n%4s\n", NULL);
 ////	printf("REAL\n%05%\n");
 ////	printf("%*%", 5);
 ////	printf("[%d] [%d]", 12345, 56789);
