@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 15:05:14 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:10:40 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,8 +381,10 @@ int		ft_printf(const char *coucou, ...)
 			else if (coucou[x + len - 1] == 'x' || coucou[x + len - 1] == 'X')
 			{
 				temp = convers_hex_low(ap, &flag);
-				if (coucou[x + len - 1] == 'X')
-						temp = ft_str_upper(temp);
+				if (coucou[x + len - 1] == 'X' && temp == "ffffffff")
+					temp = ft_strdup("FFFFFFFF");
+				else if (coucou[x + len - 1] == 'X')
+					temp = ft_str_upper(temp);
 				x = x + len - 1;
 			}
 			else if (coucou[x + len - 1] == 'X')
