@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 10:15:10 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 11:55:01 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ void	ft_putchar(char c);
 int		ft_lenght_int(int num);
 int		ft_lenght_hex(int num);
 char	ft_hex_conversion(int n);
-char	*ft_x(va_list ap);
+char	*ft_x(int num);
 char	ft_hex_maj_conversion(int n);
 char	*ft_xx(va_list ap);
 char	*ft_p(va_list ap);
 char	*pad_maker(char c, int len);
 int		search_for(char c, const char *str);
 char	*cropped_str(char *str, int len);
+char	*convers_hex_low(va_list ap, t_flag *flag);
 
 #endif

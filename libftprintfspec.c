@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 10:29:26 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 11:54:57 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,13 +200,11 @@ char	ft_hex_conversion(int n)
     return (0);
 }
 
-char	*ft_x(va_list ap)
+char	*ft_x(int num)
 {
-    int		num;
     int		size;
     char	*new;
 
-    num = va_arg(ap, int);
     size = ft_lenght_hex(num);
     if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
         return (NULL);
@@ -216,8 +214,8 @@ char	*ft_x(va_list ap)
         new[size] = ft_hex_conversion(num);
         num = num / 16;
     }
-    ft_putstr(new);
-    return (NULL);
+   // ft_putstr(new);
+    return (new);
 }
 
 char	ft_hex_maj_conversion(int n)

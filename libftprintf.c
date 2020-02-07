@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 10:46:06 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:18:07 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,21 +244,66 @@ char	*convers_u(va_list ap, t_flag *flag)
     return (final);
 }
 
+char	*convers_hex_low(va_list ap, t_flag *flag)
+{
+	char	*final;
+	char	*init;
+	int		num;
+	int		size;
+
+	num = va_arg(ap, int);
+	init = ft_x(num);
+    size = ft_strlen(init);
+    final = ft_strdup("");
+    if (flag->precision)
+    {
+        if (flag->precision > size)
+            final = ft_strjoin(pad_maker('0', flag->precision - size), init);
+        else
+            final = ft_strdup(init); // gets rid of 0
+    }
+    if (flag->minus_flag)
+    {
+        if (flag->width > size)
+            final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
+    }
+    if (flag->zero_flag)
+    {
+        if (flag->width > size)
+            final = ft_strjoin(pad_maker('0', flag->width - size), final);
+    }
+    if (flag->width && !flag->minus_flag && !flag->zero_flag)
+    {
+        if (flag->width > size)
+        {
+            if (flag->precision == 0 && num == 0)
+                return (pad_maker(' ', flag->width));
+            if (flag->precision != -1 && flag->precision > size)
+                final = ft_strjoin(pad_maker(' ', flag->width - flag->precision), final);
+            else
+                final = ft_strjoin(pad_maker(' ', flag->width - size), final);
+        }
+    }
+    return (final);
+
+
+}
+
 int		size_percent(const char *str)
 {
-	int x;
-	int	y;
+    int x;
+    int	y;
 
-	x = 0;
-	y = 1;
-	while (str[x] != '%')
-		x++;
-	while (ft_isalpha(str[x]) == 0)
-	{
-		x++;
-		y++;
-	}
-	return (y);
+    x = 0;
+    y = 1;
+    while (str[x] != '%')
+        x++;
+    while (ft_isalpha(str[x]) == 0)
+    {
+        x++;
+        y++;
+    }
+    return (y);
 }
 
 int		size_percent_percent(const char *str)
@@ -317,8 +362,8 @@ int		ft_printf(const char *coucou, ...)
 			}
 			else if (coucou[x + len - 1] == 'x')
 			{
-		//		temp = convers_hex_low(ap, &flag);
-		//		ft_x(ap);
+				temp = convers_hex_low(ap, &flag);
+				x = x + len - 1;
 			}
 			else if (coucou[x + len - 1] == 'X')
 				ft_xx(ap);
@@ -347,8 +392,8 @@ int		ft_printf(const char *coucou, ...)
 ////	printf("%d\n", ft_printf("YES%7d", 33));
 ////	printf("%d\n", 10);
 ////	ft_printf("%-0-10.5d", 123);
-//	ft_printf("%10u", 3);
-//	printf("\n%10u", 3);
+//	ft_printf("%7x", 33);
+//	printf("\n%7x\n", 33);
 ////	printf("REAL\n%05%\n");
 ////	printf("%*%", 5);
 ////	printf("[%d] [%d]", 12345, 56789);
