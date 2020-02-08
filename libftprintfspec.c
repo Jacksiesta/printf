@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 11:54:57 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/08 15:25:48 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ char	*cropped_str(char *str, int len)
 		final[x] = str[x];
 		x++;
 	}
+	return (final);
+}
+
+char		*add_char_to_str(char c, char *str, int i)
+{
+	int 	x;
+	char	*final;
+
+	if (!(final = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))))
+		return (NULL);
+	x = 0;
+	if (!str)
+		return (NULL);
+	if (i == 0) // front
+	{
+		final[0] = c;
+		x = 1;
+	}
+	while (*str)
+	{
+		final[x] = *str;
+		x++;
+		str++;
+	}
+	if (i == 1)
+		final[x] = c;
 	return (final);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/07 15:10:40 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/08 15:27:24 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,6 @@ char	*convers_hex_low(va_list ap, t_flag *flag)
             final = ft_strjoin(pad_maker('0', flag->width - size), final);
     }
     if (flag->width && !flag->minus_flag && !flag->zero_flag)
-    {
         if (flag->width > size)
         {
             if (flag->precision == 0 && num == 0)
@@ -302,9 +301,31 @@ char	*convers_hex_low(va_list ap, t_flag *flag)
                 final = ft_strjoin(pad_maker(' ', flag->width - flag->precision), final);
             else
                 final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-        }
     }
     return (final);
+}
+
+char	convers_char(va_list ap, t_flag *flag)
+{
+	char	*final;
+	char	c;
+
+	c = va_arg(ap, int);
+	final = ft_strdup("00");
+	if (flag->minus_flag)
+	{
+		if (flag->width)
+			final = ft_strjoin(final, pad_maker(' ', flag->width - 1));
+	}
+	if (flag->zero_flag)
+	{
+		if (flag->width)
+			final = ft_strjoin(pad_maker('0', flag->width - 1), final);
+	}
+	if (flag->width && !flag->zero_flag && !flag->minus_flag)
+		final = ft_strjoin(pad_maker(' ', flag->width - 1), final);
+	final = add_char_to_str(c, final, 0);
+	return (final);
 }
 
 int		size_percent(const char *str)
@@ -372,7 +393,10 @@ int		ft_printf(const char *coucou, ...)
 				x = x + len - 1;
 			}
 			else if (coucou[x + len - 1] == 'c')
-				ft_c(ap);
+			{
+				temp = convers_char(ap, &flag);
+				x = x + len - 1;
+			}
 			else if (coucou[x + len - 1] == 'd' || coucou[x + len - 1] == 'i')
 			{
 				temp = convers_d(ap, &flag);
@@ -409,13 +433,16 @@ int		ft_printf(const char *coucou, ...)
 	return (ft_strlen(buffer));
 }
 
-/*
-int main()
-{
-//	printf("%d\n", ft_printf("YES%7d", 33));
-	printf("\n%X\n", 42949672);
-	ft_printf("%X", 42949672);
-//	printf("[%d] [%d]", 12345, 56789);
-	return (0);
-}
-*/
+
+//int main()
+//{
+//	char c;
+//
+//	c = 'a';
+////	printf("%d\n", ft_printf("YES%7d", 33));
+//	printf("\n%c\n", c);
+//	ft_printf("%c", c);
+////	printf("[%d] [%d]", 12345, 56789);
+//	return (0);
+//}
+
