@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/08 15:26:40 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/08 17:51:25 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		search_for(char c, const char *str);
 char	*cropped_str(char *str, int len);
 char	*convers_hex_low(va_list ap, t_flag *flag);
 char	*add_char_to_str(char c, char *str, int i);
+char	*ft_percent_alone(va_list ap, t_flag *flag);
 
 #endif

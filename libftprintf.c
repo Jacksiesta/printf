@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/08 15:49:23 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:05:18 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,9 +331,22 @@ char	*convers_char(va_list ap, t_flag *flag)
 	if (flag->width && !flag->zero_flag && !flag->minus_flag)
 		final = pad_maker(' ', flag->width - 1);
 		return (add_char_to_str(c, final, 1));
-	final = add_char_to_str(c, final, 0);
-	return (final);
 }
+
+//char	*ft_percent_alone(va_list ap, t_flag *flag)
+//{
+//	char	*final;
+//
+//	final = ft_strdup("");
+//	printf("OUIcoucou\n");
+//	if (flag->width)
+//	{
+//		printf("coucou\n");
+//		return (pad_maker(' ', flag->width));
+//	}
+//	return (0);
+//	
+//}
 
 int		size_percent(const char *str)
 {
@@ -363,7 +376,7 @@ int		size_percent_percent(const char *str)
 }
 
 
-int		ft_printf(const char *coucou, ...)
+char		*ft_printf(const char *coucou, ...)
 {
 	int		x;
 	int		y;
@@ -427,16 +440,24 @@ int		ft_printf(const char *coucou, ...)
 			}
 			else if (coucou[x + len - 1] == 'p')
 				ft_p(ap);
+	//		else if (flag.width || flag.zero_flag || flag.minus_flag || flag.precision != -1)
+	//		{
+	//			temp = ft_strdup(" ");
+	//			x = x + len - 1;
+	//		}
 			y = y + ft_strlen(temp) - 1;
 			buffer = ft_strjoin(buffer, temp);
 	//		x = x + len - 1;
 		}
-		else
+		else if (coucou[x] != '%')
+		{
 			buffer[y] = coucou[x];
+		}
 		x++;
 		y++;
 	}
 	ft_putstr(buffer);
+//	return (buffer);
 	return (ft_strlen(buffer));
 }
 
@@ -447,8 +468,8 @@ int		ft_printf(const char *coucou, ...)
 //
 //	c = 'a';
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	printf("\n%05c\n", c);
-//	ft_printf("%05c", c);
+////	printf("%5\n");
+//	ft_printf("%55");
 ////	printf("[%d] [%d]", 12345, 56789);
 //	return (0);
 //}
