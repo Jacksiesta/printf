@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/08 15:27:24 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/08 15:49:23 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,25 +305,32 @@ char	*convers_hex_low(va_list ap, t_flag *flag)
     return (final);
 }
 
-char	convers_char(va_list ap, t_flag *flag)
+char	*convers_char(va_list ap, t_flag *flag)
 {
 	char	*final;
 	char	c;
 
 	c = va_arg(ap, int);
-	final = ft_strdup("00");
+	final = ft_strdup("");
 	if (flag->minus_flag)
 	{
-		if (flag->width)
-			final = ft_strjoin(final, pad_maker(' ', flag->width - 1));
+		if (flag->width > 1)
+		{
+			final = pad_maker(' ', flag->width - 1);
+			return (add_char_to_str(c, final, 0));
+		}
 	}
 	if (flag->zero_flag)
 	{
-		if (flag->width)
-			final = ft_strjoin(pad_maker('0', flag->width - 1), final);
+		if (flag->width > 1)
+		{
+			final = pad_maker('0', flag->width - 1);
+			return (add_char_to_str(c, final, 1));
+		}
 	}
 	if (flag->width && !flag->zero_flag && !flag->minus_flag)
-		final = ft_strjoin(pad_maker(' ', flag->width - 1), final);
+		final = pad_maker(' ', flag->width - 1);
+		return (add_char_to_str(c, final, 1));
 	final = add_char_to_str(c, final, 0);
 	return (final);
 }
@@ -440,8 +447,8 @@ int		ft_printf(const char *coucou, ...)
 //
 //	c = 'a';
 ////	printf("%d\n", ft_printf("YES%7d", 33));
-//	printf("\n%c\n", c);
-//	ft_printf("%c", c);
+//	printf("\n%05c\n", c);
+//	ft_printf("%05c", c);
 ////	printf("[%d] [%d]", 12345, 56789);
 //	return (0);
 //}
