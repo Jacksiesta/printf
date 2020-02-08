@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/08 18:05:18 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/08 21:25:15 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,12 @@ char	*convers_s_null(t_flag *flag)
 		else
 			return (final);
 	}
-	if (flag->width && !flag->minus_flag)
+	if (flag->zero_flag)
+	{
+		if (flag->width > ft_strlen(final))
+			final = ft_strjoin(pad_maker('0', flag->width - ft_strlen(final)), final);
+	}
+	if (flag->width && !flag->minus_flag && !flag->zero_flag)
 	{
 		if (flag->width > ft_strlen(final))
 			final = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(final)), final);
@@ -333,21 +338,6 @@ char	*convers_char(va_list ap, t_flag *flag)
 		return (add_char_to_str(c, final, 1));
 }
 
-//char	*ft_percent_alone(va_list ap, t_flag *flag)
-//{
-//	char	*final;
-//
-//	final = ft_strdup("");
-//	printf("OUIcoucou\n");
-//	if (flag->width)
-//	{
-//		printf("coucou\n");
-//		return (pad_maker(' ', flag->width));
-//	}
-//	return (0);
-//	
-//}
-
 int		size_percent(const char *str)
 {
     int x;
@@ -375,8 +365,16 @@ int		size_percent_percent(const char *str)
 	return (x);
 }
 
+/*
+int		size_percent_alone(const char *str)
+{
+	int	x;
 
-char		*ft_printf(const char *coucou, ...)
+	x = 0;
+	while (str[x] != )
+} */
+
+int		ft_printf(const char *coucou, ...)
 {
 	int		x;
 	int		y;
@@ -399,7 +397,7 @@ char		*ft_printf(const char *coucou, ...)
 		{
 			temp = ft_strdup("");
 			init_struct(&flag);
-			parser(ap, &coucou[x + 1], &flag);
+		//	parser(ap, &coucou[x + 1], &flag);
 			if (parser(ap, &coucou[x + 1], &flag) == 1)
 			{
 				len = size_percent_percent(&coucou[x + 1]) + 1;
@@ -431,8 +429,6 @@ char		*ft_printf(const char *coucou, ...)
 					temp = ft_str_upper(temp);
 				x = x + len - 1;
 			}
-			else if (coucou[x + len - 1] == 'X')
-				ft_xx(ap);
 			else if (coucou[x + len - 1] == 'u')
 			{
 				temp = convers_u(ap, &flag);
@@ -440,19 +436,17 @@ char		*ft_printf(const char *coucou, ...)
 			}
 			else if (coucou[x + len - 1] == 'p')
 				ft_p(ap);
-	//		else if (flag.width || flag.zero_flag || flag.minus_flag || flag.precision != -1)
-	//		{
-	//			temp = ft_strdup(" ");
-	//			x = x + len - 1;
-	//		}
+			else if (flag.width || flag.zero_flag || flag.minus_flag || flag.precision != -1)
+			{
+				x = x + len - 1;
+				y = y + len;
+			}
 			y = y + ft_strlen(temp) - 1;
 			buffer = ft_strjoin(buffer, temp);
 	//		x = x + len - 1;
 		}
-		else if (coucou[x] != '%')
-		{
+		else
 			buffer[y] = coucou[x];
-		}
 		x++;
 		y++;
 	}
@@ -461,16 +455,17 @@ char		*ft_printf(const char *coucou, ...)
 	return (ft_strlen(buffer));
 }
 
+/*
+int main()
+{
+	char c;
 
-//int main()
-//{
-//	char c;
-//
-//	c = 'a';
-////	printf("%d\n", ft_printf("YES%7d", 33));
-////	printf("%5\n");
-//	ft_printf("%55");
-////	printf("[%d] [%d]", 12345, 56789);
-//	return (0);
-//}
+	c = 'a';
+//	printf("%d\n", ft_printf("YES%7d", 33));
+//	printf("%5\n");
+//	ft_printf("oui :%5: oui");
+	ft_printf("%-123456789");
+//	printf("[%d] [%d]", 12345, 56789);
+	return (0);
+}*/
 
