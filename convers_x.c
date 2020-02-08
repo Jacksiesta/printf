@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:53:26 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/09 00:22:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/09 00:34:44 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*convers_hex_width(t_flag *flag, char *init, char *fn)
 		else
 			rt = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(init)), rt);
 	}
-	return (ret);
+	return (rt);
 }
 
 char	*convers_hex(va_list ap, t_flag *flag)
@@ -59,23 +59,22 @@ char	*convers_hex(va_list ap, t_flag *flag)
 	char				*fn;
 	char				*init;
 	unsigned int		num;
-	size_t				size;
 
 	num = va_arg(ap, int);
 	init = ft_x(num);
-	size = ft_strlen(init);
 	fn = ft_strdup("");
 	if (num == 0 && flag->precision < 0)
 		return (convers_hex_zero(flag));
 	if (num == 4294967295)
 		return ("ffffffff");
 	if (flag->precision)
-		fn = convers_hex_precision(flag, size, init);
-	if (flag->minus && flag->width > size)
+		fn = convers_hex_precision(flag, ft_strlen(init), init);
+	if (flag->minus && flag->width > ft_strlen(init))
 		fn = ft_strjoin(fn, pad_maker(' ', flag->width - ft_strlen(fn)));
 	if (flag->zero && flag->width > ft_strlen(init))
 		fn = ft_strjoin(pad_maker('0', flag->width - ft_strlen(init)), fn);
-	if (flag->width && !flag->minus && !flag->zero && flag->width > size)
+	if (flag->width && !flag->minus && !flag->zero &&
+			flag->width > ft_strlen(init))
 	{
 		if (flag->precision == 0 && num == 0)
 			return (pad_maker(' ', flag->width));
