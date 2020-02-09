@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/09 02:57:22 by jherrald          #+#    #+#             */
+/*   Updated: 2020/02/09 03:15:18 by jherrald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libftprintf.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/08 22:56:43 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/09 02:57:02 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +152,8 @@ char	*convers_char(va_list ap, t_flag *flag)
 
 	c = va_arg(ap, int);
 	final = ft_strdup("");
+	if (c == 0)
+		final = ft_strdup("\0");
 	if (flag->minus)
 	{
 		if (flag->width > 1)
@@ -159,6 +173,18 @@ char	*convers_char(va_list ap, t_flag *flag)
 	if (flag->width && !flag->zero && !flag->minus)
 		final = pad_maker(' ', flag->width - 1);
 		return (add_char_to_str(c, final, 1));
+}
+
+char	*convers_ptr(va_list ap, t_flag *flag)
+{
+	char	*final;
+	char	*init;
+	void	*num;
+
+	num = va_arg(ap, void *);
+	final = ft_x((int)num);
+	final = ft_strjoin(ft_strdup("0x7fff"), final);
+	return (final);
 }
 
 int		size_percent(const char *str)
@@ -237,7 +263,7 @@ int		ft_printf(const char *coucou, ...)
 			else if (coucou[x + len - 1] == 'x' || coucou[x + len - 1] == 'X')
 			{
 				temp = convers_hex(ap, &flag);
-				if (coucou[x + len - 1] == 'X' && temp == "ffffffff")
+				if (coucou[x + len - 1] == 'X' && (ft_strncmp(temp, "ffffffff", 8) == 0))
 					temp = ft_strdup("FFFFFFFF");
 				else if (coucou[x + len - 1] == 'X')
 					temp = ft_str_upper(temp);
@@ -249,13 +275,17 @@ int		ft_printf(const char *coucou, ...)
 				x = x + len - 1;
 			}
 			else if (coucou[x + len - 1] == 'p')
-				ft_p(ap);
+			{
+				temp = convers_ptr(ap, &flag);
+				x = x + len - 1;
+			}
 			else if (flag.width || flag.zero || flag.minus || flag.precision != -1)
 			{
 				x = x + len - 1;
-				y = y + len;
+			//	y = y + len;
 			}
-			y = y + ft_strlen(temp) - 1;
+			if (temp != NULL)
+				y = y + ft_strlen(temp) - 1;
 			buffer = ft_strjoin(buffer, temp);
 	//		x = x + len - 1;
 		}
@@ -265,11 +295,10 @@ int		ft_printf(const char *coucou, ...)
 		y++;
 	}
 	ft_putstr(buffer);
-//	return (buffer);
 	return (ft_strlen(buffer));
 }
 
-/*
+
 int main()
 {
 	char c;
@@ -278,8 +307,9 @@ int main()
 //	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%5\n");
 //	ft_printf("oui :%5: oui");
-	ft_printf("%6");
+//	printf("%p\n", &c);
+	ft_printf("%15d", 123);
 //	printf("[%d] [%d]", 12345, 56789);
 	return (0);
 }
-*/
+

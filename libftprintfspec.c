@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/08 22:42:44 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/09 02:38:59 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ char 	*pad_maker(char c, int len)
 
 void	ft_putstr(char *str)
 {
-    while (*str != '\0')
+    if (*str == '\0')
+	{
+		ft_putchar('\0');
+	}
+	while (*str != '\0')
     {
         ft_putchar(*str);
         str++;
@@ -99,14 +103,6 @@ void	ft_putchar(char c)
 {
     write(1, &c, 1);
 }
-
-//char	ft_s(char *str)
-//{
-//    char	*value;
-//    value = va_arg(ap, char*);
-////    write(1, value, ft_strlen(value));
-//    return (value);
-//}
 
 char	ft_c(va_list ap)
 {
