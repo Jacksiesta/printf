@@ -6,7 +6,7 @@
 #    By: jherrald <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/16 18:12:37 by jherrald          #+#    #+#              #
-#    Updated: 2020/02/09 03:13:58 by jherrald         ###   ########.fr        #
+#    Updated: 2020/02/09 03:25:41 by jherrald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = libftprintf.a
 
 LIBFT_P = libft_for_printf
 
-SRC = libftprintf.c libftprintfspec.c convers_d.c convers_s.c convers_x.c parsers.c
+SRC = libftprintf.c libftprintfspec.c convers_d.c convers_s.c convers_x.c parsers.c convers_u.c
 
 OBJ = $(SRC:.c=.o)
 

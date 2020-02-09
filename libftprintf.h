@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/09 00:24:59 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/09 03:44:56 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ char	*ft_percent_alone(va_list ap, t_flag *flag);
 char	*convers_d(va_list ap, t_flag *flag);
 char	*convers_s_null(t_flag *flag);
 char	*convers_s(va_list ap, t_flag *flag);
+char	*convers_u(va_list ap, t_flag *flag);
 char	*convers_hex_zero(t_flag *flag);
 char	*convers_hex(va_list ap, t_flag *flag);
 char	*convers_hex_precision(t_flag *flag, int size, char *init);
 char	*convers_hex_width(t_flag *flag, char *init, char *fn);
+char	*temp_maker(const char *format, t_flag *flag, va_list ap, int len);
 
 #endif
