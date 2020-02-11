@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 03:12:21 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/09 03:58:04 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:50:58 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*temp_maker(const char *format, t_flag *flag, va_list ap, int len)
 		final = convers_u(ap, flag);
 	if (format[len] == 'p')
 		final = convers_ptr(ap, flag);
+	if (flag->percent)
+		final = convers_double_percent(flag);
+	return (final);
 	if (flag->width || flag->zero || flag->minus || flag->precision != -1)
 		// % alone 
-	return (final);
+	return (0);
 }

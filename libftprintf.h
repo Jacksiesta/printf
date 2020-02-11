@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/09 03:44:56 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:48:38 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_flag
 	int 			minus;
 	int				width;
 	int				precision;
+	int				percent;
 }					t_flag;
 
 int	    printf(const char *coucou, ...);
@@ -57,5 +58,8 @@ char	*convers_hex(va_list ap, t_flag *flag);
 char	*convers_hex_precision(t_flag *flag, int size, char *init);
 char	*convers_hex_width(t_flag *flag, char *init, char *fn);
 char	*temp_maker(const char *format, t_flag *flag, va_list ap, int len);
+char	*convers_char(va_list ap, t_flag *flag);
+char	*convers_ptr(va_list ap, t_flag *flag);
+char	*convers_double_percent(t_flag *flag);
 
 #endif
