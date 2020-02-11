@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/11 15:48:38 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:50:23 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_flag
 	int				width;
 	int				precision;
 	int				percent;
+	int				alone_percent;
 }					t_flag;
 
 int	    printf(const char *coucou, ...);

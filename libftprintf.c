@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/11 16:23:40 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:59:30 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_struct(t_flag *flag)
 	flag->width = 0;
 	flag->precision = -1;
 	flag->percent = 0;
+	flag->alone_percent = 0;
 }
 
 int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
@@ -68,6 +69,8 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 		flag->zero = 0;
 	if (str[x] == '%')
 		flag->percent = 1;
+	if (str[x] != '%' || str[x] != 'd' || str[x] != 'i' || str[x] != 'c' || str[x] != 'x' || str[x] != 'X' || str[x] != 's' || str[x] != 'p')
+		flag->alone_percent = 1;
 	return (x);
 }
 
@@ -127,6 +130,10 @@ char	*convers_ptr(va_list ap, t_flag *flag)
 
 	num = va_arg(ap, void *);
 	final = ft_x((int)num);
+//	if (!num)
+//		return (ft_strdup("0x3"));
+	if (num == NULL)
+		return (ft_strdup("0x0"));
 	final = ft_strjoin(ft_strdup("0x7fff"), final);
 	return (final);
 }
@@ -171,7 +178,6 @@ int		ft_printf(const char *coucou, ...)
 
 	x = 0;
 	y = 0;
-	z = 0;
 	va_start(ap, coucou);
 	if (!(buffer = (char *)malloc(sizeof(char) * 1000000)))
 		return (0);
@@ -190,10 +196,7 @@ int		ft_printf(const char *coucou, ...)
 			y = y + ft_strlen(temp) - 1;
 		}
 		else
-		{
-		//	printf("coucou [x] is %c\n", coucou[x]);
 			buffer[y] = coucou[x];
-		}
 		x++;
 		y++;
 	}
@@ -208,7 +211,8 @@ int main()
 
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
-	ft_printf("yes-%inon", 17);
+	ft_printf("%04.3s", "hello");
+	printf("%04.3s", "hello");
 //	printf("[%d] [%d]", 12345, 56789);
 	return (0);
 }
