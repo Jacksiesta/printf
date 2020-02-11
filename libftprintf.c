@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/11 17:55:36 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:02:23 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ int		ft_printf(const char *coucou, ...)
 	{
 		if (coucou[x] == '%')
 		{
+			if (flag.alone_percent)
+
 			temp = ft_strdup("");
 			init_struct(&flag);
 			z = parser(ap, &coucou[x + 1], &flag);
