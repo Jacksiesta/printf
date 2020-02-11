@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/11 15:50:31 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:23:40 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	if (str[x] == '%')
 		flag->percent = 1;
 	return (x);
-/*	if (str[x] == '%')
-		return (1);
-    return (0);*/
 }
 
 char	*convers_prc(t_flag *flag)
@@ -189,11 +186,14 @@ int		ft_printf(const char *coucou, ...)
 			z = parser(ap, &coucou[x + 1], &flag);
 			temp = ft_strdup(temp_maker(&coucou[x + 1], &flag, ap, z));
 			buffer = ft_strjoin(buffer, temp);
-			x = x + z;
-			y = y + ft_strlen(temp);
+			x = x + z + 1;	
+			y = y + ft_strlen(temp) - 1;
 		}
 		else
+		{
+		//	printf("coucou [x] is %c\n", coucou[x]);
 			buffer[y] = coucou[x];
+		}
 		x++;
 		y++;
 	}
@@ -208,11 +208,7 @@ int main()
 
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
-//	printf("%5\n");
-//	ft_printf("oui :%5: oui");
-//	printf("%p\n", &c);
-//	ft_printf("%12%");
-	printf("%%");
+	ft_printf("yes-%inon", 17);
 //	printf("[%d] [%d]", 12345, 56789);
 	return (0);
 }
