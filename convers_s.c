@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:01:51 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/11 16:59:35 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:16:04 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ char	*convers_s_null(t_flag *flag)
 
 	fin = ft_strdup("(null)");
 	if (flag->precision == 0)
+	{
 		if (flag->width)
 			return (pad_maker(' ', flag->width));
+		else
+			return (ft_strdup(""));
+	}
 	if (flag->precision > 0 && flag->precision <= 6)
 		fin = ft_substr(fin, 0, flag->precision);
 	if (flag->minus && flag->width)
