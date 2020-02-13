@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/09 02:38:59 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/13 08:05:03 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,9 @@ char	ft_hex_conversion(int n)
     int		mod;
     char	*hex;
 
-    if (!(hex = ft_strdup("0123456789abcdef")))
-        return (0);
+    hex = "0123456789abcdef";
+//	if (!(hex = ft_strdup("0123456789abcdef")))
+  //      return (0);
     if (n)
     {
         mod = n % 16;
