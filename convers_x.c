@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:53:26 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 08:10:25 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/13 17:07:42 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ char	*convers_hex_width(t_flag *flag, char *init, char *fn)
 
 char	*convers_hex(va_list ap, t_flag *flag)
 {
-	char				*fn;
-	char				*init;
-	unsigned int		num;
+	char						*fn;
+	char						*init;
+	long long unsigned int		num;
 
-	num = va_arg(ap, int);
+	num = va_arg(ap, long long unsigned int);
 	init = ft_x(num);
 	fn = ft_strdup("");
 	if (num == 0 && flag->precision < 0)

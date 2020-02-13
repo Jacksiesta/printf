@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/11 16:50:23 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/13 17:06:13 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ typedef struct		s_flag
 	int				alone_percent;
 }					t_flag;
 
+typedef struct		s_final
+{
+	char	*buffer;
+	int		pos;
+	int		taille;
+}					t_final;
+
 int	    printf(const char *coucou, ...);
 char	*ft_d(int num);
 char	ft_s(va_list ap);
@@ -38,9 +45,9 @@ char	*ft_u(unsigned int num);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_lenght_int(int num);
-int		ft_lenght_hex(int num);
-char	ft_hex_conversion(int n);
-char	*ft_x(int num);
+int		ft_lenght_hex(long long unsigned int num);
+char	ft_hex_conversion(unsigned long long int n);
+char	*ft_x(long long unsigned int num);
 char	ft_hex_maj_conversion(int n);
 char	*ft_xx(va_list ap);
 char	*ft_p(va_list ap);

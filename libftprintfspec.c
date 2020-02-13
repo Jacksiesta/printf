@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/13 17:07:25 by jherrald          #+#    #+#             */
+/*   Updated: 2020/02/13 17:29:44 by jherrald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libftprintfspec.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 08:05:03 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/13 17:06:37 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,18 +199,13 @@ char	*ft_p(va_list ap)
 }	
 
 
-int		ft_lenght_hex(int num)
+int		ft_lenght_hex(long long unsigned int num)
 {
     int x;
 
     x = 0;
     if (num == 0)
         return (1);
-    if (num < 0)
-    {
-        x++;
-        num *= -1;
-    }
     while (num > 0)
     {
         num = num / 16;
@@ -207,9 +214,9 @@ int		ft_lenght_hex(int num)
     return (x);
 }
 
-char	ft_hex_conversion(int n)
+char	ft_hex_conversion(long long unsigned int n)
 {
-    int		mod;
+    long long unsigned int		mod;
     char	*hex;
 
     hex = "0123456789abcdef";
@@ -223,7 +230,7 @@ char	ft_hex_conversion(int n)
     return (0);
 }
 
-char	*ft_x(int num)
+char	*ft_x(long long unsigned int num)
 {
     int		size;
     char	*new;

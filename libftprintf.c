@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 11:49:03 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/13 20:39:18 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,19 +129,25 @@ char	*convers_ptr(va_list ap, t_flag *flag)
 	char	*final;
 	char	*init;
 	void	*num;
+	int		size;
 
 	num = va_arg(ap, void *);
-	final = ft_x((int)num);
+	final = ft_x((long long unsigned int)num);
+	size = ft_strlen(final);
 //	if (!num)
 //		return (ft_strdup("0x3"));
 	if (num == NULL || num == 0)
 	{
 		final = ft_strdup("0x0");
 		if (flag->width > 3)
-			final = ft_strjoin(pad_maker(' ', flag->width - 3), final);
+			return (ft_strjoin(pad_maker(' ', flag->width - 3), final));
 	}
-	else
-		final= ft_strjoin(ft_strdup("0x10"), final);
+	final= ft_strjoin(ft_strdup("0x"), final);
+	if (flag->minus)
+		if (flag->width > 11)
+			return (ft_strjoin(final, pad_maker(' ', flag->width - 11)));
+	if (flag->width > 11)
+		final = ft_strjoin(pad_maker(' ', flag->width - 11), final);
 	return (final);
 }
 /*
@@ -171,6 +177,12 @@ int		size_percent_percent(const char *str)
 		x++;
 	return (x);
 }*/
+/*
+void	final_init(t_final final)
+{
+	if (!(final->buffer = (t_final)malloc(sizeof(t_final) * taille; 
+}
+*/
 
 int		ft_printf(const char *coucou, ...)
 {
@@ -225,7 +237,9 @@ int main()
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%.s", NULL);
-	ft_printf("%12");
+	ft_printf("%p", &c);
+	printf("\n%p", &c);
+//	printf("%16p", &c);
 //	printf("%p", NULL);
 //	printf("[%d] [%d]", 12345, 56789);
 	return (0);
