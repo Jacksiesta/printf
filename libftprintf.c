@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 08:06:07 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:49:03 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	init_struct(t_flag *flag)
 int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 {
     int		x;
+	char	*specifiers;
 
+	specifiers = ft_strdup("scxXdiup%");
     x = 0;
 	init_struct(flag);
 	if (ft_isalpha(str[x]) == 0)
@@ -69,7 +71,7 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 		flag->zero = 0;
 	if (str[x] == '%')
 		flag->percent = 1;
-	if (str[x] != '%' || str[x] != 'd' || str[x] != 'i' || str[x] != 'c' || str[x] != 'x' || str[x] != 'X' || str[x] != 's' || str[x] != 'p')
+	if (ft_search_char(specifiers, str[x]) == 0)
 		flag->alone_percent = 1;
 	return (x);
 }
@@ -142,7 +144,7 @@ char	*convers_ptr(va_list ap, t_flag *flag)
 		final= ft_strjoin(ft_strdup("0x10"), final);
 	return (final);
 }
-
+/*
 int		size_percent(const char *str)
 {
     int x;
@@ -168,7 +170,7 @@ int		size_percent_percent(const char *str)
 	while (str[x] != '%')
 		x++;
 	return (x);
-}
+}*/
 
 int		ft_printf(const char *coucou, ...)
 {
@@ -195,10 +197,15 @@ int		ft_printf(const char *coucou, ...)
 			temp = ft_strdup("");
 			init_struct(&flag);
 			z = parser(ap, &coucou[x + 1], &flag);
-			temp = ft_strdup(temp_maker(&coucou[x + 1], &flag, ap, z));
-			buffer = ft_strjoin(buffer, temp);
-			x = x + z + 1;	
-			y = y + ft_strlen(temp) - 1;
+			if (flag.alone_percent)
+				x = x + z + 1;
+			else
+			{
+				temp = ft_strdup(temp_maker(&coucou[x + 1], &flag, ap, z));
+				buffer = ft_strjoin(buffer, temp);
+				x = x + z + 1;	
+				y = y + ft_strlen(temp) - 1;
+			}
 		}
 		else
 			buffer[y] = coucou[x];
@@ -218,7 +225,7 @@ int main()
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%.s", NULL);
-	ft_printf("%X", 4294967295u);
+	ft_printf("%12");
 //	printf("%p", NULL);
 //	printf("[%d] [%d]", 12345, 56789);
 	return (0);
