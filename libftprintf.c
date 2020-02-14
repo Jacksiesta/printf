@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 16:08:46 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 17:39:30 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
                     flag->minus = 1;
                     flag->width = -flag->width;
                 }
+				x++;
             }
             else
                 flag->width = ft_atoi(&str[x], &x);
@@ -62,7 +63,10 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
         {
             x++;
             if (str[x] == '*')
+			{
                 flag->precision = va_arg(ap, int);
+				x++;
+			}
             else
                 flag->precision = ft_atoi(&str[x], &x);
         }
@@ -239,8 +243,8 @@ int main()
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%.s", NULL);
-	ft_printf("%10.x", 1024);
-	printf("\n%10.x", 1024);
+	ft_printf("%*x", 20, 13);
+	printf("\n%*x", 20, 13);
 //	printf("%16p", &c);
 //	printf("%p", NULL);
 //	printf("[%d] [%d]", 12345, 56789);
