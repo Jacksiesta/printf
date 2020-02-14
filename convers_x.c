@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:53:26 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 17:39:31 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 19:15:23 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,12 @@ char	*convers_hex(va_list ap, t_flag *flag)
 	fn = ft_strdup("");
 	if (num == 0 && flag->precision < 0)
 		return (convers_hex_zero(flag));
-//	if (num == 4294967295)
-//		return ("ffffffff");
-//
 	if (flag->precision)
 		fn = convers_hex_precision(flag, ft_strlen(init), init);
 	if (flag->precision == 0)
 		fn = ft_strdup(init);
+	if (flag->precision > flag->width)
+		return (fn);
 	if (flag->minus && flag->width > ft_strlen(init))
 		fn = ft_strjoin(fn, pad_maker(' ', flag->width - ft_strlen(fn)));
 	if (flag->zero && flag->width > ft_strlen(init))
