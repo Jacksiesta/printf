@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:53:26 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 17:07:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 16:08:47 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	*convers_hex(va_list ap, t_flag *flag)
 		return (convers_hex_zero(flag));
 //	if (num == 4294967295)
 //		return ("ffffffff");
+//
 	if (flag->precision)
 		fn = convers_hex_precision(flag, ft_strlen(init), init);
 	if (flag->minus && flag->width > ft_strlen(init))

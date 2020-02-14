@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 15:35:32 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 16:08:46 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,8 +239,8 @@ int main()
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%.s", NULL);
-	ft_printf("%7.0d", 1024);
-	printf("\n%7.0d", 1024);
+	ft_printf("%10.x", 1024);
+	printf("\n%10.x", 1024);
 //	printf("%16p", &c);
 //	printf("%p", NULL);
 //	printf("[%d] [%d]", 12345, 56789);

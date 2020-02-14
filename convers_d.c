@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:01:24 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 15:35:34 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:43:55 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ char	*convers_d(va_list ap, t_flag *flag)
 				return (pad_maker(' ', flag->width));
 			if (flag->precision == 0)
 			{
-				return (ft_strjoin(pad_maker(' ', flag->width - size), init));
+				if (neg)
+					init = add_char_to_str('-', init, 0);
+				return (ft_strjoin(pad_maker(' ', flag->width - neg - size), init));
 			}
 			if (neg)
 				fin = ft_strjoin(ft_strdup(pad_maker('-', 1)), fin);
