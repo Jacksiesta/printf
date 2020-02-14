@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:01:24 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 16:16:14 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:35:34 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*convers_d(va_list ap, t_flag *flag)
 	init = ft_d(num);
 	size = ft_strlen(init);
 	fin = ft_strdup("");
-	//printf("size is %d\n", flag->width - size);
 	if (flag->precision)
 	{
 		if (flag->precision > size)
@@ -45,6 +44,10 @@ char	*convers_d(va_list ap, t_flag *flag)
 		{
 			if (flag->precision == 0 && num == 0)
 				return (pad_maker(' ', flag->width));
+			if (flag->precision == 0)
+			{
+				return (ft_strjoin(pad_maker(' ', flag->width - size), init));
+			}
 			if (neg)
 				fin = ft_strjoin(ft_strdup(pad_maker('-', 1)), fin);
 			if (flag->precision != -1 && flag->precision > size)

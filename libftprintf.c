@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 20:39:18 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:35:32 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ char	*convers_ptr(va_list ap, t_flag *flag)
 		final = ft_strdup("0x0");
 		if (flag->width > 3)
 			return (ft_strjoin(pad_maker(' ', flag->width - 3), final));
+		else
+			return (final);
 	}
 	final= ft_strjoin(ft_strdup("0x"), final);
 	if (flag->minus)
@@ -237,8 +239,8 @@ int main()
 	c = 'a';
 //	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%.s", NULL);
-	ft_printf("%p", &c);
-	printf("\n%p", &c);
+	ft_printf("%7.0d", 1024);
+	printf("\n%7.0d", 1024);
 //	printf("%16p", &c);
 //	printf("%p", NULL);
 //	printf("[%d] [%d]", 12345, 56789);

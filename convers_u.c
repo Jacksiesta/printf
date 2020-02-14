@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 03:23:15 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/09 03:26:27 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:50:17 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	*convers_u(va_list ap, t_flag *flag)
 	num = va_arg(ap, int);
 	init = ft_u(num);
 	size = ft_strlen(init);
-	if (ft_strncmp(init, "4294967295", size) == 0)
+	if (ft_strncmp(init, "4294967295", 10) == 0)
+	{
 		return (ft_strdup("4294967295"));
+	}
 	final = ft_strdup("");
 	if (flag->precision)
 	{
