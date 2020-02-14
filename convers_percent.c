@@ -40,3 +40,21 @@ char	*convers_double_percent(t_flag *flag)
 	}
 	return ("%");
 }
+
+char	*convers_prc(t_flag *flag)
+{
+    char	*final;
+    int		size;
+
+    final = ft_strdup("%");
+    if (flag->minus)
+        if (flag->width > 1)
+            return (ft_strjoin(final, pad_maker(' ', flag->width - 1)));
+    if (flag->zero)
+        if (flag->width > 1)
+            return (ft_strjoin(pad_maker('0', flag->width - 1), final));
+    if (flag->width && !flag->minus && !flag->zero)
+        if (flag->width > 1)
+            return (ft_strjoin(pad_maker(' ', flag->width - 1), final));
+    return (final);
+}

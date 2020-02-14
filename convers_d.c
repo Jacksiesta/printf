@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:01:24 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 15:43:55 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 19:28:42 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,17 @@ char	*convers_d(va_list ap, t_flag *flag)
 	if (flag->precision)
 	{
 		if (flag->precision > size)
+		{
 			fin = ft_strjoin(pad_maker('0', flag->precision - size), init);
+		}
 		else
 			fin = ft_strdup(init);
+	}
+	if (flag->precision > flag->width)
+	{
+		if (neg)
+			fin = add_char_to_str('-', fin, 0);
+		return (fin);
 	}
 	if (flag->minus)
 		if (flag->width > size)
@@ -40,6 +48,7 @@ char	*convers_d(va_list ap, t_flag *flag)
 		if (flag->width > size)
 			fin = ft_strjoin(pad_maker('0', flag->width - size - neg), fin);
 	if (flag->width && !flag->minus && !flag->zero)
+	{
 		if (flag->width > size)
 		{
 			if (flag->precision == 0 && num == 0)
@@ -57,6 +66,7 @@ char	*convers_d(va_list ap, t_flag *flag)
 			else
 				fin = ft_strjoin(pad_maker(' ', flag->width - size - neg), fin);
 		}
+	}
 	if (neg && search_for('-', fin))
 		fin = ft_strjoin(ft_strdup(pad_maker('-', 1)), fin);
 	return (fin);

@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 17:39:30 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 21:05:27 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,109 +80,6 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	return (x);
 }
 
-char	*convers_prc(t_flag *flag)
-{
-	char	*final;
-	int		size;
-
-	final = ft_strdup("%");
-	if (flag->minus)
-		if (flag->width > 1)
-			return (ft_strjoin(final, pad_maker(' ', flag->width - 1)));
-	if (flag->zero)
-		if (flag->width > 1)
-			return (ft_strjoin(pad_maker('0', flag->width - 1), final));
-	if (flag->width && !flag->minus && !flag->zero)
-		if (flag->width > 1)
-			return (ft_strjoin(pad_maker(' ', flag->width - 1), final));
-	return (final);
-}
-
-char	*convers_char(va_list ap, t_flag *flag)
-{
-	char	*final;
-	char	c;
-
-	c = va_arg(ap, int);
-	final = ft_strdup("");
-	if (c == 0)
-		final = ft_strdup("\0");
-	if (flag->minus)
-	{
-		if (flag->width > 1)
-		{
-			final = pad_maker(' ', flag->width - 1);
-			return (add_char_to_str(c, final, 0));
-		}
-	}
-	if (flag->zero)
-	{
-		if (flag->width > 1)
-		{
-			final = pad_maker('0', flag->width - 1);
-			return (add_char_to_str(c, final, 1));
-		}
-	}
-	if (flag->width && !flag->zero && !flag->minus)
-		final = pad_maker(' ', flag->width - 1);
-		return (add_char_to_str(c, final, 1));
-}
-
-char	*convers_ptr(va_list ap, t_flag *flag)
-{
-	char	*final;
-	char	*init;
-	void	*num;
-	int		size;
-
-	num = va_arg(ap, void *);
-	final = ft_x((long long unsigned int)num);
-	size = ft_strlen(final);
-//	if (!num)
-//		return (ft_strdup("0x3"));
-	if (num == NULL || num == 0)
-	{
-		final = ft_strdup("0x0");
-		if (flag->width > 3)
-			return (ft_strjoin(pad_maker(' ', flag->width - 3), final));
-		else
-			return (final);
-	}
-	final= ft_strjoin(ft_strdup("0x"), final);
-	if (flag->minus)
-		if (flag->width > 11)
-			return (ft_strjoin(final, pad_maker(' ', flag->width - 11)));
-	if (flag->width > 11)
-		final = ft_strjoin(pad_maker(' ', flag->width - 11), final);
-	return (final);
-}
-/*
-int		size_percent(const char *str)
-{
-    int x;
-    int	y;
-
-    x = 0;
-    y = 1;
-    while (str[x] != '%')
-        x++;
-    while (ft_isalpha(str[x]) == 0)
-    {
-        x++;
-        y++;
-    }
-    return (y);
-}
-
-int		size_percent_percent(const char *str)
-{
-	int x;
-
-	x = 0;
-	while (str[x] != '%')
-		x++;
-	return (x);
-}*/
 /*
 void	final_init(t_final final)
 {
@@ -219,7 +116,7 @@ int		ft_printf(const char *coucou, ...)
 				x = x + z + 1;
 			else
 			{
-				temp = ft_strdup(temp_maker(&coucou[x + 1], &flag, ap, z));
+				temp = temp_maker(&coucou[x + 1], &flag, ap, z);
 				buffer = ft_strjoin(buffer, temp);
 				x = x + z + 1;	
 				y = y + ft_strlen(temp) - 1;
@@ -235,19 +132,15 @@ int		ft_printf(const char *coucou, ...)
 }
 
 
-/*
+
 int main()
 {
 	char c;
 
 	c = 'a';
-//	printf("%d\n", ft_printf("YES%7d", 33));
 //	printf("%.s", NULL);
-	ft_printf("%*x", 20, 13);
-	printf("\n%*x", 20, 13);
-//	printf("%16p", &c);
-//	printf("%p", NULL);
-//	printf("[%d] [%d]", 12345, 56789);
+	ft_printf("%20u", -1024u);
+	printf("\n%20u", -1024u);
 	return (0);
 }
-*/
+

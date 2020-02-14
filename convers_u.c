@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 03:23:15 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 14:50:17 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 21:05:26 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	*convers_u(va_list ap, t_flag *flag)
 	char	*final;
 
 	num = va_arg(ap, int);
+	printf("num is %d\n", num);
 	init = ft_u(num);
 	size = ft_strlen(init);
+	printf("init is %s\n", init);
 	if (ft_strncmp(init, "4294967295", 10) == 0)
-	{
 		return (ft_strdup("4294967295"));
-	}
 	final = ft_strdup("");
 	if (flag->precision)
 	{
@@ -34,18 +34,15 @@ char	*convers_u(va_list ap, t_flag *flag)
 		else
 			final = ft_strdup(init); // gets rid of 0
 	}
+//	if (flag->precision > flag->width)
+//		return (ft_strjoin(final, init));
 	if (flag->minus)
-	{
 		if (flag->width > size)
 			final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
-	}
 	if (flag->zero)
-	{
 		if (flag->width > size)
 			final = ft_strjoin(pad_maker('0', flag->width - size), final);
-	}
 	if (flag->width && !flag->minus && !flag->zero)
-	{
 		if (flag->width > size)
 		{
 			if (flag->precision == 0 && num == 0)
@@ -55,6 +52,5 @@ char	*convers_u(va_list ap, t_flag *flag)
 			else
 				final = ft_strjoin(pad_maker(' ', flag->width - size), final);
 		}
-	}
 	return (final);
 }

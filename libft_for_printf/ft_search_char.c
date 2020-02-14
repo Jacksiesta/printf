@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_search_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 13:43:30 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 08:49:41 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/13 09:18:24 by jherrald          #+#    #+#             */
+/*   Updated: 2020/02/13 11:29:42 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+int		ft_search_char(char *str, char c)
 {
-	int x;
-
-	x = 0;
-	while (s[x])
+	while (*str)
 	{
-		if (s[x] == (char)c)
-			return ((char *)&s[x]);
-		x++;
+		if (*str == c)
+			return (1);
+		str++;		
 	}
-	if (s[x] == (char)c)
-		return ((char *)&s[x]);
-	return (NULL);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/13 17:06:13 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 20:31:33 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,8 @@ char	*temp_maker(const char *format, t_flag *flag, va_list ap, int len);
 char	*convers_char(va_list ap, t_flag *flag);
 char	*convers_ptr(va_list ap, t_flag *flag);
 char	*convers_double_percent(t_flag *flag);
+char	*convers_ptr(va_list ap, t_flag *flag);
+char	*convers_char(va_list ap, t_flag *flag);
+char	*convers_prc(t_flag *flag);
 
 #endif

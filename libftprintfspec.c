@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 17:39:34 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 21:05:29 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ char	*ft_u(unsigned int num)
 
     if (num == 4294967295)
 		return (ft_strdup("4294967295"));
+	printf("ft u %d\n", num);
 	size = ft_lenght_int(num);
     if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
         return (0);
@@ -176,16 +177,15 @@ char	*ft_u(unsigned int num)
  //   ft_putstr(new);
     return (new);
 }
-
+/*
 char	*ft_p(va_list ap)
 {	
 	long long unsigned int	address;
 
 	address = va_arg(ap, long long unsigned int);
-//	printf("address is %llu", address);
 	return (0);
 }	
-
+*/
 
 int		ft_lenght_hex(long long unsigned int num)
 {

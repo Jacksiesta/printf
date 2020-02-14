@@ -6,19 +6,19 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:36:15 by jherrald          #+#    #+#             */
-/*   Updated: 2019/10/26 11:36:33 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:48:04 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
 	int		s1len;
 	int		x;
 
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
 	s1len = ft_strlen(s1);
 	x = ft_strlen(s2);
