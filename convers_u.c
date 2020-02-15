@@ -6,24 +6,37 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 03:23:15 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 21:05:26 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:34:43 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
+char	*convers_u_param_zero(t_flag *flag, int size)
+{
+	char	*final;
+
+	if (flag->precision)
+		if (flag->precision > size)
+}
+
+
 char	*convers_u(va_list ap, t_flag *flag)
 {
 	char	*init;
-	int 	num;
+	long long unsigned int 	num;
 	int		size;
 	char	*final;
 
-	num = va_arg(ap, int);
-	printf("num is %d\n", num);
+	num = va_arg(ap, long long unsigned int);
 	init = ft_u(num);
-	size = ft_strlen(init);
 	printf("init is %s\n", init);
+	size = ft_strlen(init);
+	if (!init)
+	{
+		final = convers_u_param_zero(flag, size);
+		printf("final is %s\n", final);
+	}
 	if (ft_strncmp(init, "4294967295", 10) == 0)
 		return (ft_strdup("4294967295"));
 	final = ft_strdup("");
@@ -34,6 +47,8 @@ char	*convers_u(va_list ap, t_flag *flag)
 		else
 			final = ft_strdup(init); // gets rid of 0
 	}
+	if (flag->precision == 0)
+		final = ft_strdup(init);		
 //	if (flag->precision > flag->width)
 //		return (ft_strjoin(final, init));
 	if (flag->minus)

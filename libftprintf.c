@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 21:05:27 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:34:48 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ int main()
 
 	c = 'a';
 //	printf("%.s", NULL);
-	ft_printf("%20u", -1024u);
-	printf("\n%20u", -1024u);
+	ft_printf("%u", 0);
+	printf("\n%5u", 0);
 	return (0);
 }
 

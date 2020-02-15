@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 20:31:33 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/15 17:52:30 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ int	    printf(const char *coucou, ...);
 char	*ft_d(int num);
 char	ft_s(va_list ap);
 char	ft_c(va_list ap);
-char	*ft_u(unsigned int num);
+char	*ft_u(long long unsigned int num);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_lenght_int(int num);
+int		ft_lenght_unsigned_int(long long unsigned int num);
 int		ft_lenght_hex(long long unsigned int num);
 char	ft_hex_conversion(unsigned long long int n);
 char	*ft_x(long long unsigned int num);

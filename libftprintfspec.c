@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 21:05:29 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:24:58 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,19 @@ int		ft_lenght_int(int num)
     return (x);
 }
 
+int		ft_lenght_unsigned_int(long long unsigned int num)
+{
+	int	x;
+
+	x = 0;
+	while (num > 0)
+	{
+		num = num / 10;
+		x++;
+	}
+	return (x);
+}
+
 char	*ft_d(int num)
 {
     int			size;
@@ -157,15 +170,17 @@ char	*ft_d(int num)
     return (new);
 }
 
-char	*ft_u(unsigned int num)
+char	*ft_u(long long unsigned int num)
 {
     int				size;
     char			*new;
 
+	printf("num is %llu\n", num);
     if (num == 4294967295)
 		return (ft_strdup("4294967295"));
-	printf("ft u %d\n", num);
-	size = ft_lenght_int(num);
+	if (num == 0)
+		return (0);
+	size = ft_lenght_unsigned_int(num);
     if (!(new = (char *)malloc(sizeof(char) * (size + 1))))
         return (0);
     new[size] = '\0';
@@ -174,7 +189,7 @@ char	*ft_u(unsigned int num)
         new[size] = (num % 10) + '0';
         num = num / 10;
     }
- //   ft_putstr(new);
+	printf("NEW %s\n", new);
     return (new);
 }
 /*
