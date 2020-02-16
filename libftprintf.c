@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/15 18:34:48 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 01:25:49 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,11 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
-	char c;
+//	char c;
 
-	c = 'a';
-//	printf("%.s", NULL);
-	ft_printf("%u", 0);
-	printf("\n%5u", 0);
+//	c = 'a';
+	ft_printf("%.5p", 0);
+//	printf("%*.*d\n", 10, 10, 50);
 	return (0);
 }
 

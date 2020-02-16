@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/15 18:24:58 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/15 22:59:34 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ char	*ft_u(long long unsigned int num)
     int				size;
     char			*new;
 
-	printf("num is %llu\n", num);
     if (num == 4294967295)
 		return (ft_strdup("4294967295"));
 	if (num == 0)
@@ -189,7 +188,6 @@ char	*ft_u(long long unsigned int num)
         new[size] = (num % 10) + '0';
         num = num / 10;
     }
-	printf("NEW %s\n", new);
     return (new);
 }
 /*
