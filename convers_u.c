@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 03:23:15 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 01:25:30 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 04:00:46 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 char	*convers_u_param_zero(t_flag *flag)
 {
-//	if (!flag->width && !flag->zero && !flag->minus && flag->precision == -1)
-//		return ("0");
 	if (flag->precision == 0)
 	{
 		if (!flag->width)
@@ -43,22 +41,18 @@ char	*convers_u_param_zero(t_flag *flag)
 	return ("0");
 }
 
-
 char	*convers_u(va_list ap, t_flag *flag)
 {
-	char	*init;
+	char					*init;
 	long long unsigned int 	num;
-	int		size;
-	char	*final;
+	int						size;
+	char					*final;
 
 	num = va_arg(ap, long long unsigned int);
 	init = ft_u(num);
 	size = ft_strlen(init);
 	if (!init)
-	{
-		final = convers_u_param_zero(flag);
-		return (final);
-	}
+		return (convers_u_param_zero(flag));
 	if (ft_strncmp(init, "4294967295", 10) == 0)
 		return (ft_strdup("4294967295"));
 	final = ft_strdup("");
@@ -67,16 +61,14 @@ char	*convers_u(va_list ap, t_flag *flag)
 		if (flag->precision > size)
 			final = ft_strjoin(pad_maker('0', flag->precision - size), init);
 		else
-			final = ft_strdup(init); // gets rid of 0
+			final = ft_strdup(init);
 	}
 	if (flag->precision == 0)
-		final = ft_strdup(init);		
-	if (flag->minus)
-		if (flag->width > size)
-			final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
-	if (flag->zero)
-		if (flag->width > size)
-			final = ft_strjoin(pad_maker('0', flag->width - size), final);
+		final = ft_strdup(init);
+	if (flag->minus && flag->width > size)
+		final = ft_strjoin(final, pad_maker(' ', flag->width - ft_strlen(final)));
+	if (flag->zero && flag->width > size)
+		final = ft_strjoin(pad_maker('0', flag->width - size), final);
 	if (flag->width && !flag->minus && !flag->zero)
 		if (flag->width > size)
 		{

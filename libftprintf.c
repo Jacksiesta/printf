@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 01:25:49 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 04:00:39 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,52 +24,52 @@ void	init_struct(t_flag *flag)
 
 int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 {
-    int		x;
+	int		x;
 	char	*specifiers;
 
 	specifiers = ft_strdup("scxXdiup%");
-    x = 0;
+	x = 0;
 	init_struct(flag);
 	if (ft_isalpha(str[x]) == 0)
 	{
-        while (str[x] == '0')
-        {
-            flag->zero = 1;
-            x++;
-        }
-        while (str[x] == '-')
-        {
-            flag->minus = 1;
-            x++;
-        }
+		while (str[x] == '0')
+		{
+			flag->zero = 1;
+			x++;
+		}
+		while (str[x] == '-')
+		{
+			flag->minus = 1;
+			x++;
+		}
 		while (str[x] == '0')
 			x++;
-        if (str[x] == '*' || (str[x] >= '1' && str[x] <= '9'))
-        {
-            if (str[x] == '*')
-            {
-                flag->width = va_arg(ap, int);
-                if (flag->width < 0)
-                {
-                    flag->minus = 1;
-                    flag->width = -flag->width;
-                }
-				x++;
-            }
-            else
-                flag->width = ft_atoi(&str[x], &x);
-        }
-        if (str[x] == '.')
-        {
-            x++;
-            if (str[x] == '*')
+		if (str[x] == '*' || (str[x] >= '1' && str[x] <= '9'))
+		{
+			if (str[x] == '*')
 			{
-                flag->precision = va_arg(ap, int);
+				flag->width = va_arg(ap, int);
+				if (flag->width < 0)
+				{
+					flag->minus = 1;
+					flag->width = -flag->width;
+				}
 				x++;
 			}
-            else
-                flag->precision = ft_atoi(&str[x], &x);
-        }
+			else
+				flag->width = ft_atoi(&str[x], &x);
+		}
+		if (str[x] == '.')
+		{
+			x++;
+			if (str[x] == '*')
+			{
+				flag->precision = va_arg(ap, int);
+				x++;
+			}
+			else
+				flag->precision = ft_atoi(&str[x], &x);
+		}
 	}
 	if (flag->precision != -1 || flag->minus != 0)
 		flag->zero = 0;
@@ -81,11 +81,11 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 }
 
 /*
-void	final_init(t_final final)
-{
-	if (!(final->buffer = (t_final)malloc(sizeof(t_final) * taille; 
-}
-*/
+   void	final_init(t_final final)
+   {
+   if (!(final->buffer = (t_final)malloc(sizeof(t_final) * taille; 
+   }
+   */
 
 int		ft_printf(const char *coucou, ...)
 {
@@ -135,11 +135,13 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
-//	char c;
+	//	char c;
 
-//	c = 'a';
-	ft_printf("%.5p", 0);
-//	printf("%*.*d\n", 10, 10, 50);
+	//	c = 'a';
+	ft_printf("%4.15d", -42);
+	printf("\n%4.15d", -42);
+	//	printf("%4.15s", "42 is the answer");
+	//	printf("%*.*d\n", 10, 10, 50);
 	return (0);
 }
 

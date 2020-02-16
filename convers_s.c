@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:01:51 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/12 16:16:04 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:40:14 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ char	*convers_s_null(t_flag *flag)
 	{
 		if (flag->width > ft_strlen(fin))
 			fin = ft_strjoin(fin, pad_maker(' ', flag->width - ft_strlen(fin)));
-		else
-			return (fin);
+		return (fin);
 	}
 	if (flag->zero)
-	{
 		if (flag->width > ft_strlen(fin))
 			fin = ft_strjoin(pad_maker('0', flag->width - ft_strlen(fin)), fin);
-	}
 	if (flag->width && !flag->minus && !flag->zero)
 		if (flag->width > ft_strlen(fin))
 			fin = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(fin)), fin);
@@ -59,7 +56,7 @@ char	*convers_s(va_list ap, t_flag *flag)
 		return (ft_strjoin(pad_maker('0', flag->width - ft_strlen(in)), in));
 	if (flag->precision != -1)
 		if (flag->precision < size)
-			fin = ft_strdup(cropped_str(in, flag->precision));
+			fin = cropped_str(in, flag->precision);
 	if (flag->precision == -1 || (flag->precision != -1
 				&& flag->precision >= size))
 		fin = ft_strdup(in);

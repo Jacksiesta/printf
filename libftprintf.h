@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/15 17:52:30 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:10:45 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 typedef struct		s_flag
 {
-	int 			zero;
-	int 			minus;
+	int				zero;
+	int				minus;
 	int				width;
 	int				precision;
 	int				percent;
@@ -37,7 +37,7 @@ typedef struct		s_final
 	int		taille;
 }					t_final;
 
-int	    printf(const char *coucou, ...);
+int		printf(const char *coucou, ...);
 char	*ft_d(int num);
 char	ft_s(va_list ap);
 char	ft_c(va_list ap);

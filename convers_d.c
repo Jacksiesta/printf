@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 22:01:24 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/14 19:28:42 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:24:17 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,30 +73,27 @@ char	*convers_d(va_list ap, t_flag *flag)
 }
 
 /*
-strrut
-{
+   strrut
+   {
 
-	char *str;
-	int pos;
-	ibt len;
+   char *str;
+   int pos;
+   ibt len;
 
+   t_tt tt;
 
+   tt->str = malloc(len)
+   tt->pos = 0;
+   tt->len
 
-	t_tt tt;
+   return (tt->str);
 
-	tt->str = malloc(len)
-tt->pos = 0;
-	tt->len
+   if (len + pos < strlen(str2)
 
-		return (tt->str);
+   while (str2++)
+ *(tt->str + tt->pos) = *str2;
+ tt->pos++
 
-	if (len + pos < strlen(str2)
+ wrtie (buffer
 
-while (str2++)
-	*(tt->str + tt->pos) = *str2;
-	tt->pos++
-
-
-	wrtie (buffer
-
-		return pos*/
+ return pos*/
