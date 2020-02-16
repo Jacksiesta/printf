@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:21:40 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 03:22:21 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 04:46:25 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char		*add_char_to_str(char c, char *str, int i)
 	int		x;
 	char	*final;
 
-	if (!(final = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))))
+	if (!(final = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2))))
 		return (NULL);
 	x = 0;
 	if (!str)
