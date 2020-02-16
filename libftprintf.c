@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 04:58:13 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/16 05:27:30 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,16 @@ int		ft_printf(const char *coucou, ...)
 }
 
 
-/*
+
 int main()
 {
 	//	char c;
 
 	//	c = 'a';
 //	ft_printf("%.0d\n", 100);
-	ft_printf("before %d after", 42);
-	printf("\nbefore %d after", 42);
+//	ft_printf("%0151.*d", -88, 1234567899);
+	printf("%5.s", "coucou");
+	printf("\n%5s", "coucou");
+	printf("\n%-.*d", 10, 123);
 	return (0);
-}*/
+}
