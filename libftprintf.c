@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/18 17:20:44 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/18 23:31:29 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_printf(const char *coucou, ...)
 	int		x;
 	int		y;
 	int		z;
-	int     len;
+	int     len_final;
 	va_list	ap;
 	char	*buffer;
 	char	*temp;
@@ -131,11 +131,13 @@ int		ft_printf(const char *coucou, ...)
 	}
 	buffer[y] = '\0';
 	ft_putstr(buffer);
-	return (ft_strlen(buffer));
+	len_final = ft_strlen(buffer);
+//	free(buffer);
+	return (len_final);
 }
 
 
-
+/*
 int main()
 {
 	char c;
@@ -148,8 +150,8 @@ int main()
 //	printf("\n.%%.%%.%%.%%.%%.%%.%%.%%.\n");
 //	ft_printf("%x\n", -2147483648);
 //	printf("%lx\n", -2147483648);
-	ft_printf("{%5c}", 0);
-	printf("\n{%5c}", 0);
+	ft_printf("{%.c}", 0);
+	printf("\n{%.c}", 0);
 	return (0);
 }
-
+*/

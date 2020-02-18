@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:13:06 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/18 17:54:19 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/18 23:26:55 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ char	*convers_char_zero(t_flag *flag)
 	char	*c;
 
 	c = ft_strdup("\0");
+	if (flag->precision > -1)
+	{
+		return (c);
+	}
 	if (flag->width)
 	{
-		printf("whut :%s\n", c);
 		return (ft_strjoin(pad_maker(' ', flag->width - 1), c));
-//		return (add_char_to_str(c, pad_maker(' ', flag->width - 1), 1));
 	}
 	return (0);
 
