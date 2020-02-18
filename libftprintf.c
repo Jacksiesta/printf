@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 05:27:30 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:20:44 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 		flag->zero = 0;
 	if (str[x] == '%')
 		flag->percent = 1;
+	if (flag->precision < -1)
+		flag->precision = -1;
 	if (ft_search_char(specifiers, str[x]) == 0)
 		flag->alone_percent = 1;
 	return (x);
@@ -127,6 +129,7 @@ int		ft_printf(const char *coucou, ...)
 		x++;
 		y++;
 	}
+	buffer[y] = '\0';
 	ft_putstr(buffer);
 	return (ft_strlen(buffer));
 }
@@ -135,13 +138,18 @@ int		ft_printf(const char *coucou, ...)
 
 int main()
 {
-	//	char c;
+	char c;
 
-	//	c = 'a';
+	c = 'a';
 //	ft_printf("%.0d\n", 100);
 //	ft_printf("%0151.*d", -88, 1234567899);
-	printf("%5.s", "coucou");
-	printf("\n%5s", "coucou");
-	printf("\n%-.*d", 10, 123);
+//	printf("\n%-.*d", 10, 123);
+//	ft_printf(".%%.%%.%%.%%.%%.%%.%%.%%.");
+//	printf("\n.%%.%%.%%.%%.%%.%%.%%.%%.\n");
+//	ft_printf("%x\n", -2147483648);
+//	printf("%lx\n", -2147483648);
+	ft_printf("{%5c}", 0);
+	printf("\n{%5c}", 0);
 	return (0);
 }
+

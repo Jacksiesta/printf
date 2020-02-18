@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:07:46 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 04:40:23 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:22:55 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*convers_ptr(va_list ap, t_flag *flag);
 char	*convers_double_percent(t_flag *flag);
 char	*convers_ptr(va_list ap, t_flag *flag);
 char	*convers_char(va_list ap, t_flag *flag);
+char	*convers_char_zero(t_flag *flag);
 char	*convers_prc(t_flag *flag);
 char	*convers_ptr_null(t_flag *flag);
 
