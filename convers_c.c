@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:13:06 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/18 23:26:55 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/19 22:38:41 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*convers_char_zero(t_flag *flag)
 	c = ft_strdup("\0");
 	if (flag->precision > -1)
 	{
+	//	printf("%s\n", c);
+	//	write(1, '\0', 1);
 		return (c);
 	}
 	if (flag->width)
@@ -37,6 +39,7 @@ char	*convers_char(va_list ap, t_flag *flag)
 	char	c;
 
 	c = va_arg(ap, int);
+//	printf("c is %c\n", c);
 	final = ft_strdup("");
 	if (c == 0)
 		return (convers_char_zero(flag));

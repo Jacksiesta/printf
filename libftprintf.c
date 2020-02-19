@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/18 23:31:29 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/19 22:38:39 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int		ft_printf(const char *coucou, ...)
 			temp = ft_strdup("");
 			init_struct(&flag);
 			z = parser(ap, &coucou[x + 1], &flag);
+			//printf("z is %d\n", z);
 			if (flag.alone_percent)
 				x = x + z + 1;
 			else
@@ -137,7 +138,7 @@ int		ft_printf(const char *coucou, ...)
 }
 
 
-/*
+
 int main()
 {
 	char c;
@@ -150,8 +151,10 @@ int main()
 //	printf("\n.%%.%%.%%.%%.%%.%%.%%.%%.\n");
 //	ft_printf("%x\n", -2147483648);
 //	printf("%lx\n", -2147483648);
-	ft_printf("{%.c}", 0);
-	printf("\n{%.c}", 0);
+//	ft_printf("1caractere 1 %c caractere 2 %c\n\n", 'a', 'c');
+	ft_printf("1caractere 1 %c caractere 2 %c\n\n", 'a', 'b');
+//	printf("1caractere 1 %c caractere 2 %c\n\n", 'a', 'c');
+//	printf("\n{%c}", '\0');
 	return (0);
 }
-*/
+
