@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/19 22:38:39 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:20:23 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ int main()
 	char c;
 
 	c = 'a';
+//	ft_printf(":%c", '\0');
+	ft_printf(":affiche ca : %c", 0);
+//	printf("\n:%c", 0);
 //	ft_printf("%.0d\n", 100);
 //	ft_printf("%0151.*d", -88, 1234567899);
 //	printf("\n%-.*d", 10, 123);
@@ -152,7 +155,7 @@ int main()
 //	ft_printf("%x\n", -2147483648);
 //	printf("%lx\n", -2147483648);
 //	ft_printf("1caractere 1 %c caractere 2 %c\n\n", 'a', 'c');
-	ft_printf("1caractere 1 %c caractere 2 %c\n\n", 'a', 'b');
+//	ft_printf("1caractere 1 %c caractere 2 %d\n\n", 'a', 12);
 //	printf("1caractere 1 %c caractere 2 %c\n\n", 'a', 'c');
 //	printf("\n{%c}", '\0');
 	return (0);
