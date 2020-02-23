@@ -6,7 +6,7 @@
 /*   By: jherrald <jherrald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:48:44 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/20 18:20:23 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/02/23 19:10:36 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 	char	*specifiers;
 
 	specifiers = ft_strdup("scxXdiup%");
+	printf("specifiers = %p to %p\n", specifiers, specifiers + 9);
 	x = 0;
 	init_struct(flag);
 	if (ft_isalpha(str[x]) == 0)
@@ -79,6 +80,7 @@ int	parser(va_list ap, const char *str, t_flag *flag) // activates flags
 		flag->precision = -1;
 	if (ft_search_char(specifiers, str[x]) == 0)
 		flag->alone_percent = 1;
+	free(specifiers);
 	return (x);
 }
 
@@ -94,7 +96,6 @@ int		ft_printf(const char *coucou, ...)
 	int		x;
 	int		y;
 	int		z;
-	int     len_final;
 	va_list	ap;
 	char	*buffer;
 	char	*temp;
@@ -103,18 +104,18 @@ int		ft_printf(const char *coucou, ...)
 	x = 0;
 	y = 0;
 	va_start(ap, coucou);
-	if (!(buffer = (char *)malloc(sizeof(char) * 1000000)))
-		return (0);
-	if (!(temp = (char *)malloc(sizeof(char) * 10000000)))
-		return (0);
+	printf("buffer = %p to %p\n", buffer, buffer + 1000);
+	printf("temp = %p to %p\n", temp, temp + 1000);
 	while (coucou[x])
 	{
 		if (coucou[x] == '%')
 		{
-			temp = ft_strdup("");
+			temp = NULL;
 			init_struct(&flag);
+			printf("av : buffer(%1$p to %2$p) is [%1$s]\n", buffer, buffer + ft_strlen(buffer));
 			z = parser(ap, &coucou[x + 1], &flag);
-			//printf("z is %d\n", z);
+			printf("ap : buffer(%1$p to %2$p) is [%1$s]\n\n", buffer, buffer + ft_strlen(buffer));
+	//		printf("z is %d\n", z);
 			if (flag.alone_percent)
 				x = x + z + 1;
 			else
@@ -124,17 +125,31 @@ int		ft_printf(const char *coucou, ...)
 				x = x + z + 1;	
 				y = y + ft_strlen(temp) - 1;
 			}
+	//		printf("while : buffer is %s\n", buffer);
+	//		printf("coucou %c\n", coucou[x]);
+	//		printf("temp is [%s]\n", temp);
 		}
 		else
+		{
+	//		printf("coucou[%d] is %c\n", x, coucou[x]);
 			buffer[y] = coucou[x];
+
+	//		printf("buffer[%d] is %c\n\n", y, buffer[y]);
+		}
 		x++;
 		y++;
 	}
 	buffer[y] = '\0';
-	ft_putstr(buffer);
-	len_final = ft_strlen(buffer);
+	write(1, "\nhere[", 6);
+	write(1, buffer, y);
+	write(1, "]\n", 2);
+	printf("len buffer %zu\n", ft_strlen(buffer));
+	printf("y is %d\n", y);
+	printf("buffer is [%s]\n", buffer);
+	//ft_putstr(buffer);
+//	len_final = ft_strlen(buffer);
 //	free(buffer);
-	return (len_final);
+	return (y);
 }
 
 
@@ -144,8 +159,22 @@ int main()
 	char c;
 
 	c = 'a';
+//	ft_printf("%*.*X\n", 1, 0, 10);
+//	printf("%*.*X\n", 1, 0, 10);
+	ft_printf("{abcdefghi}%-12u123456", 10, 272);
+//	printf("\n%10d************%-10u123456789", 10, 20);
+//	printf("\n%10d************%-10u************", 10, 20);
+//	ft_printf("\n%*d**************%*u*************", 10, 10, -50, 20);
+//	printf("\n%*d**************%*u*************", 10, 10, -50, 20);
 //	ft_printf(":%c", '\0');
-	ft_printf(":affiche ca : %c", 0);
+//	ft_printf(":affiche ca : %c", 0);
+//	printf("\n:%4c", 0);
+//	printf("\n:%.4c", 0);
+//	printf("\n:%04c", 0);
+//	ft_printf("%5c", 0);
+//	printf("\n[%.d]", 0);
+//	printf("\n[%-5.d]", 0);
+//	printf("\n[%05.d]", 0);
 //	printf("\n:%c", 0);
 //	ft_printf("%.0d\n", 100);
 //	ft_printf("%0151.*d", -88, 1234567899);
