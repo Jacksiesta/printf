@@ -5,92 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/08 22:01:24 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 04:27:40 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/24 17:53:37 by jherrald          #+#    #+#             */
+/*   Updated: 2020/03/05 14:35:01 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*convers_d(va_list ap, t_flag *flag)
+static void	apply_flag(t_f *f, t_put *put, int nb)
 {
-	char	*init;
-	int		num;
-	int		size;
-	int		neg;
-	char	*fin;
-
-	num = va_arg(ap, int);
-	neg = (num < 0) ? 1 : 0;
-	num = (num < 0) ? -num : num;
-	init = ft_d(num);
-	size = ft_strlen(init);
-	fin = ft_strdup("");
-	if (flag->precision)
+	if (f->zero)
 	{
-		if (flag->precision > size)
-			fin = ft_strjoin(pad_maker('0', flag->precision - size), init);
-		else
-			fin = ft_strdup(init);
+		if (put->neg)
+			ft_write('-', put);
+		while (put->width--)
+			ft_write('0', put);
+		ft_write_num(nb, put);
 	}
-	if (flag->precision > flag->width)
+	if (f->minus)
 	{
-		if (neg)
-			fin = add_char_to_str('-', fin, 0);
-		return (fin);
+		if (put->neg)
+			ft_write('-', put);
+		if (f->precision > 0)
+			while (put->precision--)
+				ft_write('0', put);
+		ft_write_num(nb, put);
+		while (put->width--)
+			ft_write(' ', put);
 	}
-	if (flag->minus && flag->width > size)
-		fin = ft_strjoin(fin, pad_maker(' ', flag->width - ft_strlen(fin) - neg));
-	if (flag->zero)
-		if (flag->width > size)
-			fin = ft_strjoin(pad_maker('0', flag->width - size - neg), fin);
-	if (flag->width && !flag->minus && !flag->zero)
-	{
-		if (flag->width > size)
-		{
-			if (flag->precision == 0 && num == 0)
-				return (pad_maker(' ', flag->width));
-			if (flag->precision == 0)
-			{
-				if (neg)
-					init = add_char_to_str('-', init, 0);
-				return (ft_strjoin(pad_maker(' ', flag->width - neg - size), init));
-			}
-			if (neg)
-				fin = ft_strjoin(ft_strdup(pad_maker('-', 1)), fin);
-			if (flag->precision != -1 && flag->precision > size)
-				fin = ft_strjoin(pad_maker(' ', flag->width - neg - flag->precision), fin);
-			else
-				fin = ft_strjoin(pad_maker(' ', flag->width - size - neg), fin);
-		}
-	}
-	if (neg && search_for('-', fin))
-		fin = ft_strjoin(ft_strdup(pad_maker('-', 1)), fin);
-	return (fin);
 }
 
-/*
-   strrut
-   {
+static void	apply_width(t_put *put, int nb)
+{
+	while (put->width--)
+		ft_write(' ', put);
+	if (put->neg)
+		ft_write('-', put);
+	while (put->precision--)
+		ft_write('0', put);
+	ft_write_num(nb, put);
+}
 
-   char *str;
-   int pos;
-   ibt len;
+static void	apply_precision(t_put *put, int nb)
+{
+	if (put->neg)
+		ft_write('-', put);
+	while (put->precision--)
+		ft_write('0', put);
+	ft_write_num(nb, put);
+}
 
-   t_tt tt;
+static void	apply_precision_param_zero(t_f *f, t_put *put, int nb)
+{
+	if (f->precision == 0 && nb == 0)
+	{
+		put->width = f->width;
+		while (put->width--)
+			ft_write(' ', put);
+	}
+	if (!put->precision && !put->width)
+	{
+		if (put->neg)
+			ft_write('-', put);
+		ft_write_num(nb, put);
+	}
+}
 
-   tt->str = malloc(len)
-   tt->pos = 0;
-   tt->len
+void		convers_d(va_list arg, t_f *f, t_put *put)
+{
+	int		nb;
 
-   return (tt->str);
-
-   if (len + pos < strlen(str2)
-
-   while (str2++)
- *(tt->str + tt->pos) = *str2;
- tt->pos++
-
- wrtie (buffer
-
- return pos*/
+	nb = va_arg(arg, int);
+	put->len = ft_strlen_int(nb);
+	init_put(put);
+	if (nb < 0)
+	{
+		nb = -nb;
+		put->neg = 1;
+	}
+	fill_put(f, put);
+	if ((f->precision == 0 && nb == 0) || (!put->precision && !put->width))
+	{
+		apply_precision_param_zero(f, put, nb);
+		return ;
+	}
+	else if (nb == 0 && !f->width && f->precision == -1)
+		ft_write('0', put);
+	if (f->zero || f->minus)
+		apply_flag(f, put, nb);
+	else if (!f->minus && !f->zero && put->width)
+		apply_width(put, nb);
+	if (put->precision && !put->width && !f->zero && !f->minus)
+		apply_precision(put, nb);
+}

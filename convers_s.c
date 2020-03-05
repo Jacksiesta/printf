@@ -5,66 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/08 22:01:51 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 03:40:14 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/27 20:44:21 by jherrald          #+#    #+#             */
+/*   Updated: 2020/02/28 17:23:26 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*convers_s_null(t_flag *flag)
+static void		fill_put_s(t_f *f, t_put *put, int len)
 {
-	char	*fin;
-
-	fin = ft_strdup("(null)");
-	if (flag->precision == 0)
-	{
-		if (flag->width)
-			return (pad_maker(' ', flag->width));
-		else
-			return (ft_strdup(""));
-	}
-	if (flag->precision > 0 && flag->precision <= 6)
-		fin = ft_substr(fin, 0, flag->precision);
-	if (flag->minus && flag->width)
-	{
-		if (flag->width > ft_strlen(fin))
-			fin = ft_strjoin(fin, pad_maker(' ', flag->width - ft_strlen(fin)));
-		return (fin);
-	}
-	if (flag->zero)
-		if (flag->width > ft_strlen(fin))
-			fin = ft_strjoin(pad_maker('0', flag->width - ft_strlen(fin)), fin);
-	if (flag->width && !flag->minus && !flag->zero)
-		if (flag->width > ft_strlen(fin))
-			fin = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(fin)), fin);
-	return (fin);
+	init_put(put);
+	if (f->precision > 0 && f->precision < len)
+		put->precision = f->precision;
+	if (put->precision && f->width > put->precision)
+		put->width = f->width - put->precision;
+	else if (f->width > len)
+		put->width = f->width - len;
 }
 
-char	*convers_s(va_list ap, t_flag *flag)
+static void		apply_width(t_f *f, t_put *put, char *str)
 {
-	char	*in;
-	char	*fin;
-	int		size;
+	int x;
 
-	fin = ft_strdup("");
-	in = va_arg(ap, char *);
-	if (in == NULL)
-		return (convers_s_null(flag));
-	size = ft_strlen(in);
-	if (flag->zero && flag->width > ft_strlen(in))
-		return (ft_strjoin(pad_maker('0', flag->width - ft_strlen(in)), in));
-	if (flag->precision != -1)
-		if (flag->precision < size)
-			fin = cropped_str(in, flag->precision);
-	if (flag->precision == -1 || (flag->precision != -1
-				&& flag->precision >= size))
-		fin = ft_strdup(in);
-	if (flag->minus)
-		if (flag->width > ft_strlen(fin))
-			fin = ft_strjoin(fin, pad_maker(' ', flag->width - ft_strlen(fin)));
-	if (flag->width && !flag->minus)
-		if (flag->width > ft_strlen(fin))
-			fin = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(fin)), fin);
-	return (fin);
+	x = 0;
+	if (!f->minus && !f->zero)
+		while (put->width--)
+			ft_write(' ', put);
+	if (f->zero)
+		while (put->width)
+		{
+			ft_write('0', put);
+			put->width--;
+		}
+	if (!put->precision)
+		while (str[x])
+			ft_write(str[x++], put);
+	if (put->precision)
+		while (str[x] && put->precision--)
+			ft_write(str[x++], put);
+	if (f->minus)
+		while (put->width--)
+			ft_write(' ', put);
+}
+
+void			convers_s(va_list arg, t_f *f, t_put *put)
+{
+	char	*str;
+	int		len;
+	int		x;
+
+	x = 0;
+	str = va_arg(arg, char *);
+	if (str == NULL)
+		str = "(null)";
+	len = ft_strlen(str);
+	fill_put_s(f, put, len);
+	if (f->precision == 0)
+	{
+		while (f->width--)
+			ft_write(' ', put);
+		return ;
+	}
+	if (put->width || put->precision)
+		apply_width(f, put, str);
+	else
+		while (str[x])
+			ft_write(str[x++], put);
 }

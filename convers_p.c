@@ -5,50 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/14 20:14:16 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/18 15:34:10 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/27 15:33:28 by jherrald          #+#    #+#             */
+/*   Updated: 2020/03/05 14:35:49 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*convers_ptr_null(t_flag *flag)
+static void		fill_put_p(t_f *f, t_put *put, unsigned long long int nb)
 {
-	if (flag->precision > 0)
-		return (ft_strjoin("0x", pad_maker('0', flag->precision)));
-	if (flag->precision  == 0)
-		return ("0x");
-	if (flag->minus && flag->width > 3)
-		return (ft_strjoin("0x0", pad_maker(' ', flag->width - 3)));
-	if (flag->zero && flag->width > 3)
-		return (ft_strjoin(ft_strdup("0x"), pad_maker('0', flag->width - 2)));
-	if (flag->width > 3)
-		return (ft_strjoin(pad_maker(' ', flag->width - 3), ft_strdup("0x0")));
-	return ("0x0");
+	init_put(put);
+	if (f->precision != -1 && f->precision > (int)put->len - 2)
+		put->precision = f->precision - put->len + 2;
+	if ((size_t)f->width > put->len && f->width > f->precision)
+	{
+		put->width = f->width - put->len - f->precision + 2;
+		if (f->precision == -1)
+			put->width = put->width - 3;
+		if (f->precision == 0)
+			put->width = put->width - 2;
+	}
+	if (nb == 0 && f->width)
+		put->width = f->width - 3;
 }
 
-char	*convers_ptr(va_list ap, t_flag *flag)
+static void		apply_minus(t_put *put, unsigned long long int nb)
 {
-	char	*final;
-	void	*num;
-	int		size;
+	ft_write('0', put);
+	ft_write('x', put);
+	while (put->precision-- > 0)
+		ft_write('0', put);
+	ft_hexa_min(nb, put, 0);
+	while (put->width-- > 0)
+		ft_write(' ', put);
+}
 
-	num = va_arg(ap, void *);
-	final = ft_x((long long unsigned int)num);
-	size = ft_strlen(final);
-	if (num == NULL || num == 0)
-		return (convers_ptr_null(flag));
-	if (flag->precision > flag->width)
+static void		apply_width(t_put *put, unsigned long long int nb)
+{
+	if (put->width > 0)
 	{
-		if (flag->precision > size)
-			return (ft_strjoin("0x", ft_strjoin(pad_maker('0', flag->precision - size), final)));
-		return (ft_strjoin(ft_strdup("0x"), final));
+		while (put->width > 0)
+		{
+			ft_write(' ', put);
+			put->width--;
+		}
 	}
-	final = ft_strjoin(ft_strdup("0x"), final);
-	size = size + 2;
-	if (flag->minus && flag->width > size)
-		return (ft_strjoin(final, pad_maker(' ', flag->width - size)));
-	if (flag->width > size)
-		final = ft_strjoin(pad_maker(' ', flag->width - size), final);
-	return (final);
+	ft_write('0', put);
+	ft_write('x', put);
+	if (put->precision > 0)
+	{
+		while (put->precision)
+		{
+			ft_write('0', put);
+			put->precision--;
+		}
+	}
+	ft_hexa_min(nb, put, 0);
+}
+
+static void		apply_precision(t_put *put, unsigned long long int nb)
+{
+	ft_write('0', put);
+	ft_write('x', put);
+	while (put->precision--)
+		ft_write('0', put);
+	ft_hexa_min(nb, put, 0);
+}
+
+void			convers_p(va_list arg, t_f *f, t_put *put)
+{
+	unsigned long long	nb;
+
+	nb = va_arg(arg, unsigned long long int);
+	put->len = ft_lenght_hex(nb) + 2;
+	fill_put_p(f, put, nb);
+	if (f->minus && (put->width || f->precision))
+		apply_minus(put, nb);
+	else if (!f->minus && put->width)
+		apply_width(put, nb);
+	else if (put->precision && !put->width)
+		apply_precision(put, nb);
+	else
+	{
+		ft_write('0', put);
+		ft_write('x', put);
+		if (f->precision != 0)
+			ft_hexa_min(nb, put, 0);
+	}
 }

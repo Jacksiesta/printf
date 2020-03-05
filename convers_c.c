@@ -5,93 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/14 20:13:06 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/23 15:55:35 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/28 08:48:06 by jherrald          #+#    #+#             */
+/*   Updated: 2020/03/04 16:25:53 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*add_zero_to_str(char *str, int i, int len)
+static void		fill_put_c(t_f *f, t_put *put)
 {
-	char 	*final;
-	int		x;
-
-	x = 0;
-	if (!(final = (char *)malloc(sizeof(char) * (len + 2))))
-		return (NULL);
-	if (i == 1)
-	{
-		final[0] = '\0';
-	}
-	while (len)
-	{
-		final[x + i] = str[x];
-		x++;
-		len--;
-	}
-	if (i == 0)
-	{
-		final[x + i] = '\0';
-		x++;
-	}
-	final[x + i] = '\0';
-//	printf("finnnal is%s\n", final);
-	return (final);
+	init_put(put);
+	if (f->width > 1)
+		put->width = f->width - 1;
 }
 
-char	*convers_char_zero(t_flag *flag)
+static void		convers_c_percent(t_f *f, t_put *put, char c)
 {
-	char	*c;
-	char	*final;
-	int		x;
-	int		len;
-
-	x = 0;
-	len = flag->width;
-	if (!(c = malloc(sizeof(char) * 20)))
-		return (0);
-//	c[0] = '\0'; //c[x] = c[x + 1]
-//	c[1] = '\0';
-	if (flag->precision > -1)
+	if (f->zero && !f->minus)
 	{
-		return (c);
+		while (put->width > 0)
+		{
+			ft_write('0', put);
+			put->width--;
+		}
+		ft_write(c, put);
 	}
-	if (flag->width)
-	{
-		//printf("c is worth==%s\n", c);
-		return (c);
-	}
-	return (c);
 }
 
-
-char	*convers_char(va_list ap, t_flag *flag)
+void			convers_c(va_list arg, t_f *f, t_put *put, int i)
 {
-	char	*final;
-	char	c;
+	char c;
 
-	c = (char)va_arg(ap, int);
-//	printf("c is %c\n", c);
-	final = ft_strdup("");
-	if (c == 0)
+	fill_put_c(f, put);
+	if (i)
+		c = '%';
+	if (i && f->zero && !f->minus)
 	{
-		//printf("c is :%c\n", c);
-		return (convers_char_zero(flag));
+		convers_c_percent(f, put, c);
+		return ;
 	}
-	if (flag->minus)
-		if (flag->width > 1)
-		{
-			final = pad_maker(' ', flag->width - 1);
-			return (add_char_to_str(c, final, 0));
-		}
-	if (flag->zero)
-		if (flag->width > 1)
-		{
-			final = pad_maker('0', flag->width - 1);
-			return (add_char_to_str(c, final, 1));
-		}
-	if (flag->width && !flag->zero && !flag->minus)
-		final = pad_maker(' ', flag->width - 1);
-	return (add_char_to_str(c, final, 1));
+	if (!i)
+		c = va_arg(arg, int);
+	if (f->minus)
+	{
+		ft_write(c, put);
+		while (put->width--)
+			ft_write(' ', put);
+	}
+	else if (!f->minus)
+	{
+		while (put->width--)
+			ft_write(' ', put);
+		ft_write(c, put);
+	}
 }

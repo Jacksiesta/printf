@@ -5,82 +5,79 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/08 22:53:26 by jherrald          #+#    #+#             */
-/*   Updated: 2020/02/16 03:07:43 by jherrald         ###   ########.fr       */
+/*   Created: 2020/02/26 22:58:23 by jherrald          #+#    #+#             */
+/*   Updated: 2020/03/05 14:36:50 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*convers_hex_zero(t_flag *flag)
+static void	apply_flag(t_f *f, t_put *put, t_llu nb, int x)
 {
-	char	*final;
-
-	final = ft_strdup("0");
-	if (flag->minus)
-		if (flag->width > 1)
-			final = ft_strjoin(final, pad_maker(' ', flag->width - 1));
-	if (flag->zero)
-		if (flag->width > 1)
-			final = ft_strdup(pad_maker('0', flag->width));
-	if (flag->width > 1 && !flag->minus && !flag->zero)
-		final = ft_strjoin(pad_maker(' ', flag->width - 1), final);
-	return (final);
-}
-
-char	*convers_hex_precision(t_flag *flag, int size, char *init)
-{
-	char	*final;
-
-	if (flag->precision > size)
-		final = ft_strjoin(pad_maker('0', flag->precision - size), init);
-	else
-		final = ft_strdup(init);
-	return (final);
-}
-
-char	*convers_hex_width(t_flag *flag, char *init, char *fn)
-{
-	char	*rt;
-
-	if (flag->width && !flag->minus && !flag->zero &&
-			flag->width > ft_strlen(init))
+	if (f->zero)
 	{
-		if (flag->precision != -1 && flag->precision > ft_strlen(init))
-			rt = ft_strjoin(pad_maker(' ', flag->width - flag->precision), rt);
-		else
-			rt = ft_strjoin(pad_maker(' ', flag->width - ft_strlen(init)), rt);
+		while (put->width--)
+			ft_write('0', put);
+		ft_hexa_min(nb, put, x);
 	}
-	return (rt);
+	if (f->minus)
+	{
+		if (f->precision > 0)
+			while (put->precision--)
+				ft_write('0', put);
+		ft_hexa_min(nb, put, x);
+		while (put->width--)
+			ft_write(' ', put);
+	}
 }
 
-char	*convers_hex(va_list ap, t_flag *flag)
+static void	apply_width(t_put *put, t_llu nb, int x)
 {
-	char						*fn;
-	char						*init;
-	long long unsigned int		num;
+	while (put->width--)
+		ft_write(' ', put);
+	while (put->precision--)
+		ft_write('0', put);
+	ft_hexa_min(nb, put, x);
+}
 
-	num = va_arg(ap, long long unsigned int);
-	init = ft_x(num);
-	fn = ft_strdup("");
-	if (num == 0 && flag->precision < 0)
-		return (convers_hex_zero(flag));
-	if (flag->precision)
-		fn = convers_hex_precision(flag, ft_strlen(init), init);
-	if (flag->precision == 0)
-		fn = ft_strdup(init);
-	if (flag->precision > flag->width)
-		return (fn);
-	if (flag->minus && flag->width > ft_strlen(init))
-		fn = ft_strjoin(fn, pad_maker(' ', flag->width - ft_strlen(fn)));
-	if (flag->zero && flag->width > ft_strlen(init))
-		fn = ft_strjoin(pad_maker('0', flag->width - ft_strlen(init)), fn);
-	if (flag->width && !flag->minus && !flag->zero &&
-			flag->width > ft_strlen(init))
+static void	apply_precision(t_put *put, t_llu nb, int x)
+{
+	while (put->precision--)
+		ft_write('0', put);
+	ft_hexa_min(nb, put, x);
+}
+
+static void	apply_precision_param_zero(t_f *f, t_put *put, t_llu nb, int x)
+{
+	if (f->precision == 0 && nb == 0)
+		while (f->width--)
+			ft_write(' ', put);
+	if (nb != 0)
+		ft_hexa_min(nb, put, x);
+}
+
+void		convers_x(va_list arg, t_f *f, t_put *put, int x)
+{
+	t_llu	nb;
+
+	nb = va_arg(arg, unsigned int);
+	put->len = ft_lenght_hex(nb);
+	init_put(put);
+	fill_put(f, put);
+	if (nb == 0 && (!f->width || f->width == 1)
+			&& (f->precision == -1 || f->precision == 1))
+		ft_hexa_min(nb, put, x);
+	if ((f->precision == 0 && nb == 0) || (!put->precision && !put->width))
 	{
-		if (flag->precision == 0 && num == 0)
-			return (pad_maker(' ', flag->width));
-		fn = convers_hex_width(flag, init, fn);
+		apply_precision_param_zero(f, put, nb, x);
+		return ;
 	}
-	return (fn);
+	if ((f->zero || f->minus) && (f->width || put->precision))
+		apply_flag(f, put, nb, x);
+	else if (!f->minus && !f->zero && put->width)
+		apply_width(put, nb, x);
+	if (put->precision && !put->width && !f->zero && !f->minus)
+		apply_precision(put, nb, x);
+	else if ((f->zero || f->minus) && !f->width && f->precision == -1)
+		ft_hexa_min(nb, put, x);
 }
