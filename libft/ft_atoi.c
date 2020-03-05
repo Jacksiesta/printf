@@ -3,16 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 10:37:07 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/10 22:19:48 by mkravetz         ###   ########.fr       */
+/*   Created: 2020/03/05 15:54:44 by jherrald          #+#    #+#             */
+/*   Updated: 2020/03/05 15:55:00 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** It handles long long overflows like the actual atoi.
-*/
 
 #include "libft.h"
 
