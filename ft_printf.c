@@ -6,7 +6,7 @@
 /*   By: jherrald <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:05:39 by jherrald          #+#    #+#             */
-/*   Updated: 2020/03/05 16:10:56 by jherrald         ###   ########.fr       */
+/*   Updated: 2020/03/05 21:18:36 by jherrald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int			ft_printf(const char *format, ...)
 	}
 	va_end(arg);
 	return (put.pos);
+}
+
+int main()
+{
+	ft_printf("%.p\n", NULL);
+	printf("%.p\n", NULL);
 }
